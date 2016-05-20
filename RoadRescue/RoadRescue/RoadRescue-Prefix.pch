@@ -1,0 +1,45 @@
+//
+//  King微博-Prefix.pch
+//  King微博
+//
+//  Created by 张盼盼 on 15/11/9.
+//  Copyright © 2015年 huawei. All rights reserved.
+//
+
+// Build Settings > 搜索 “Prefix Header“， 输入: YourProjectName/YourProject-Prefix.pch 或 $(SRCROOT)/YourProject/YourProject-Prefix.pch
+
+#import <Availability.h>
+
+#ifndef __IPHONE_5_0
+#warning "This project uses features only available in iOS SDK 5.0 and later."
+#endif
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+#define iOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)
+
+// 通知中心
+#define JXNotificationCenter [NSNotificationCenter defaultCenter]
+
+#ifdef DEBUG // 处于开发阶段
+#define JXLog(...) NSLog(__VA_ARGS__)
+#else // 处于发布阶段
+#define JXLog(...)
+#endif
+
+// RGB颜色
+#define JXColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+// 随机色
+#define JXRandomColor JXColor(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))
+// 大米最常用的颜色
+#define JXMiOrangeColor JXColor(251, 124, 21)
+
+// 屏幕宽度
+#define JXScreenW [UIScreen mainScreen].bounds.size.width
+// 屏幕高度
+#define JXScreenH [UIScreen mainScreen].bounds.size.height
+
+
+#endif

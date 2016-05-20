@@ -1,0 +1,868 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		04F54A261CED53920095DA09 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A251CED53920095DA09 /* main.m */; };
+		04F54A291CED53920095DA09 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A281CED53920095DA09 /* AppDelegate.m */; };
+		04F54A311CED53920095DA09 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04F54A301CED53920095DA09 /* Assets.xcassets */; };
+		04F54A341CED53920095DA09 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04F54A321CED53920095DA09 /* LaunchScreen.storyboard */; };
+		04F54A3F1CED53920095DA09 /* RoadRescueTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A3E1CED53920095DA09 /* RoadRescueTests.m */; };
+		04F54A4A1CED53920095DA09 /* RoadRescueUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A491CED53920095DA09 /* RoadRescueUITests.m */; };
+		04F54A6E1CED56930095DA09 /* JXTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A6D1CED56930095DA09 /* JXTabBar.m */; };
+		04F54A711CED56A20095DA09 /* JXTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A701CED56A20095DA09 /* JXTabBarViewController.m */; };
+		04F54A751CED59C40095DA09 /* UIView+JXExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A741CED59C40095DA09 /* UIView+JXExtension.m */; };
+		04F54A781CED5AAD0095DA09 /* JXNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A771CED5AAD0095DA09 /* JXNavigationController.m */; };
+		04F54A7B1CED5B110095DA09 /* JXOrderManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A7A1CED5B110095DA09 /* JXOrderManageViewController.m */; };
+		04F54A7E1CED5B300095DA09 /* JXProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A7D1CED5B300095DA09 /* JXProfileViewController.m */; };
+		04F54A811CED5F110095DA09 /* JXRescueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A801CED5F110095DA09 /* JXRescueViewController.m */; };
+		04F54A851CED642F0095DA09 /* JXMyOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A831CED642F0095DA09 /* JXMyOrderTableViewCell.m */; };
+		04F54A861CED642F0095DA09 /* JXMyOrderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F54A841CED642F0095DA09 /* JXMyOrderTableViewCell.xib */; };
+		04F54A891CED94FA0095DA09 /* JXOrderPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A881CED94FA0095DA09 /* JXOrderPopView.m */; };
+		04F54A8D1CED9E1B0095DA09 /* JXOrderPopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F54A8C1CED9E1B0095DA09 /* JXOrderPopView.xib */; };
+		04F54A901CEEA4730095DA09 /* JXMyOrderCompletePopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A8F1CEEA4730095DA09 /* JXMyOrderCompletePopView.m */; };
+		04F54A921CEEA4850095DA09 /* JXMyOrderCompletePopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F54A911CEEA4850095DA09 /* JXMyOrderCompletePopView.xib */; };
+		04F54A941CEEBBB70095DA09 /* JXRescueViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F54A931CEEBBB70095DA09 /* JXRescueViewController.xib */; };
+		04F54A971CEEE7F40095DA09 /* JXVerticalButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A961CEEE7F40095DA09 /* JXVerticalButton.m */; };
+		04F54A9B1CEEF20C0095DA09 /* JXTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A9A1CEEF20C0095DA09 /* JXTextView.m */; };
+		04F54A9F1CEEFD970095DA09 /* JXRescueDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A9D1CEEFD970095DA09 /* JXRescueDetailViewController.m */; };
+		04F54AA01CEEFD970095DA09 /* JXRescueDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F54A9E1CEEFD970095DA09 /* JXRescueDetailViewController.xib */; };
+		04F54AA31CEEFECC0095DA09 /* JXFeeRingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54AA21CEEFECC0095DA09 /* JXFeeRingView.m */; };
+		06550E870A01009DC9798C9A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FA90AB5FDDA6B28B9E3C345 /* libPods.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		04F54A3B1CED53920095DA09 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04F54A191CED53920095DA09 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 04F54A201CED53920095DA09;
+			remoteInfo = RoadRescue;
+		};
+		04F54A461CED53920095DA09 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04F54A191CED53920095DA09 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 04F54A201CED53920095DA09;
+			remoteInfo = RoadRescue;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		04F54A211CED53920095DA09 /* RoadRescue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RoadRescue.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		04F54A251CED53920095DA09 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		04F54A271CED53920095DA09 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../AppDelegate.h; sourceTree = "<group>"; };
+		04F54A281CED53920095DA09 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ../AppDelegate.m; sourceTree = "<group>"; };
+		04F54A301CED53920095DA09 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		04F54A331CED53920095DA09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		04F54A351CED53920095DA09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04F54A3A1CED53920095DA09 /* RoadRescueTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoadRescueTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		04F54A3E1CED53920095DA09 /* RoadRescueTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoadRescueTests.m; sourceTree = "<group>"; };
+		04F54A401CED53920095DA09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04F54A451CED53920095DA09 /* RoadRescueUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoadRescueUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		04F54A491CED53920095DA09 /* RoadRescueUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoadRescueUITests.m; sourceTree = "<group>"; };
+		04F54A4B1CED53920095DA09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04F54A6B1CED55B30095DA09 /* RoadRescue-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RoadRescue-Prefix.pch"; sourceTree = "<group>"; };
+		04F54A6C1CED56930095DA09 /* JXTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXTabBar.h; sourceTree = "<group>"; };
+		04F54A6D1CED56930095DA09 /* JXTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXTabBar.m; sourceTree = "<group>"; };
+		04F54A6F1CED56A20095DA09 /* JXTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXTabBarViewController.h; sourceTree = "<group>"; };
+		04F54A701CED56A20095DA09 /* JXTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXTabBarViewController.m; sourceTree = "<group>"; };
+		04F54A731CED59C40095DA09 /* UIView+JXExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+JXExtension.h"; sourceTree = "<group>"; };
+		04F54A741CED59C40095DA09 /* UIView+JXExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+JXExtension.m"; sourceTree = "<group>"; };
+		04F54A761CED5AAD0095DA09 /* JXNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXNavigationController.h; sourceTree = "<group>"; };
+		04F54A771CED5AAD0095DA09 /* JXNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXNavigationController.m; sourceTree = "<group>"; };
+		04F54A791CED5B110095DA09 /* JXOrderManageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXOrderManageViewController.h; sourceTree = "<group>"; };
+		04F54A7A1CED5B110095DA09 /* JXOrderManageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXOrderManageViewController.m; sourceTree = "<group>"; };
+		04F54A7C1CED5B300095DA09 /* JXProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXProfileViewController.h; sourceTree = "<group>"; };
+		04F54A7D1CED5B300095DA09 /* JXProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXProfileViewController.m; sourceTree = "<group>"; };
+		04F54A7F1CED5F110095DA09 /* JXRescueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXRescueViewController.h; sourceTree = "<group>"; };
+		04F54A801CED5F110095DA09 /* JXRescueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXRescueViewController.m; sourceTree = "<group>"; };
+		04F54A821CED642F0095DA09 /* JXMyOrderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXMyOrderTableViewCell.h; sourceTree = "<group>"; };
+		04F54A831CED642F0095DA09 /* JXMyOrderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXMyOrderTableViewCell.m; sourceTree = "<group>"; };
+		04F54A841CED642F0095DA09 /* JXMyOrderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXMyOrderTableViewCell.xib; sourceTree = "<group>"; };
+		04F54A871CED94FA0095DA09 /* JXOrderPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXOrderPopView.h; sourceTree = "<group>"; };
+		04F54A881CED94FA0095DA09 /* JXOrderPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXOrderPopView.m; sourceTree = "<group>"; };
+		04F54A8C1CED9E1B0095DA09 /* JXOrderPopView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXOrderPopView.xib; sourceTree = "<group>"; };
+		04F54A8E1CEEA4730095DA09 /* JXMyOrderCompletePopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXMyOrderCompletePopView.h; sourceTree = "<group>"; };
+		04F54A8F1CEEA4730095DA09 /* JXMyOrderCompletePopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXMyOrderCompletePopView.m; sourceTree = "<group>"; };
+		04F54A911CEEA4850095DA09 /* JXMyOrderCompletePopView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXMyOrderCompletePopView.xib; sourceTree = "<group>"; };
+		04F54A931CEEBBB70095DA09 /* JXRescueViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXRescueViewController.xib; sourceTree = "<group>"; };
+		04F54A951CEEE7F40095DA09 /* JXVerticalButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXVerticalButton.h; sourceTree = "<group>"; };
+		04F54A961CEEE7F40095DA09 /* JXVerticalButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXVerticalButton.m; sourceTree = "<group>"; };
+		04F54A991CEEF20C0095DA09 /* JXTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXTextView.h; sourceTree = "<group>"; };
+		04F54A9A1CEEF20C0095DA09 /* JXTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXTextView.m; sourceTree = "<group>"; };
+		04F54A9C1CEEFD970095DA09 /* JXRescueDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXRescueDetailViewController.h; sourceTree = "<group>"; };
+		04F54A9D1CEEFD970095DA09 /* JXRescueDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXRescueDetailViewController.m; sourceTree = "<group>"; };
+		04F54A9E1CEEFD970095DA09 /* JXRescueDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXRescueDetailViewController.xib; sourceTree = "<group>"; };
+		04F54AA11CEEFECC0095DA09 /* JXFeeRingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXFeeRingView.h; sourceTree = "<group>"; };
+		04F54AA21CEEFECC0095DA09 /* JXFeeRingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXFeeRingView.m; sourceTree = "<group>"; };
+		4FA90AB5FDDA6B28B9E3C345 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5948512AB8F1024898D542B0 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		6A9F96CA012EAFF010CF9725 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		04F54A1E1CED53920095DA09 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				06550E870A01009DC9798C9A /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		04F54A371CED53920095DA09 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		04F54A421CED53920095DA09 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		04F54A181CED53920095DA09 = {
+			isa = PBXGroup;
+			children = (
+				04F54A231CED53920095DA09 /* RoadRescue */,
+				04F54A3D1CED53920095DA09 /* RoadRescueTests */,
+				04F54A481CED53920095DA09 /* RoadRescueUITests */,
+				04F54A221CED53920095DA09 /* Products */,
+				DE563BA30F9ED060F5930126 /* Pods */,
+				940DAC9273D1A5355ADA0330 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		04F54A221CED53920095DA09 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				04F54A211CED53920095DA09 /* RoadRescue.app */,
+				04F54A3A1CED53920095DA09 /* RoadRescueTests.xctest */,
+				04F54A451CED53920095DA09 /* RoadRescueUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		04F54A231CED53920095DA09 /* RoadRescue */ = {
+			isa = PBXGroup;
+			children = (
+				04F54A6A1CED54960095DA09 /* Other */,
+				04F54A571CED54960095DA09 /* Classes */,
+				04F54A241CED53920095DA09 /* Supporting Files */,
+			);
+			path = RoadRescue;
+			sourceTree = "<group>";
+		};
+		04F54A241CED53920095DA09 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				04F54A301CED53920095DA09 /* Assets.xcassets */,
+				04F54A6B1CED55B30095DA09 /* RoadRescue-Prefix.pch */,
+				04F54A321CED53920095DA09 /* LaunchScreen.storyboard */,
+				04F54A351CED53920095DA09 /* Info.plist */,
+				04F54A251CED53920095DA09 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		04F54A3D1CED53920095DA09 /* RoadRescueTests */ = {
+			isa = PBXGroup;
+			children = (
+				04F54A3E1CED53920095DA09 /* RoadRescueTests.m */,
+				04F54A401CED53920095DA09 /* Info.plist */,
+			);
+			path = RoadRescueTests;
+			sourceTree = "<group>";
+		};
+		04F54A481CED53920095DA09 /* RoadRescueUITests */ = {
+			isa = PBXGroup;
+			children = (
+				04F54A491CED53920095DA09 /* RoadRescueUITests.m */,
+				04F54A4B1CED53920095DA09 /* Info.plist */,
+			);
+			path = RoadRescueUITests;
+			sourceTree = "<group>";
+		};
+		04F54A571CED54960095DA09 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				04F54A581CED54960095DA09 /* Main */,
+				04F54A5E1CED54960095DA09 /* Order */,
+				04F54A621CED54960095DA09 /* Profile */,
+				04F54A661CED54960095DA09 /* Rescue */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		04F54A581CED54960095DA09 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				04F54A591CED54960095DA09 /* Controller */,
+				04F54A5A1CED54960095DA09 /* Libs */,
+				04F54A5B1CED54960095DA09 /* Model */,
+				04F54A5C1CED54960095DA09 /* SDK */,
+				04F54A5D1CED54960095DA09 /* View */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		04F54A591CED54960095DA09 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				04F54A6F1CED56A20095DA09 /* JXTabBarViewController.h */,
+				04F54A701CED56A20095DA09 /* JXTabBarViewController.m */,
+				04F54A761CED5AAD0095DA09 /* JXNavigationController.h */,
+				04F54A771CED5AAD0095DA09 /* JXNavigationController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		04F54A5A1CED54960095DA09 /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+				04F54A981CEEF20C0095DA09 /* JXTextView */,
+				04F54A721CED59C40095DA09 /* UIView + JXExtension */,
+			);
+			path = Libs;
+			sourceTree = "<group>";
+		};
+		04F54A5B1CED54960095DA09 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		04F54A5C1CED54960095DA09 /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SDK;
+			sourceTree = "<group>";
+		};
+		04F54A5D1CED54960095DA09 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				04F54A6C1CED56930095DA09 /* JXTabBar.h */,
+				04F54A6D1CED56930095DA09 /* JXTabBar.m */,
+				04F54A951CEEE7F40095DA09 /* JXVerticalButton.h */,
+				04F54A961CEEE7F40095DA09 /* JXVerticalButton.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		04F54A5E1CED54960095DA09 /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				04F54A5F1CED54960095DA09 /* Controller */,
+				04F54A601CED54960095DA09 /* Model */,
+				04F54A611CED54960095DA09 /* View */,
+			);
+			path = Order;
+			sourceTree = "<group>";
+		};
+		04F54A5F1CED54960095DA09 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				04F54A791CED5B110095DA09 /* JXOrderManageViewController.h */,
+				04F54A7A1CED5B110095DA09 /* JXOrderManageViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		04F54A601CED54960095DA09 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		04F54A611CED54960095DA09 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				04F54A821CED642F0095DA09 /* JXMyOrderTableViewCell.h */,
+				04F54A831CED642F0095DA09 /* JXMyOrderTableViewCell.m */,
+				04F54A841CED642F0095DA09 /* JXMyOrderTableViewCell.xib */,
+				04F54A871CED94FA0095DA09 /* JXOrderPopView.h */,
+				04F54A881CED94FA0095DA09 /* JXOrderPopView.m */,
+				04F54A8C1CED9E1B0095DA09 /* JXOrderPopView.xib */,
+				04F54A8E1CEEA4730095DA09 /* JXMyOrderCompletePopView.h */,
+				04F54A8F1CEEA4730095DA09 /* JXMyOrderCompletePopView.m */,
+				04F54A911CEEA4850095DA09 /* JXMyOrderCompletePopView.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		04F54A621CED54960095DA09 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				04F54A631CED54960095DA09 /* Controller */,
+				04F54A641CED54960095DA09 /* Model */,
+				04F54A651CED54960095DA09 /* View */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		04F54A631CED54960095DA09 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				04F54A7C1CED5B300095DA09 /* JXProfileViewController.h */,
+				04F54A7D1CED5B300095DA09 /* JXProfileViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		04F54A641CED54960095DA09 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		04F54A651CED54960095DA09 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		04F54A661CED54960095DA09 /* Rescue */ = {
+			isa = PBXGroup;
+			children = (
+				04F54A671CED54960095DA09 /* Controller */,
+				04F54A681CED54960095DA09 /* Model */,
+				04F54A691CED54960095DA09 /* View */,
+			);
+			path = Rescue;
+			sourceTree = "<group>";
+		};
+		04F54A671CED54960095DA09 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				04F54A7F1CED5F110095DA09 /* JXRescueViewController.h */,
+				04F54A801CED5F110095DA09 /* JXRescueViewController.m */,
+				04F54A931CEEBBB70095DA09 /* JXRescueViewController.xib */,
+				04F54A9C1CEEFD970095DA09 /* JXRescueDetailViewController.h */,
+				04F54A9D1CEEFD970095DA09 /* JXRescueDetailViewController.m */,
+				04F54A9E1CEEFD970095DA09 /* JXRescueDetailViewController.xib */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		04F54A681CED54960095DA09 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		04F54A691CED54960095DA09 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				04F54AA11CEEFECC0095DA09 /* JXFeeRingView.h */,
+				04F54AA21CEEFECC0095DA09 /* JXFeeRingView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		04F54A6A1CED54960095DA09 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				04F54A271CED53920095DA09 /* AppDelegate.h */,
+				04F54A281CED53920095DA09 /* AppDelegate.m */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		04F54A721CED59C40095DA09 /* UIView + JXExtension */ = {
+			isa = PBXGroup;
+			children = (
+				04F54A731CED59C40095DA09 /* UIView+JXExtension.h */,
+				04F54A741CED59C40095DA09 /* UIView+JXExtension.m */,
+			);
+			path = "UIView + JXExtension";
+			sourceTree = "<group>";
+		};
+		04F54A981CEEF20C0095DA09 /* JXTextView */ = {
+			isa = PBXGroup;
+			children = (
+				04F54A991CEEF20C0095DA09 /* JXTextView.h */,
+				04F54A9A1CEEF20C0095DA09 /* JXTextView.m */,
+			);
+			path = JXTextView;
+			sourceTree = "<group>";
+		};
+		940DAC9273D1A5355ADA0330 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4FA90AB5FDDA6B28B9E3C345 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DE563BA30F9ED060F5930126 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6A9F96CA012EAFF010CF9725 /* Pods.debug.xcconfig */,
+				5948512AB8F1024898D542B0 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		04F54A201CED53920095DA09 /* RoadRescue */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 04F54A4E1CED53920095DA09 /* Build configuration list for PBXNativeTarget "RoadRescue" */;
+			buildPhases = (
+				7DF282C2165EB9245A899C91 /* Check Pods Manifest.lock */,
+				04F54A1D1CED53920095DA09 /* Sources */,
+				04F54A1E1CED53920095DA09 /* Frameworks */,
+				04F54A1F1CED53920095DA09 /* Resources */,
+				180FB930C510C397F581CC0F /* Embed Pods Frameworks */,
+				22BA517F1319D3D700E931ED /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RoadRescue;
+			productName = RoadRescue;
+			productReference = 04F54A211CED53920095DA09 /* RoadRescue.app */;
+			productType = "com.apple.product-type.application";
+		};
+		04F54A391CED53920095DA09 /* RoadRescueTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 04F54A511CED53920095DA09 /* Build configuration list for PBXNativeTarget "RoadRescueTests" */;
+			buildPhases = (
+				04F54A361CED53920095DA09 /* Sources */,
+				04F54A371CED53920095DA09 /* Frameworks */,
+				04F54A381CED53920095DA09 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				04F54A3C1CED53920095DA09 /* PBXTargetDependency */,
+			);
+			name = RoadRescueTests;
+			productName = RoadRescueTests;
+			productReference = 04F54A3A1CED53920095DA09 /* RoadRescueTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		04F54A441CED53920095DA09 /* RoadRescueUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 04F54A541CED53920095DA09 /* Build configuration list for PBXNativeTarget "RoadRescueUITests" */;
+			buildPhases = (
+				04F54A411CED53920095DA09 /* Sources */,
+				04F54A421CED53920095DA09 /* Frameworks */,
+				04F54A431CED53920095DA09 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				04F54A471CED53920095DA09 /* PBXTargetDependency */,
+			);
+			name = RoadRescueUITests;
+			productName = RoadRescueUITests;
+			productReference = 04F54A451CED53920095DA09 /* RoadRescueUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		04F54A191CED53920095DA09 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = JX;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = mac;
+				TargetAttributes = {
+					04F54A201CED53920095DA09 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					04F54A391CED53920095DA09 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = 04F54A201CED53920095DA09;
+					};
+					04F54A441CED53920095DA09 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = 04F54A201CED53920095DA09;
+					};
+				};
+			};
+			buildConfigurationList = 04F54A1C1CED53920095DA09 /* Build configuration list for PBXProject "RoadRescue" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 04F54A181CED53920095DA09;
+			productRefGroup = 04F54A221CED53920095DA09 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				04F54A201CED53920095DA09 /* RoadRescue */,
+				04F54A391CED53920095DA09 /* RoadRescueTests */,
+				04F54A441CED53920095DA09 /* RoadRescueUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		04F54A1F1CED53920095DA09 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04F54A861CED642F0095DA09 /* JXMyOrderTableViewCell.xib in Resources */,
+				04F54A8D1CED9E1B0095DA09 /* JXOrderPopView.xib in Resources */,
+				04F54A341CED53920095DA09 /* LaunchScreen.storyboard in Resources */,
+				04F54A941CEEBBB70095DA09 /* JXRescueViewController.xib in Resources */,
+				04F54A921CEEA4850095DA09 /* JXMyOrderCompletePopView.xib in Resources */,
+				04F54A311CED53920095DA09 /* Assets.xcassets in Resources */,
+				04F54AA01CEEFD970095DA09 /* JXRescueDetailViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		04F54A381CED53920095DA09 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		04F54A431CED53920095DA09 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		180FB930C510C397F581CC0F /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		22BA517F1319D3D700E931ED /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7DF282C2165EB9245A899C91 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		04F54A1D1CED53920095DA09 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04F54A711CED56A20095DA09 /* JXTabBarViewController.m in Sources */,
+				04F54A891CED94FA0095DA09 /* JXOrderPopView.m in Sources */,
+				04F54A781CED5AAD0095DA09 /* JXNavigationController.m in Sources */,
+				04F54A851CED642F0095DA09 /* JXMyOrderTableViewCell.m in Sources */,
+				04F54A291CED53920095DA09 /* AppDelegate.m in Sources */,
+				04F54A261CED53920095DA09 /* main.m in Sources */,
+				04F54A7B1CED5B110095DA09 /* JXOrderManageViewController.m in Sources */,
+				04F54AA31CEEFECC0095DA09 /* JXFeeRingView.m in Sources */,
+				04F54A751CED59C40095DA09 /* UIView+JXExtension.m in Sources */,
+				04F54A971CEEE7F40095DA09 /* JXVerticalButton.m in Sources */,
+				04F54A901CEEA4730095DA09 /* JXMyOrderCompletePopView.m in Sources */,
+				04F54A7E1CED5B300095DA09 /* JXProfileViewController.m in Sources */,
+				04F54A9B1CEEF20C0095DA09 /* JXTextView.m in Sources */,
+				04F54A9F1CEEFD970095DA09 /* JXRescueDetailViewController.m in Sources */,
+				04F54A6E1CED56930095DA09 /* JXTabBar.m in Sources */,
+				04F54A811CED5F110095DA09 /* JXRescueViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		04F54A361CED53920095DA09 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04F54A3F1CED53920095DA09 /* RoadRescueTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		04F54A411CED53920095DA09 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04F54A4A1CED53920095DA09 /* RoadRescueUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		04F54A3C1CED53920095DA09 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 04F54A201CED53920095DA09 /* RoadRescue */;
+			targetProxy = 04F54A3B1CED53920095DA09 /* PBXContainerItemProxy */;
+		};
+		04F54A471CED53920095DA09 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 04F54A201CED53920095DA09 /* RoadRescue */;
+			targetProxy = 04F54A461CED53920095DA09 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		04F54A321CED53920095DA09 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				04F54A331CED53920095DA09 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		04F54A4C1CED53920095DA09 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		04F54A4D1CED53920095DA09 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		04F54A4F1CED53920095DA09 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6A9F96CA012EAFF010CF9725 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/RoadRescue/RoadRescue-Prefix.pch";
+				INFOPLIST_FILE = RoadRescue/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "-9.RoadRescue";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		04F54A501CED53920095DA09 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5948512AB8F1024898D542B0 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/RoadRescue/RoadRescue-Prefix.pch";
+				INFOPLIST_FILE = RoadRescue/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "-9.RoadRescue";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		04F54A521CED53920095DA09 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = RoadRescueTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "-9.RoadRescueTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RoadRescue.app/RoadRescue";
+			};
+			name = Debug;
+		};
+		04F54A531CED53920095DA09 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = RoadRescueTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "-9.RoadRescueTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RoadRescue.app/RoadRescue";
+			};
+			name = Release;
+		};
+		04F54A551CED53920095DA09 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = RoadRescueUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "-9.RoadRescueUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = RoadRescue;
+			};
+			name = Debug;
+		};
+		04F54A561CED53920095DA09 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = RoadRescueUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "-9.RoadRescueUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = RoadRescue;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		04F54A1C1CED53920095DA09 /* Build configuration list for PBXProject "RoadRescue" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04F54A4C1CED53920095DA09 /* Debug */,
+				04F54A4D1CED53920095DA09 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		04F54A4E1CED53920095DA09 /* Build configuration list for PBXNativeTarget "RoadRescue" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04F54A4F1CED53920095DA09 /* Debug */,
+				04F54A501CED53920095DA09 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		04F54A511CED53920095DA09 /* Build configuration list for PBXNativeTarget "RoadRescueTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04F54A521CED53920095DA09 /* Debug */,
+				04F54A531CED53920095DA09 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		04F54A541CED53920095DA09 /* Build configuration list for PBXNativeTarget "RoadRescueUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04F54A551CED53920095DA09 /* Debug */,
+				04F54A561CED53920095DA09 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 04F54A191CED53920095DA09 /* Project object */;
+}
