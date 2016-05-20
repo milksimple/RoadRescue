@@ -19,17 +19,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    self.feeRingView.totalPrice = 2600;
-//    self.feeRingView.redBagFee = 200;
-//    self.feeRingView.allowanceFee = 600;
-//    self.feeRingView.fareFee = 50;
-//    self.feeRingView.actuallyPay = 1800-50;
-    
     self.feeRingView.totalPrice = 2600;
-    self.feeRingView.redBagPercentage = 0.1;
-    self.feeRingView.allowancePercentage = 0.2;
-    self.feeRingView.fareFee = 0.05;
-    self.feeRingView.actuallyPaidPercentage = 0.65;
+    self.feeRingView.redBagFee = 200;
+    self.feeRingView.allowanceFee = 600;
+    self.feeRingView.fareFee = 50;
+    self.feeRingView.actuallyPay = 1800-50;
+    
+//    self.feeRingView.totalPrice = 2600;
+//    self.feeRingView.redBagPercentage = 0.1;
+//    self.feeRingView.allowancePercentage = 0.2;
+//    self.feeRingView.fareFee = 0.05;
+//    self.feeRingView.actuallyPaidPercentage = 0.65;
 }
 
 @end

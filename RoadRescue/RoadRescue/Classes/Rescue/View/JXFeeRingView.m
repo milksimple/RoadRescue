@@ -80,10 +80,10 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    self.jx_width = JXScreenW;
-    [self setup];
-    [self layoutIfNeeded];
-    [self setNeedsDisplay];
+//    self.jx_width = JXScreenW;
+//    [self setup];
+//    [self layoutIfNeeded];
+//    [self setNeedsDisplay];
 }
 
 - (void)setup {
@@ -103,6 +103,7 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     redPayLabel.text = @"-¥50";
     [self addSubview:redPayLabel];
     self.redPayLabel = redPayLabel;
+    self.redPayLabel.text = [NSString stringWithFormat:@"-¥%zd", self.redBagFee];
     
     UIView *redSeparator = [[UIView alloc] init];
     redSeparator.backgroundColor = [UIColor redColor];
@@ -123,6 +124,7 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     bluePayLabel.text = @"-¥635";
     [self addSubview:bluePayLabel];
     self.bluePayLabel = bluePayLabel;
+    self.bluePayLabel.text = [NSString stringWithFormat:@"-¥%zd", self.allowanceFee];
     
     UIView *blueSeparator = [[UIView alloc] init];
     blueSeparator.backgroundColor = [UIColor blueColor];
@@ -142,6 +144,7 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     greenPayLabel.text = @"¥50";
     [self addSubview:greenPayLabel];
     self.greenPayLabel = greenPayLabel;
+    self.greenPayLabel.text = [NSString stringWithFormat:@"¥%zd", self.fareFee];
     
     UIView *greenSeparator = [[UIView alloc] init];
     greenSeparator.backgroundColor = [UIColor greenColor];
@@ -161,6 +164,7 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     orangePayLabel.text = @"¥200000";
     [self addSubview:orangePayLabel];
     self.orangePayLabel = orangePayLabel;
+    self.orangePayLabel.text = [NSString stringWithFormat:@"¥%zd", self.actuallyPay];
     
     UIView *orangeSeparator = [[UIView alloc] init];
     orangeSeparator.backgroundColor = [UIColor orangeColor];
@@ -195,7 +199,6 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     
     // 竖线间的垂直间距
     CGFloat separatorMargin = (self.jx_height - 2*alMargin - 4*redSeparatorH)/3.0;
-    NSLog(@"separatorMargin = %f", separatorMargin);
     
     // 优惠补贴
     CGFloat blueTitleLabelW = redTitleLabelW;
@@ -269,7 +272,6 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
 - (void)setTotalPrice:(NSInteger)totalPrice {
     _totalPrice = totalPrice;
     
-    
 }
 
 /** 红包返利 */
@@ -277,7 +279,6 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     _redBagFee = redBagFee;
     
     if (self.totalPrice == 0) return;
-    self.redPayLabel.text = [NSString stringWithFormat:@"-¥%zd", redBagFee];
     self.redBagPercentage = redBagFee / 1.0 / self.totalPrice;
 }
 
@@ -286,7 +287,6 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     _allowanceFee = allowanceFee;
     
     if (self.totalPrice == 0) return;
-    self.bluePayLabel.text = [NSString stringWithFormat:@"-¥%zd", allowanceFee];
     self.allowancePercentage = allowanceFee / 1.0 / self.totalPrice;
 }
 
@@ -295,7 +295,6 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     _fareFee = fareFee;
     
     if (self.totalPrice == 0) return;
-    self.greenPayLabel.text = [NSString stringWithFormat:@"¥%zd", fareFee];
     self.farePercentage = fareFee / 1.0 / self.totalPrice;
 }
 
@@ -304,7 +303,6 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     _actuallyPay = actuallyPay;
     
     if (self.totalPrice == 0) return;
-    self.orangePayLabel.text = [NSString stringWithFormat:@"¥%zd", actuallyPay];
     self.actuallyPaidPercentage = actuallyPay / 1.0 / self.totalPrice;
 }
 
@@ -348,15 +346,15 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     
     if (self.totalPrice == 0) { // 画出提示
         NSString *tipStr = @"请稍后...";
-//        [tipStr drawAtPoint:CGPointMake(self.jx_centerX, self.jx_centerY) withAttributes:@{NSFontAttributeName:JXPayLabelFont}];
         [tipStr drawInRect:CGRectMake(self.jx_centerX - 30, self.jx_centerY - 10, 60, 20) withAttributes:@{NSFontAttributeName:JXPayLabelFont}];
         CGContextClosePath(ctx);
         
         return;
     }
     
-//    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-//    [self setup];
+    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self setup];
+    [self layoutIfNeeded];
     
     // 现在一圈不是360度，而是
     CGFloat completeAngle = M_PI * 1.9;
