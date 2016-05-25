@@ -27,8 +27,8 @@
                             <nil key="highlightedColor"/>
                             <variation key="default">
                                 <mask key="constraints">
-                                    <exclude reference="n4C-N5-HDB"/>
                                     <exclude reference="HFK-1f-yCI"/>
+                                    <exclude reference="n4C-N5-HDB"/>
                                 </mask>
                             </variation>
                         </label>

@@ -10,7 +10,10 @@
 #import "UIView+JXExtension.h"
 
 @interface JXMyOrderTableViewCell()
+@property (weak, nonatomic) IBOutlet UIImageView *cellTopBgView;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
+@property (weak, nonatomic) IBOutlet UIImageView *waveBgView;
+@property (weak, nonatomic) IBOutlet UIImageView *translucentView;
 
 @end
 
@@ -23,7 +26,8 @@
     [self layoutIfNeeded];
     
     // 设置layer圆角半径
-    self.containerView.layer.cornerRadius=3.0;
+    self.cellTopBgView.layer.cornerRadius = 3.0;
+    self.cellTopBgView.clipsToBounds = YES;
     // 即阴影颜色值
     self.containerView.layer.shadowColor=[[UIColor colorWithWhite:0.3 alpha:0.5] CGColor];
     // 即阴影相对于Y轴有1个像素点的向下位移。
@@ -31,7 +35,7 @@
     //设置阴影的不透明度
     self.containerView.layer.shadowOpacity = 1;
     // 阴影的模糊度
-    self.containerView.layer.shadowRadius = 1.0;
+    self.containerView.layer.shadowRadius = 3.0;
     // 阴影的位置
     self.containerView.layer.shadowPath = [[UIBezierPath bezierPathWithRect:self.containerView.bounds] CGPath];
     //设置缓存 仅复用时设置此项
@@ -39,6 +43,15 @@
     //设置抗锯齿边缘
     self.containerView.layer.rasterizationScale=[UIScreen mainScreen].scale;
 
+    UIImage *waveBgImg = [JXSkinTool skinToolImageWithImageName:@"order_wave_bg"];
+    UIImage *resizableImg = [waveBgImg resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 10, 0) resizingMode:UIImageResizingModeTile];
+    self.waveBgView.image = resizableImg;
+    
+    UIImage *cellTopBgImg = [JXSkinTool skinToolImageWithImageName:@"order_doing_bg"];
+    UIImage *brickResizableImg = [cellTopBgImg resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0) resizingMode:UIImageResizingModeTile];
+    self.cellTopBgView.image = brickResizableImg;
+    
+    self.translucentView.image = [JXSkinTool skinToolImageWithImageName:@"order_translucent_bg"];
 }
 
 /**

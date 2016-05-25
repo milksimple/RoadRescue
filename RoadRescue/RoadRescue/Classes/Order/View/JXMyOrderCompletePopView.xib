@@ -27,8 +27,8 @@
                             <nil key="highlightedColor"/>
                             <variation key="default">
                                 <mask key="constraints">
-                                    <exclude reference="uFG-8b-eIc"/>
                                     <exclude reference="LRL-cy-CJY"/>
+                                    <exclude reference="uFG-8b-eIc"/>
                                 </mask>
                             </variation>
                         </label>
@@ -59,8 +59,8 @@
                             <nil key="highlightedColor"/>
                             <variation key="default">
                                 <mask key="constraints">
-                                    <exclude reference="lqE-er-Etc"/>
                                     <exclude reference="BSc-Cu-g7W"/>
+                                    <exclude reference="lqE-er-Etc"/>
                                 </mask>
                             </variation>
                         </label>

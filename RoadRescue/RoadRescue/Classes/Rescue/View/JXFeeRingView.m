@@ -8,6 +8,11 @@
 
 #define JXTitleLabelFont [UIFont systemFontOfSize:11]
 #define JXPayLabelFont [UIFont systemFontOfSize:15]
+#define JXRingRedColor JXColor(251,98,48)
+#define JXRingBlueColor JXColor(84,130,255)
+#define JXRingGreenColor JXColor(88,197,84)
+#define JXRingOrangeColor JXColor(249,160,48)
+#define JXTitleLabelColor JXColor(117, 117, 117)
 
 #import "JXFeeRingView.h"
 #import "UIView+JXExtension.h"
@@ -43,7 +48,7 @@
 @property (nonatomic, assign) CGPoint orangeRightPoint;
 @property (nonatomic, assign) CGPoint ringCenter;
 
-
+@property (nonatomic, weak) UILabel *totalPriceLabel;
 
 @end
 
@@ -58,13 +63,18 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
-        
         // 计算圆心
         self.ringCenter = CGPointMake(hoMargin + circleW*0.5 + radius, self.jx_height*0.5);
-        
-        [self setup];
     }
     return self;
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    
+    self.backgroundColor = [UIColor whiteColor];
+    // 计算圆心
+    self.ringCenter = CGPointMake(hoMargin + circleW*0.5 + radius, self.jx_height*0.5);
 }
 
 + (instancetype)feeRingViewWithTotalPrice:(NSInteger)totalPrice redBagFee:(NSInteger)redBagFee allowanceFee:(NSInteger)allowanceFee fareFee:(NSInteger)fareFee actuallyPay:(NSInteger)actuallyPay {
@@ -77,27 +87,27 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     return feeRingView;
 }
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    
-//    self.jx_width = JXScreenW;
-//    [self setup];
-//    [self layoutIfNeeded];
-//    [self setNeedsDisplay];
-}
-
 - (void)setup {
     // 总价
     UILabel *totalPriceLabel = [[UILabel alloc] init];
+    totalPriceLabel.textColor = JXMiOrangeColor;
+    totalPriceLabel.font = [UIFont systemFontOfSize:20];
+    totalPriceLabel.textAlignment = NSTextAlignmentCenter;
+    totalPriceLabel.numberOfLines = 0;
+    totalPriceLabel.text = [NSString stringWithFormat:@"总价\n¥%zd", self.totalPrice];
+    [self addSubview:totalPriceLabel];
+    self.totalPriceLabel = totalPriceLabel;
     
     // 红包
     UILabel *redTitleLabel = [[UILabel alloc] init];
+    redTitleLabel.textColor = JXTitleLabelColor;
     redTitleLabel.font = JXTitleLabelFont;
     redTitleLabel.text = @"红包返利";
     [self addSubview:redTitleLabel];
     self.redTitleLabel = redTitleLabel;
     
     UILabel *redPayLabel = [[UILabel alloc] init];
+    redPayLabel.textColor = JXRingRedColor;
     redPayLabel.font = JXPayLabelFont;
     redPayLabel.adjustsFontSizeToFitWidth = YES;
     redPayLabel.text = @"-¥50";
@@ -106,12 +116,13 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     self.redPayLabel.text = [NSString stringWithFormat:@"-¥%zd", self.redBagFee];
     
     UIView *redSeparator = [[UIView alloc] init];
-    redSeparator.backgroundColor = [UIColor redColor];
+    redSeparator.backgroundColor = JXRingRedColor;
     [self addSubview:redSeparator];
     self.redSeparator = redSeparator;
     
     // 优惠
     UILabel *blueTitleLabel = [[UILabel alloc] init];
+    blueTitleLabel.textColor = JXTitleLabelColor;
     blueTitleLabel.font = JXTitleLabelFont;
     blueTitleLabel.text = @"优惠补贴";
     [self addSubview:blueTitleLabel];
@@ -119,6 +130,7 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     
     
     UILabel *bluePayLabel = [[UILabel alloc] init];
+    bluePayLabel.textColor = JXRingBlueColor;
     bluePayLabel.adjustsFontSizeToFitWidth = YES;
     bluePayLabel.font = JXPayLabelFont;
     bluePayLabel.text = @"-¥635";
@@ -127,18 +139,20 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     self.bluePayLabel.text = [NSString stringWithFormat:@"-¥%zd", self.allowanceFee];
     
     UIView *blueSeparator = [[UIView alloc] init];
-    blueSeparator.backgroundColor = [UIColor blueColor];
+    blueSeparator.backgroundColor = JXRingBlueColor;
     [self addSubview:blueSeparator];
     self.blueSeparator = blueSeparator;
     
     // 运费
     UILabel *greenTitleLabel = [[UILabel alloc] init];
+    greenTitleLabel.textColor = JXTitleLabelColor;
     greenTitleLabel.font = JXTitleLabelFont;
     greenTitleLabel.text = @"运费";
     [self addSubview:greenTitleLabel];
     self.greenTitleLabel = greenTitleLabel;
     
     UILabel *greenPayLabel = [[UILabel alloc] init];
+    greenPayLabel.textColor = JXRingGreenColor;
     greenPayLabel.font = JXPayLabelFont;
     greenPayLabel.adjustsFontSizeToFitWidth = YES;
     greenPayLabel.text = @"¥50";
@@ -147,18 +161,20 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     self.greenPayLabel.text = [NSString stringWithFormat:@"¥%zd", self.fareFee];
     
     UIView *greenSeparator = [[UIView alloc] init];
-    greenSeparator.backgroundColor = [UIColor greenColor];
+    greenSeparator.backgroundColor = JXRingGreenColor;
     [self addSubview:greenSeparator];
     self.greenSeparator = greenSeparator;
     
     // 实付
     UILabel *orangeTitleLabel = [[UILabel alloc] init];
+    orangeTitleLabel.textColor = JXTitleLabelColor;
     orangeTitleLabel.font = JXTitleLabelFont;
     orangeTitleLabel.text = @"待付油款";
     [self addSubview:orangeTitleLabel];
     self.orangeTitleLabel = orangeTitleLabel;
     
     UILabel *orangePayLabel = [[UILabel alloc] init];
+    orangePayLabel.textColor = JXRingOrangeColor;
     orangePayLabel.adjustsFontSizeToFitWidth = YES;
     orangePayLabel.font = JXPayLabelFont;
     orangePayLabel.text = @"¥200000";
@@ -167,7 +183,7 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     self.orangePayLabel.text = [NSString stringWithFormat:@"¥%zd", self.actuallyPay];
     
     UIView *orangeSeparator = [[UIView alloc] init];
-    orangeSeparator.backgroundColor = [UIColor orangeColor];
+    orangeSeparator.backgroundColor = JXRingOrangeColor;
     [self addSubview:orangeSeparator];
     self.orangeSeparator = orangeSeparator;
 }
@@ -175,6 +191,10 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    
+    // 总价
+    CGRect totalPriceLabelRect = CGRectMake(self.ringCenter.x - radius + circleW, self.ringCenter.y - radius + circleW, (radius - circleW)*2, (radius - circleW)*2);
+    self.totalPriceLabel.frame = totalPriceLabelRect;
     
     // 红包
     CGFloat redTitleLabelW = 70;
@@ -347,7 +367,6 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     if (self.totalPrice == 0) { // 画出提示
         NSString *tipStr = @"请稍后...";
         [tipStr drawInRect:CGRectMake(self.jx_centerX - 30, self.jx_centerY - 10, 60, 20) withAttributes:@{NSFontAttributeName:JXPayLabelFont}];
-        CGContextClosePath(ctx);
         
         return;
     }
@@ -369,41 +388,41 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     // 红包
     CGFloat redStartAngle = -M_PI_2;
     CGFloat redEndAngle = redStartAngle + self.redBagPercentage * completeAngle;
-    [self drawRingWithCenter:center radius:radius startAngle:redStartAngle endAngle:redEndAngle clockwise:YES lineWidth:circleW color:[UIColor redColor]];
+    [self drawRingWithCenter:center radius:radius startAngle:redStartAngle endAngle:redEndAngle clockwise:YES lineWidth:circleW color:JXRingRedColor];
     
     // 左边的红点的角度
     CGFloat redBigAngle = (redStartAngle - redEndAngle)*0.5 + redEndAngle;
     self.redLeftPoint = CGPointMake(center.x + bigRadius*cosf(redBigAngle), center.y + bigRadius*sinf(redBigAngle));
     // 画出左边红点
-    [self drawDotWithPoint:self.redLeftPoint color:[UIColor redColor]];
+    [self drawDotWithPoint:self.redLeftPoint color:JXRingRedColor];
     // 画出右边红点
-    [self drawDotWithPoint:self.redRightPoint color:[UIColor redColor]];
+    [self drawDotWithPoint:self.redRightPoint color:JXRingRedColor];
     
     // 中间的折点
     self.redCenterPoint = CGPointMake(turnX, self.redRightPoint.y);
     // 画出左边点到中间点虚线
-    [self drawDottedLineFromPoint:self.redLeftPoint toPoint:self.redCenterPoint withContext:ctx lineColor:[UIColor redColor]];
+    [self drawDottedLineFromPoint:self.redLeftPoint toPoint:self.redCenterPoint withContext:ctx lineColor:JXRingRedColor];
     // 画出中间点到右边点虚线
-    [self drawDottedLineFromPoint:self.redCenterPoint toPoint:self.redRightPoint withContext:ctx lineColor:[UIColor redColor]];
+    [self drawDottedLineFromPoint:self.redCenterPoint toPoint:self.redRightPoint withContext:ctx lineColor:JXRingRedColor];
     
     // 优惠补贴
     CGFloat blueStartAngle = redEndAngle;
     CGFloat blueEndAngle = blueStartAngle + self.allowancePercentage * completeAngle;
-    [self drawRingWithCenter:center radius:radius startAngle:blueStartAngle endAngle:blueEndAngle clockwise:YES lineWidth:circleW color:[UIColor blueColor]];
+    [self drawRingWithCenter:center radius:radius startAngle:blueStartAngle endAngle:blueEndAngle clockwise:YES lineWidth:circleW color:JXRingBlueColor];
     
     // 左边的蓝点的角度
     CGFloat blueBigAngle = (blueStartAngle - blueEndAngle)*0.5 + blueEndAngle;
     self.blueLeftPoint = CGPointMake(center.x + bigRadius*cosf(blueBigAngle), center.y + bigRadius*sinf(blueBigAngle));
     // 画出左边蓝点
-    [self drawDotWithPoint:self.blueLeftPoint color:[UIColor blueColor]];
+    [self drawDotWithPoint:self.blueLeftPoint color:JXRingBlueColor];
     // 画出右边蓝点
-    [self drawDotWithPoint:self.blueRightPoint color:[UIColor blueColor]];
+    [self drawDotWithPoint:self.blueRightPoint color:JXRingBlueColor];
     // 中间的折点
     self.blueCenterPoint = CGPointMake(turnX, self.blueRightPoint.y);
     // 画出左边点到中间点虚线
-    [self drawDottedLineFromPoint:self.blueLeftPoint toPoint:self.blueCenterPoint withContext:ctx lineColor:[UIColor blueColor]];
+    [self drawDottedLineFromPoint:self.blueLeftPoint toPoint:self.blueCenterPoint withContext:ctx lineColor:JXRingBlueColor];
     // 画出中间点到右边点虚线
-    [self drawDottedLineFromPoint:self.blueCenterPoint toPoint:self.blueRightPoint withContext:ctx lineColor:[UIColor blueColor]];
+    [self drawDottedLineFromPoint:self.blueCenterPoint toPoint:self.blueRightPoint withContext:ctx lineColor:JXRingBlueColor];
     
     // 运费
     CGFloat greenStartAngle = 0;
@@ -415,22 +434,22 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
         greenStartAngle = blueEndAngle + blankAngle;
     }
     greenEndAngle = greenStartAngle + self.farePercentage * completeAngle;
-    [self drawRingWithCenter:center radius:radius startAngle:greenStartAngle endAngle:greenEndAngle clockwise:YES lineWidth:circleW color:[UIColor greenColor]];
+    [self drawRingWithCenter:center radius:radius startAngle:greenStartAngle endAngle:greenEndAngle clockwise:YES lineWidth:circleW color:JXRingGreenColor];
     
     // 左边的绿点的角度
     CGFloat greenBigAngle = (greenStartAngle - greenEndAngle)*0.5 + greenEndAngle;
     self.greenLeftPoint = CGPointMake(center.x + bigRadius*cosf(greenBigAngle), center.y + bigRadius*sinf(greenBigAngle));
     // 画出左边绿点
-    [self drawDotWithPoint:self.greenLeftPoint color:[UIColor greenColor]];
+    [self drawDotWithPoint:self.greenLeftPoint color:JXRingGreenColor];
     // 画出右边绿点
-    [self drawDotWithPoint:self.greenRightPoint color:[UIColor greenColor]];
+    [self drawDotWithPoint:self.greenRightPoint color:JXRingGreenColor];
     
     // 中间的折点
     self.greenCenterPoint = CGPointMake(turnX, self.greenRightPoint.y);
     // 画出左边点到中间点虚线
-    [self drawDottedLineFromPoint:self.greenLeftPoint toPoint:self.greenCenterPoint withContext:ctx lineColor:[UIColor greenColor]];
+    [self drawDottedLineFromPoint:self.greenLeftPoint toPoint:self.greenCenterPoint withContext:ctx lineColor:JXRingGreenColor];
     // 画出中间点到右边点虚线
-    [self drawDottedLineFromPoint:self.greenCenterPoint toPoint:self.greenRightPoint withContext:ctx lineColor:[UIColor greenColor]];
+    [self drawDottedLineFromPoint:self.greenCenterPoint toPoint:self.greenRightPoint withContext:ctx lineColor:JXRingGreenColor];
     
     // 实付
     CGFloat orangeStartAngle = 0;
@@ -442,24 +461,22 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
         orangeStartAngle = greenEndAngle;
     }
     orangeEndAngle = orangeStartAngle + self.actuallyPaidPercentage * completeAngle;
-    [self drawRingWithCenter:center radius:radius startAngle:orangeStartAngle endAngle:orangeEndAngle clockwise:YES lineWidth:circleW color:[UIColor orangeColor]];
+    [self drawRingWithCenter:center radius:radius startAngle:orangeStartAngle endAngle:orangeEndAngle clockwise:YES lineWidth:circleW color:JXRingOrangeColor];
     
     // 左边的橘色点的角度
     CGFloat orangeBigAngle = orangeStartAngle + blankAngle;
     self.orangeLeftPoint = CGPointMake(center.x + bigRadius*cosf(orangeBigAngle), center.y + bigRadius*sinf(orangeBigAngle));
     // 画出左边橘色点
-    [self drawDotWithPoint:self.orangeLeftPoint color:[UIColor orangeColor]];
+    [self drawDotWithPoint:self.orangeLeftPoint color:JXRingOrangeColor];
     // 画出右边橘色点
-    [self drawDotWithPoint:self.orangeRightPoint color:[UIColor orangeColor]];
+    [self drawDotWithPoint:self.orangeRightPoint color:JXRingOrangeColor];
     
     // 中间的折点
     self.orangeCenterPoint = CGPointMake(turnX, self.orangeRightPoint.y);
     // 画出左边点到中间点虚线
-    [self drawDottedLineFromPoint:self.orangeLeftPoint toPoint:self.orangeCenterPoint withContext:ctx lineColor:[UIColor orangeColor]];
+    [self drawDottedLineFromPoint:self.orangeLeftPoint toPoint:self.orangeCenterPoint withContext:ctx lineColor:JXRingOrangeColor];
     // 画出中间点到右边点虚线
-    [self drawDottedLineFromPoint:self.orangeCenterPoint toPoint:self.orangeRightPoint withContext:ctx lineColor:[UIColor orangeColor]];
-    
-    CGContextClosePath(ctx);
+    [self drawDottedLineFromPoint:self.orangeCenterPoint toPoint:self.orangeRightPoint withContext:ctx lineColor:JXRingOrangeColor];
 }
 
 - (void)drawRingWithCenter:(CGPoint)center radius:(CGFloat)radius startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle clockwise:(BOOL)clockwise lineWidth:(CGFloat)lineWidth color:(UIColor *)color {
@@ -481,22 +498,21 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
 - (void)drawDottedLineFromPoint:(CGPoint)startPoint toPoint:(CGPoint)endPoint withContext:(CGContextRef)context lineColor:(UIColor *)color {
     CGContextSaveGState(context);
     CGContextBeginPath(context);
-    CGContextSetLineWidth(context, 2.0);
+    CGContextSetLineWidth(context, 1);
     CGContextSetStrokeColorWithColor(context, color.CGColor);
-    CGFloat lengths[] = {2,4};
-    CGContextSetLineDash(context, 0, lengths,2);
+    CGFloat lengths[] = {1,2};
+    CGContextSetLineDash(context, 1, lengths,2);
     CGContextMoveToPoint(context, startPoint.x, startPoint.y);
     CGContextAddLineToPoint(context, endPoint.x, endPoint.y);
     CGContextStrokePath(context);
     CGContextRestoreGState(context);
-    
 }
 
 - (void)drawOilPath {
     UIBezierPath *oilPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(100, 150) radius:60 startAngle:-M_PI_2 - M_PI*0.05 endAngle:M_PI_4 + M_PI_4 * 0.5 + M_PI*0.05 clockwise:NO];
     oilPath.lineWidth= 23;
     oilPath.lineCapStyle = kCGLineCapButt;
-    [[UIColor orangeColor] setStroke];
+    [JXRingOrangeColor setStroke];
     [oilPath stroke];
 }
 
@@ -504,7 +520,7 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     UIBezierPath *redPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(100, 150) radius:60 startAngle:-M_PI_2 endAngle:-M_PI_2 + M_PI_4     clockwise:YES];
     redPath.lineWidth= 23;
     redPath.lineCapStyle = kCGLineCapButt;
-    [[UIColor redColor] setStroke];
+    [JXRingRedColor setStroke];
     [redPath stroke];
 }
 
@@ -512,7 +528,7 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     UIBezierPath *bluePath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(100, 150) radius:60 startAngle:-M_PI_2 + M_PI_4 endAngle:M_PI_4     clockwise:YES];
     bluePath.lineWidth= 23;
     bluePath.lineCapStyle = kCGLineCapButt;
-    [[UIColor blueColor] setStroke];
+    [JXRingBlueColor setStroke];
     [bluePath stroke];
 }
 
@@ -520,7 +536,7 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     UIBezierPath *greenPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(100, 150) radius:60 startAngle:M_PI_4 endAngle:M_PI_4 + M_PI_4 * 0.5     clockwise:YES];
     greenPath.lineWidth= 23;
     greenPath.lineCapStyle = kCGLineCapButt;
-    [[UIColor greenColor] setStroke];
+    [JXRingGreenColor setStroke];
     [greenPath stroke];
 }
 

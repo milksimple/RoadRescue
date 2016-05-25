@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04BA22311CF4252C00513146 /* skin in Resources */ = {isa = PBXBuildFile; fileRef = 04BA22301CF4252C00513146 /* skin */; };
+		04BA22361CF54A5400513146 /* JXRescueDetailPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BA22351CF54A5400513146 /* JXRescueDetailPopView.m */; };
+		04BA22381CF54A6100513146 /* JXRescueDetailPopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BA22371CF54A6100513146 /* JXRescueDetailPopView.xib */; };
 		04F54A261CED53920095DA09 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A251CED53920095DA09 /* main.m */; };
 		04F54A291CED53920095DA09 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A281CED53920095DA09 /* AppDelegate.m */; };
 		04F54A311CED53920095DA09 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04F54A301CED53920095DA09 /* Assets.xcassets */; };
@@ -32,6 +35,7 @@
 		04F54A9F1CEEFD970095DA09 /* JXRescueDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A9D1CEEFD970095DA09 /* JXRescueDetailViewController.m */; };
 		04F54AA01CEEFD970095DA09 /* JXRescueDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F54A9E1CEEFD970095DA09 /* JXRescueDetailViewController.xib */; };
 		04F54AA31CEEFECC0095DA09 /* JXFeeRingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54AA21CEEFECC0095DA09 /* JXFeeRingView.m */; };
+		04F54AA71CF3FDEF0095DA09 /* JXSkinTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54AA61CF3FDEF0095DA09 /* JXSkinTool.m */; };
 		06550E870A01009DC9798C9A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FA90AB5FDDA6B28B9E3C345 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +57,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04BA22301CF4252C00513146 /* skin */ = {isa = PBXFileReference; lastKnownFileType = folder; path = skin; sourceTree = "<group>"; };
+		04BA22341CF54A5400513146 /* JXRescueDetailPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXRescueDetailPopView.h; sourceTree = "<group>"; };
+		04BA22351CF54A5400513146 /* JXRescueDetailPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXRescueDetailPopView.m; sourceTree = "<group>"; };
+		04BA22371CF54A6100513146 /* JXRescueDetailPopView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXRescueDetailPopView.xib; sourceTree = "<group>"; };
 		04F54A211CED53920095DA09 /* RoadRescue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RoadRescue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04F54A251CED53920095DA09 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		04F54A271CED53920095DA09 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../AppDelegate.h; sourceTree = "<group>"; };
@@ -100,6 +108,8 @@
 		04F54A9E1CEEFD970095DA09 /* JXRescueDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXRescueDetailViewController.xib; sourceTree = "<group>"; };
 		04F54AA11CEEFECC0095DA09 /* JXFeeRingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXFeeRingView.h; sourceTree = "<group>"; };
 		04F54AA21CEEFECC0095DA09 /* JXFeeRingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXFeeRingView.m; sourceTree = "<group>"; };
+		04F54AA51CF3FDEF0095DA09 /* JXSkinTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JXSkinTool.h; path = ../../../../../../../../Users/mac/Documents/JXSkinTool.h; sourceTree = "<group>"; };
+		04F54AA61CF3FDEF0095DA09 /* JXSkinTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JXSkinTool.m; path = ../../../../../../../../Users/mac/Documents/JXSkinTool.m; sourceTree = "<group>"; };
 		4FA90AB5FDDA6B28B9E3C345 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5948512AB8F1024898D542B0 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		6A9F96CA012EAFF010CF9725 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -166,6 +176,7 @@
 		04F54A241CED53920095DA09 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				04BA22301CF4252C00513146 /* skin */,
 				04F54A301CED53920095DA09 /* Assets.xcassets */,
 				04F54A6B1CED55B30095DA09 /* RoadRescue-Prefix.pch */,
 				04F54A321CED53920095DA09 /* LaunchScreen.storyboard */,
@@ -207,6 +218,7 @@
 		04F54A581CED54960095DA09 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				04F54AA41CF3FDDC0095DA09 /* Toos */,
 				04F54A591CED54960095DA09 /* Controller */,
 				04F54A5A1CED54960095DA09 /* Libs */,
 				04F54A5B1CED54960095DA09 /* Model */,
@@ -371,6 +383,9 @@
 			children = (
 				04F54AA11CEEFECC0095DA09 /* JXFeeRingView.h */,
 				04F54AA21CEEFECC0095DA09 /* JXFeeRingView.m */,
+				04BA22341CF54A5400513146 /* JXRescueDetailPopView.h */,
+				04BA22351CF54A5400513146 /* JXRescueDetailPopView.m */,
+				04BA22371CF54A6100513146 /* JXRescueDetailPopView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -400,6 +415,15 @@
 				04F54A9A1CEEF20C0095DA09 /* JXTextView.m */,
 			);
 			path = JXTextView;
+			sourceTree = "<group>";
+		};
+		04F54AA41CF3FDDC0095DA09 /* Toos */ = {
+			isa = PBXGroup;
+			children = (
+				04F54AA51CF3FDEF0095DA09 /* JXSkinTool.h */,
+				04F54AA61CF3FDEF0095DA09 /* JXSkinTool.m */,
+			);
+			path = Toos;
 			sourceTree = "<group>";
 		};
 		940DAC9273D1A5355ADA0330 /* Frameworks */ = {
@@ -526,7 +550,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04BA22381CF54A6100513146 /* JXRescueDetailPopView.xib in Resources */,
 				04F54A861CED642F0095DA09 /* JXMyOrderTableViewCell.xib in Resources */,
+				04BA22311CF4252C00513146 /* skin in Resources */,
 				04F54A8D1CED9E1B0095DA09 /* JXOrderPopView.xib in Resources */,
 				04F54A341CED53920095DA09 /* LaunchScreen.storyboard in Resources */,
 				04F54A941CEEBBB70095DA09 /* JXRescueViewController.xib in Resources */,
@@ -609,7 +635,9 @@
 				04F54A891CED94FA0095DA09 /* JXOrderPopView.m in Sources */,
 				04F54A781CED5AAD0095DA09 /* JXNavigationController.m in Sources */,
 				04F54A851CED642F0095DA09 /* JXMyOrderTableViewCell.m in Sources */,
+				04BA22361CF54A5400513146 /* JXRescueDetailPopView.m in Sources */,
 				04F54A291CED53920095DA09 /* AppDelegate.m in Sources */,
+				04F54AA71CF3FDEF0095DA09 /* JXSkinTool.m in Sources */,
 				04F54A261CED53920095DA09 /* main.m in Sources */,
 				04F54A7B1CED5B110095DA09 /* JXOrderManageViewController.m in Sources */,
 				04F54AA31CEEFECC0095DA09 /* JXFeeRingView.m in Sources */,
