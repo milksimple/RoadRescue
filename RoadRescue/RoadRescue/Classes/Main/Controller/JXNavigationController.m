@@ -7,6 +7,8 @@
 //
 
 #import "JXNavigationController.h"
+#import "JXRescueDetailViewController.h"
+#import "JXRescueViewController.h"
 
 @interface JXNavigationController ()
 
@@ -14,24 +16,20 @@
 
 @implementation JXNavigationController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
++ (void)initialize {
+    // 获取特定类的所有导航条
+    UINavigationBar *navigationBar = [UINavigationBar appearanceWhenContainedIn:[self class], nil];
+    
+    // 使用自己的图片替换原来的返回图片
+    UIImage *navBack = [JXSkinTool skinToolImageWithImageName:@"nav_back"];
+    navigationBar.backIndicatorImage = [navBack imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    navigationBar.backIndicatorTransitionMaskImage = [navBack imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil];
+    
+    [super pushViewController:viewController animated:animated];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

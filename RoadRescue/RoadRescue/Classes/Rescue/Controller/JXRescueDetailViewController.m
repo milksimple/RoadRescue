@@ -14,6 +14,9 @@
 @property (weak, nonatomic) IBOutlet JXFeeRingView *feeRingView;
 @property (weak, nonatomic) IBOutlet UIPickerView *oilPickerView;
 @property (weak, nonatomic) IBOutlet UIImageView *staffView;
+@property (weak, nonatomic) IBOutlet UIButton *upButton;
+@property (weak, nonatomic) IBOutlet UIButton *downButton;
+@property (weak, nonatomic) IBOutlet UISlider *slider;
 
 @end
 
@@ -21,6 +24,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationItem.title = @"救援明细选择";
     
     self.feeRingView.totalPrice = 2600;
     self.feeRingView.redBagFee = 200;
@@ -33,24 +38,53 @@
 //    self.feeRingView.allowancePercentage = 0.2;
 //    self.feeRingView.fareFee = 0.05;
 //    self.feeRingView.actuallyPaidPercentage = 0.65;
-    UIImage *staffImg = [UIImage imageNamed:@"rescue_Staff"];
-    UIImage *resizableStaffImg = [staffImg resizableImageWithCapInsets:UIEdgeInsetsZero resizingMode:UIImageResizingModeTile];
-    self.staffView.image = resizableStaffImg;
+    // 标尺图片
+    UIImage *staffImg = [JXSkinTool skinToolImageWithImageName:@"rescue_staff"];
+//    UIImage *resizableStaffImg = [staffImg resizableImageWithCapInsets:UIEdgeInsetsZero resizingMode:UIImageResizingModeTile];
+    self.staffView.image = staffImg;
+    
+    // 设置上下按钮图片
+    [self.upButton setImage:[JXSkinTool skinToolImageWithImageName:@"rescue_up_disable"] forState:UIControlStateDisabled];
+    [self.upButton setImage:[JXSkinTool skinToolImageWithImageName:@"rescue_up_enable"] forState:UIControlStateNormal];
+    [self.downButton setImage:[JXSkinTool skinToolImageWithImageName:@"rescue_down_disable"] forState:UIControlStateDisabled];
+    [self.downButton setImage:[JXSkinTool skinToolImageWithImageName:@"rescue_down_enable"] forState:UIControlStateNormal];
+    
+    // 设置slider图片
+    UIImage *sliderBg = [[JXSkinTool skinToolImageWithImageName:@"rescue_slider_bg"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 10, 0, 10) resizingMode:UIImageResizingModeStretch];
+    [self.slider setMaximumTrackImage:sliderBg forState:UIControlStateNormal];
+    [self.slider setMinimumTrackImage:sliderBg forState:UIControlStateNormal];
+    
+    [self.slider setThumbImage:[JXSkinTool skinToolImageWithImageName:@"rescue_slider_thumb"] forState:UIControlStateNormal];
+    
 }
 
-- (IBAction)upButtonClicked {
+- (IBAction)upButtonClicked:(UIButton *)upButton {
     NSInteger selectedRow = [self.oilPickerView selectedRowInComponent:0] - 1;
-    if (selectedRow < 0) {
-        return;
+    if (selectedRow == 0) {
+        upButton.enabled = NO;
     }
+    else {
+        upButton.enabled = YES;
+    }
+    if (selectedRow != 3) {
+        self.downButton.enabled = YES;
+    }
+
     [self.oilPickerView selectRow:selectedRow inComponent:0 animated:YES];
 }
 
-- (IBAction)downButtonClicked {
+- (IBAction)downButtonClicked:(UIButton *)downButton {
     NSInteger selectedRow = [self.oilPickerView selectedRowInComponent:0] + 1;
-    if (selectedRow > 3) {
-        return;
+    if (selectedRow == 3) {
+        downButton.enabled = NO;
     }
+    else {
+        downButton.enabled = YES;
+    }
+    if (selectedRow != 0) {
+        self.upButton.enabled = YES;
+    }
+
     [self.oilPickerView selectRow:selectedRow inComponent:0 animated:YES];
 }
 
@@ -95,6 +129,21 @@
 //- (nullable NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
 
 //}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    if (row == 0) {
+        self.upButton.enabled = NO;
+    }
+    else {
+        self.upButton.enabled = YES;
+    }
+    if (row == 3) {
+        self.downButton.enabled = NO;
+    }
+    else {
+        self.downButton.enabled = YES;
+    }
+}
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
     return 60;

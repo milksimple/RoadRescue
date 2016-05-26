@@ -33,8 +33,6 @@
     JXTabBar *tabBar = [[JXTabBar alloc] init];
     tabBar.delegate = self;
     [self setValue:tabBar forKeyPath:@"tabBar"];
-    
-    
 }
 
 - (void)addChildVC:(UIViewController *)childVC image:(NSString *)image selectedImage:(NSString *)selectedImage title:(NSString *)title {
@@ -52,7 +50,10 @@
 - (void)tabBarDidClickedRescueButton:(JXTabBar *)tabBar {
     JXRescueViewController *rescueVC = [[JXRescueViewController alloc] init];
     JXNavigationController *nav = [[JXNavigationController alloc] initWithRootViewController:rescueVC];
-    [self presentViewController:nav animated:YES completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:nav animated:YES completion:nil];
+    });
+//    [self presentViewController:nav animated:YES completion:nil];
 }
 
 @end

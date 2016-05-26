@@ -9,11 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>FDFullscreenPopGesture.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>IQKeyboardManager.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -47,12 +42,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2C71DE0FB8A6E5BB6EAF9FB037D799CC</key>
+		<key>25F36A1D53C727892D780164859DC89A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3462E856EEA7946785904833E7EDD8B6</key>
+		<key>8884755FC6F0540D4ECFBC08081F790A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -73,11 +68,6 @@
 			<true/>
 		</dict>
 		<key>C743C42395D3C33F9883CB4690B475A0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F67CDC322AC17E6EC853AD77CAEBB573</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -40,6 +40,15 @@
     }
 }
 
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+    if (CGRectContainsPoint(self.bounds, point) || CGRectContainsPoint(self.rescueButton.frame, point)) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     

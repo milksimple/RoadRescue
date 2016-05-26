@@ -194,8 +194,8 @@
                                     <nil key="highlightedColor"/>
                                     <variation key="default">
                                         <mask key="constraints">
-                                            <exclude reference="vYd-EY-KBX"/>
                                             <exclude reference="6B8-Sf-5re"/>
+                                            <exclude reference="vYd-EY-KBX"/>
                                         </mask>
                                     </variation>
                                 </label>
@@ -248,8 +248,8 @@
                                     <nil key="highlightedColor"/>
                                     <variation key="default">
                                         <mask key="constraints">
-                                            <exclude reference="Aoo-oy-Jci"/>
                                             <exclude reference="6La-ne-SWQ"/>
+                                            <exclude reference="Aoo-oy-Jci"/>
                                         </mask>
                                     </variation>
                                 </label>
