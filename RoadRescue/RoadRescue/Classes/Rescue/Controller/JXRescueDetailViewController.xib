@@ -276,7 +276,7 @@
                                                 <action selector="downButtonClicked:" destination="-1" eventType="touchUpInside" id="VNG-cm-tyH"/>
                                             </connections>
                                         </button>
-                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Y9P-go-wAI">
+                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Y9P-go-wAI">
                                             <rect key="frame" x="78" y="335" width="454" height="31"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="100" id="1ey-p0-oFd"/>
@@ -286,6 +286,9 @@
                                                     <exclude reference="1ey-p0-oFd"/>
                                                 </mask>
                                             </variation>
+                                            <connections>
+                                                <action selector="sliderValueChanged:" destination="-1" eventType="valueChanged" id="Eeq-Nf-tVb"/>
+                                            </connections>
                                         </slider>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8000L" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="cPa-Yg-j7q">
                                             <rect key="frame" x="540" y="339" width="50" height="21"/>

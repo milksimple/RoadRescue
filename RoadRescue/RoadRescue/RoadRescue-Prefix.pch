@@ -26,6 +26,9 @@
 
 #define JXUserDefaults [NSUserDefaults standardUserDefaults]
 
+// application
+#define JXApplication [UIApplication sharedApplication]
+
 #ifdef DEBUG // 处于开发阶段
 #define JXLog(...) NSLog(__VA_ARGS__)
 #else // 处于发布阶段
@@ -46,5 +49,6 @@
 // 屏幕高度
 #define JXScreenH [UIScreen mainScreen].bounds.size.height
 
+#define JXServerName @"http://10.255.1.12:8080/succor"
 
 #endif

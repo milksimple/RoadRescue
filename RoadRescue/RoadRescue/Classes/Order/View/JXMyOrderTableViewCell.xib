@@ -115,7 +115,7 @@
                                     <color key="titleColor" red="0.98039215690000003" green="0.72156862749999995" blue="0.35686274509999999" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B3J-dI-5U3">
+                            <button hidden="YES" opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B3J-dI-5U3">
                                 <rect key="frame" x="100" y="89" width="80" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="WYY-ID-cWc"/>
@@ -204,8 +204,17 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="addressButton" destination="jeO-Lo-jX2" id="Ie9-FD-8xs"/>
                 <outlet property="cellTopBgView" destination="L2u-lu-gZD" id="v6U-ra-dh8"/>
                 <outlet property="containerView" destination="Us2-s1-5Dr" id="sXy-ta-DLO"/>
+                <outlet property="fixRescueButton" destination="B3J-dI-5U3" id="pLa-8J-7Dw"/>
+                <outlet property="oilCountLabel" destination="aP7-nI-dAn" id="yek-yG-rgb"/>
+                <outlet property="oilNameLabel" destination="rCM-1D-u51" id="KfZ-1b-zOO"/>
+                <outlet property="oilRescueButton" destination="HCf-qt-PTt" id="N7h-ez-odP"/>
+                <outlet property="seeButton" destination="I9F-1D-YcP" id="c3h-ha-DEd"/>
+                <outlet property="timeLabel" destination="2le-Ci-rJ3" id="Mvl-hq-A9u"/>
+                <outlet property="titleLabel" destination="2pA-8R-Axh" id="nXr-di-im4"/>
+                <outlet property="totalPriceLabel" destination="yM9-RT-A2b" id="AyF-Vm-rqX"/>
                 <outlet property="translucentView" destination="M5A-WE-DIZ" id="Ie7-JI-4Mb"/>
                 <outlet property="waveBgView" destination="2Mt-DZ-UXn" id="6qk-LF-3kz"/>
             </connections>

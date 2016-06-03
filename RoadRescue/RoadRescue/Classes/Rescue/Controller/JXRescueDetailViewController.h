@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JXOrderDetail.h"
 
 @interface JXRescueDetailViewController : UIViewController
+
+- (instancetype)initWithOrderDetail:(JXOrderDetail *)orderDetail;
+
+@property (nonatomic, strong) JXOrderDetail *orderDetail;
 
 @end

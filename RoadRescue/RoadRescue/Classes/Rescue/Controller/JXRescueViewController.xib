@@ -9,11 +9,16 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="JXRescueViewController">
             <connections>
-                <outlet property="accidentDesView" destination="SkD-GV-8Q9" id="g7T-vn-ufu"/>
+                <outlet property="accidentDesView" destination="SkD-GV-8Q9" id="nHe-V7-o5v"/>
+                <outlet property="accidentypeField" destination="b7I-9E-2mB" id="aYr-Bt-aCP"/>
+                <outlet property="addressDesLabel" destination="wjY-RF-BaU" id="erD-CN-wyJ"/>
+                <outlet property="addressShortLabel" destination="p3D-ac-rlc" id="SCw-Eg-78u"/>
                 <outlet property="contentView" destination="VCB-bt-7ok" id="eA7-En-7Iv"/>
                 <outlet property="contentViewBottomConstraint" destination="fjI-RD-10Y" id="wUo-t2-dWv"/>
+                <outlet property="fixButton" destination="5kM-E3-gAl" id="9YQ-Mg-YGB"/>
                 <outlet property="nextButton" destination="ZVd-Dj-jei" id="04K-4t-yoM"/>
                 <outlet property="nextButtonTopConstraint" destination="5p6-TL-95d" id="vHv-k0-g5j"/>
+                <outlet property="oilButton" destination="dEy-Cb-PVb" id="00c-Ys-udu"/>
                 <outlet property="scrollView" destination="Hee-e9-DCE" id="fsp-gC-Tfu"/>
                 <outlet property="view" destination="iN0-l3-epB" id="jMR-M9-1g9"/>
             </connections>

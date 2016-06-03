@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "JXTabBarViewController.h"
 #import <IQKeyboardManager.h>
+#import "EMSDK.h"
 
 @interface AppDelegate ()
 
@@ -19,6 +20,17 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self setupIQKeyboardManager];
+    
+    // 初始化环信IM
+    [self setupEMIM];
+    
+    // 注册APNS
+    [self setupAPNSWithApplication:application];
+    
+    // badge置0
+    if (JXApplication.applicationIconBadgeNumber != 0) {
+        [JXApplication setApplicationIconBadgeNumber:0];
+    }
     
     self.window = [[UIWindow alloc] init];
     self.window.frame = [UIScreen mainScreen].bounds;
@@ -38,26 +50,62 @@
     keyboard.enable = YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+
+- (void)setupEMIM {
+    //AppKey:注册的AppKey，详细见下面注释。
+    //apnsCertName:推送证书名（不需要加后缀），详细见下面注释。
+    EMOptions *options = [EMOptions optionsWithAppkey:@"jimaoxin001#oil"];
+    options.apnsCertName = @"roadRescuePushDevelop";
+    [[EMClient sharedClient] initializeSDKWithOptions:options];
+    
+#warning 测试登录
+    BOOL isAutoLogin = [EMClient sharedClient].options.isAutoLogin;
+    if (!isAutoLogin) {
+        EMError *error = [[EMClient sharedClient] loginWithUsername:@"oil001" password:@"111111"];
+        if (!error) {
+            [[EMClient sharedClient].options setIsAutoLogin:YES];
+        }
+    }
+    
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+- (void)setupAPNSWithApplication:(UIApplication *)application {
+    //iOS8 注册APNS
+    if ([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
+        [application registerForRemoteNotifications];
+        UIUserNotificationType notificationTypes = UIUserNotificationTypeBadge |
+        UIUserNotificationTypeSound |
+        UIUserNotificationTypeAlert;
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:notificationTypes categories:nil];
+        [application registerUserNotificationSettings:settings];
+    }
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+// APP进入后台
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    [[EMClient sharedClient] applicationDidEnterBackground:application];
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+// APP将要从后台返回
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+    [[EMClient sharedClient] applicationWillEnterForeground:application];
+    
+    // badge置0
+    if (JXApplication.applicationIconBadgeNumber != 0) {
+        [JXApplication setApplicationIconBadgeNumber:0];
+    }
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+// 将得到的deviceToken传给SDK
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
+    [[EMClient sharedClient] bindDeviceToken:deviceToken];
+}
+
+// 注册deviceToken失败
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
+    JXLog(@"error -- %@",error);
 }
 
 @end

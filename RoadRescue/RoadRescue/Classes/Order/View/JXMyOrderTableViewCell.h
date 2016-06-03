@@ -7,12 +7,13 @@
 //  我的订单cell
 
 #import <UIKit/UIKit.h>
+@class JXOrder;
 
 @protocol JXMyOrderTableViewCellDelegate <NSObject>
 
 @optional
 #warning 测试 看后期接口怎么给
-- (void)myOrderTableViewCellDidClickedSeeButton;
+- (void)myOrderTableViewCellDidClickedSeeButtonWithOrderNum:(NSString *)orderNum;
 
 @end
 
@@ -21,5 +22,7 @@
 + (NSString *)reuseIdentifier;
 
 @property (nonatomic, weak) id<JXMyOrderTableViewCellDelegate> delegate;
+/** 订单模型 */
+@property (nonatomic, strong) JXOrder *order;
 
 @end
