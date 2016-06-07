@@ -8,7 +8,7 @@
 
 #import "JXMyOrderTableViewCell.h"
 #import "UIView+JXExtension.h"
-#import "JXOrder.h"
+#import "JXOrderDetail.h"
 
 @interface JXMyOrderTableViewCell()
 {
@@ -74,13 +74,13 @@
     self.translucentView.image = [JXSkinTool skinToolImageWithImageName:@"order_translucent_bg"];
 }
 
-- (void)setOrder:(JXOrder *)order {
-    _order = order;
+- (void)setOrderDetail:(JXOrderDetail *)orderDetail {
+    _orderDetail = orderDetail;
     
-    NSArray *orderList = order.itemList;
+    NSArray *orderList = orderDetail.itemList;
     JXRescueItem *rescueItem = orderList[0];
     
-    switch (order.itemTypes) {
+    switch (orderDetail.itemTypes) {
         case 1: // 油料
             _oilSelected = YES;
             _fixSelected = NO;
@@ -100,7 +100,7 @@
             break;
     }
     
-    switch (order.itemStatus) {
+    switch (orderDetail.itemStatus) {
         case 0: // 已下单
             _title = @"燃油耗尽";
             _time = nil;
@@ -110,7 +110,7 @@
             break;
             
         case 1: // 已接单
-            _title = [NSString stringWithFormat:@"%@ 正在执行中...", order.title];
+            _title = [NSString stringWithFormat:@"%@ 正在执行中...", orderDetail.title];
             _time = nil;
             _seeButtonTitle = @"查看";
             _topBgImgName = @"order_doing_bg";
@@ -124,7 +124,7 @@
             
         case 9: // 完成
             _title = @"燃油耗尽";
-            _time = order.title;
+            _time = orderDetail.title;
             _seeButtonTitle = @"评价";
             _topBgImgName = @"order_complete_bg";
             _seeBtnBgImgName = @"order_see_button_orange";
@@ -151,8 +151,8 @@
     }
     
     
-    [self.addressButton setTitle:order.addressDes forState:UIControlStateNormal];
-    self.totalPriceLabel.text = [NSString stringWithFormat:@"¥%f", order.totalPrice];
+    [self.addressButton setTitle:orderDetail.addressDes forState:UIControlStateNormal];
+    self.totalPriceLabel.text = [NSString stringWithFormat:@"¥%f", orderDetail.totalPrice];
     self.oilCountLabel.text = [NSString stringWithFormat:@"%zdL", rescueItem.itemCnt];
     
     self.oilRescueButton.selected = _oilSelected;
@@ -176,7 +176,7 @@
  */
 - (IBAction)seeButtonClicked {
     if ([self.delegate respondsToSelector:@selector(myOrderTableViewCellDidClickedSeeButtonWithOrderNum:)]) {
-        [self.delegate myOrderTableViewCellDidClickedSeeButtonWithOrderNum:self.order.orderNum];
+        [self.delegate myOrderTableViewCellDidClickedSeeButtonWithOrderNum:self.orderDetail.orderNum];
     }
 }
 

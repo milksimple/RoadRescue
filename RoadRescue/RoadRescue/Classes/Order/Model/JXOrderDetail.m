@@ -15,5 +15,6 @@
     return @{@"itemList":[JXRescueItem class]};
 }
 
-
 @end
+
+ 

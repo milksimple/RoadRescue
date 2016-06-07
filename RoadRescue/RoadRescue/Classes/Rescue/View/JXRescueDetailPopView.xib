@@ -294,6 +294,9 @@
                                     <integer key="value" value="5"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="confirmButtonClicked" destination="ard-UK-KU8" eventType="touchUpInside" id="FaW-d2-50Z"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.99215686274509807" green="0.40784313725490196" blue="0.027450980392156862" alpha="1" colorSpace="calibratedRGB"/>
@@ -301,11 +304,11 @@
                         <constraint firstItem="z3t-Lb-h8Y" firstAttribute="top" secondItem="EoY-bH-qu1" secondAttribute="top" id="02I-Ro-xeV"/>
                         <constraint firstAttribute="bottom" secondItem="Ms3-5c-BnU" secondAttribute="bottom" id="1Zd-F8-L85"/>
                         <constraint firstItem="YeN-nL-2D8" firstAttribute="width" secondItem="Ms3-5c-BnU" secondAttribute="width" multiplier="0.8" id="3ux-Pn-But"/>
-                        <constraint firstItem="jyL-zI-zoU" firstAttribute="top" secondItem="Sur-s8-moZ" secondAttribute="bottom" id="5WU-LJ-Cug"/>
                         <constraint firstAttribute="trailing" secondItem="Ms3-5c-BnU" secondAttribute="trailing" id="A5j-6j-6oc"/>
                         <constraint firstItem="ptc-9p-GnC" firstAttribute="leading" secondItem="Ms3-5c-BnU" secondAttribute="leading" constant="10" id="CRc-W0-Sin"/>
                         <constraint firstItem="ptc-9p-GnC" firstAttribute="top" secondItem="KRQ-o0-e2e" secondAttribute="bottom" constant="10" id="CSd-aa-vC0"/>
                         <constraint firstItem="KRQ-o0-e2e" firstAttribute="leading" secondItem="Ms3-5c-BnU" secondAttribute="leading" id="Dyy-Vc-zfV"/>
+                        <constraint firstItem="jyL-zI-zoU" firstAttribute="top" secondItem="PFa-hp-cEf" secondAttribute="bottom" constant="40" id="EWQ-iu-JFp"/>
                         <constraint firstAttribute="bottom" secondItem="YeN-nL-2D8" secondAttribute="bottom" constant="20" id="JDt-Uy-MxP"/>
                         <constraint firstItem="Sur-s8-moZ" firstAttribute="leading" secondItem="EoY-bH-qu1" secondAttribute="leading" constant="10" id="P2a-0x-3uk"/>
                         <constraint firstItem="Ms3-5c-BnU" firstAttribute="top" secondItem="z3t-Lb-h8Y" secondAttribute="bottom" id="TiY-pT-p3V"/>
@@ -319,10 +322,9 @@
                         <constraint firstItem="jyL-zI-zoU" firstAttribute="leading" secondItem="Sur-s8-moZ" secondAttribute="leading" id="d0Z-ws-96F"/>
                         <constraint firstItem="z3t-Lb-h8Y" firstAttribute="centerX" secondItem="EoY-bH-qu1" secondAttribute="centerX" id="dDI-zi-FP8"/>
                         <constraint firstAttribute="trailing" secondItem="Sur-s8-moZ" secondAttribute="trailing" constant="10" id="dlb-fG-0hT"/>
-                        <constraint firstItem="mkI-HV-NaR" firstAttribute="top" secondItem="jyL-zI-zoU" secondAttribute="bottom" constant="10" id="eng-yR-QFL"/>
                         <constraint firstItem="PFa-hp-cEf" firstAttribute="centerY" secondItem="ptc-9p-GnC" secondAttribute="centerY" id="gBc-H4-7Ic"/>
                         <constraint firstItem="KRQ-o0-e2e" firstAttribute="trailing" secondItem="Ms3-5c-BnU" secondAttribute="trailing" id="gfA-dM-8YO"/>
-                        <constraint firstItem="mkI-HV-NaR" firstAttribute="top" secondItem="Sur-s8-moZ" secondAttribute="bottom" constant="30" id="gmF-yi-BLm"/>
+                        <constraint firstItem="mkI-HV-NaR" firstAttribute="top" secondItem="PFa-hp-cEf" secondAttribute="bottom" constant="70" id="lhz-Db-fx8"/>
                         <constraint firstItem="mkI-HV-NaR" firstAttribute="leading" secondItem="jyL-zI-zoU" secondAttribute="leading" id="q25-fF-fa8"/>
                         <constraint firstItem="Sur-s8-moZ" firstAttribute="top" secondItem="PFa-hp-cEf" secondAttribute="bottom" constant="10" id="rTE-ee-aq5"/>
                     </constraints>
@@ -331,11 +333,6 @@
                             <integer key="value" value="10"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="eng-yR-QFL"/>
-                        </mask>
-                    </variation>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dMY-5y-dPL">
                     <rect key="frame" x="530" y="93" width="35" height="35"/>
@@ -367,11 +364,21 @@
                 </mask>
             </variation>
             <connections>
+                <outlet property="addressDesLabel" destination="zG1-cv-7FE" id="mZh-Ys-Qr0"/>
+                <outlet property="addressShortLabel" destination="SOG-mz-BNU" id="ypm-02-eoY"/>
                 <outlet property="closeButton" destination="dMY-5y-dPL" id="Scn-gL-LHQ"/>
+                <outlet property="fixButton" destination="PFa-hp-cEf" id="ars-kS-mff"/>
+                <outlet property="fixContainerConstraint" destination="EWQ-iu-JFp" id="0ng-7g-ORm"/>
                 <outlet property="fixItemContainer" destination="jyL-zI-zoU" id="fJb-bu-qje"/>
+                <outlet property="fixItemLabel" destination="Ryv-Of-Zrq" id="OQ9-kO-NiC"/>
+                <outlet property="oilButton" destination="ptc-9p-GnC" id="Aso-qa-9NB"/>
+                <outlet property="oilContainerConstraint" destination="rTE-ee-aq5" id="4ph-W2-Fit"/>
+                <outlet property="oilCountLabel" destination="SCn-Cw-pcj" id="Onx-2E-7a4"/>
                 <outlet property="oilItemContainer" destination="Sur-s8-moZ" id="uh2-rn-DDd"/>
+                <outlet property="oilNameLabel" destination="W8y-pn-mxa" id="Eei-lg-VhE"/>
+                <outlet property="totalPriceContainerConstraint" destination="lhz-Db-fx8" id="L9n-ff-TXV"/>
                 <outlet property="totalPriceItemContainer" destination="mkI-HV-NaR" id="2rq-Hy-wgw"/>
-                <outlet property="totalToOilContainerConstraint" destination="gmF-yi-BLm" id="5Uj-nV-NKY"/>
+                <outlet property="totalPriceLabel" destination="xAa-g0-SKs" id="NzY-jq-Kki"/>
             </connections>
             <point key="canvasLocation" x="278" y="308"/>
         </view>

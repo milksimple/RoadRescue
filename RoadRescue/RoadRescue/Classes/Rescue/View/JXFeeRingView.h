@@ -8,20 +8,27 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol JXFeeRingViewDelegate <NSObject>
+
+@optional
+- (void)feeRingViewDidClickedReloadButton;
+
+@end
+
 @interface JXFeeRingView : UIView
 
-+ (instancetype)feeRingViewWithTotalPrice:(NSInteger)totalPrice redBagFee:(NSInteger)redBagFee allowanceFee:(NSInteger)allowanceFee fareFee:(NSInteger)fareFee actuallyPay:(NSInteger)actuallyPay;
++ (instancetype)feeRingViewWithTotalPrice:(CGFloat)totalPrice redBagFee:(CGFloat)redBagFee allowanceFee:(CGFloat)allowanceFee fareFee:(CGFloat)fareFee actuallyPay:(CGFloat)actuallyPay;
 
 /** 红包返利 */
-@property (nonatomic, assign) NSInteger redBagFee;
+@property (nonatomic, assign) CGFloat redBagFee;
 /** 优惠补贴 */
-@property (nonatomic, assign) NSInteger allowanceFee;
+@property (nonatomic, assign) CGFloat allowanceFee;
 /** 运费 */
-@property (nonatomic, assign) NSInteger fareFee;
+@property (nonatomic, assign) CGFloat fareFee;
 /** 待付油款 */
-@property (nonatomic, assign) NSInteger actuallyPay;
+@property (nonatomic, assign) CGFloat actuallyPay;
 /** 总价 */
-@property (nonatomic, assign) NSInteger totalPrice;
+@property (nonatomic, assign) CGFloat totalPrice;
 
 - (void)redraw;
 
@@ -36,5 +43,11 @@
 @property (nonatomic, assign) CGFloat farePercentage;
 /** 实付占总额比 */
 @property (nonatomic, assign) CGFloat actuallyPaidPercentage;
+/** 提示 */
+@property (nonatomic, copy) NSString *tipStr;
+/** 加载油价数据是否成功 */
+@property (nonatomic, assign, getter=isLoadSuccess) BOOL loadSuccess;
+
+@property (nonatomic, weak) id<JXFeeRingViewDelegate> delegate;
 
 @end

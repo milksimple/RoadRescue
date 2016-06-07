@@ -18,5 +18,6 @@
 @property (nonatomic, assign) CGFloat jx_height;
 @property (nonatomic, assign) CGSize jx_size;
 @property (nonatomic, assign) CGPoint jx_origin;
+@property (nonatomic, assign) CGPoint jx_center;
 
 @end

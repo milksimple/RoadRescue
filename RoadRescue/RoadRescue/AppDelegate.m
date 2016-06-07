@@ -10,6 +10,7 @@
 #import "JXTabBarViewController.h"
 #import <IQKeyboardManager.h>
 #import "EMSDK.h"
+#import "SMS_SDK/SMSSDK.h"
 
 @interface AppDelegate ()
 
@@ -26,6 +27,9 @@
     
     // 注册APNS
     [self setupAPNSWithApplication:application];
+    
+    // 初始化SMSSDK
+    [SMSSDK registerApp:@"13a02edfba956" withSecret:@"7e7bd94a0bc0065dcb7b1c39fb20f976"];
     
     // badge置0
     if (JXApplication.applicationIconBadgeNumber != 0) {

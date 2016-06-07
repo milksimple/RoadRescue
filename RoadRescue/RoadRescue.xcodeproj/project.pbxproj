@@ -119,11 +119,21 @@
 		0497D0481CFE8554007E3E17 /* EaseRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0497CFE31CFE8554007E3E17 /* EaseRecordView.m */; };
 		0497D0491CFE8554007E3E17 /* EaseConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0497CFE61CFE8554007E3E17 /* EaseConversationCell.m */; };
 		0497D04A1CFE8554007E3E17 /* EaseUIResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0497CFE81CFE8554007E3E17 /* EaseUIResource.bundle */; };
+		04A10B871D0511B000CF9987 /* JXConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A10B861D0511B000CF9987 /* JXConst.m */; };
+		04B340E21D06A9F100D87E24 /* JXAccountTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B340E11D06A9F100D87E24 /* JXAccountTool.m */; };
+		04B340E51D06AA0000D87E24 /* JXAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B340E41D06AA0000D87E24 /* JXAccount.m */; };
+		04B340ED1D06AC1E00D87E24 /* JXLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B340EB1D06AC1E00D87E24 /* JXLoginViewController.m */; };
+		04B340EE1D06AC1E00D87E24 /* JXLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B340EC1D06AC1E00D87E24 /* JXLoginViewController.xib */; };
+		04B340F21D06AE3200D87E24 /* MOBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B340F01D06AE3200D87E24 /* MOBFoundation.framework */; };
+		04B340F31D06AE3200D87E24 /* SMS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B340F11D06AE3200D87E24 /* SMS_SDK.framework */; };
+		04B340F51D06B40000D87E24 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B340F41D06B40000D87E24 /* libicucore.tbd */; };
+		04B340F71D06B40800D87E24 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B340F61D06B40800D87E24 /* MessageUI.framework */; };
+		04B340F91D06B40F00D87E24 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B340F81D06B40F00D87E24 /* JavaScriptCore.framework */; };
+		04B340FB1D06B41A00D87E24 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B340FA1D06B41A00D87E24 /* libstdc++.tbd */; };
 		04BA22311CF4252C00513146 /* skin in Resources */ = {isa = PBXBuildFile; fileRef = 04BA22301CF4252C00513146 /* skin */; };
 		04BA22361CF54A5400513146 /* JXRescueDetailPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BA22351CF54A5400513146 /* JXRescueDetailPopView.m */; };
 		04BA22381CF54A6100513146 /* JXRescueDetailPopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BA22371CF54A6100513146 /* JXRescueDetailPopView.xib */; };
 		04BA227B1CF5810600513146 /* JXSkinTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BA227A1CF5810600513146 /* JXSkinTool.m */; };
-		04F2B5301D001C2B00120402 /* JXOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F2B52D1D001C2B00120402 /* JXOrder.m */; };
 		04F2B5311D001C2B00120402 /* JXRescueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F2B52F1D001C2B00120402 /* JXRescueItem.m */; };
 		04F2B5341D001C9F00120402 /* JXHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F2B5331D001C9F00120402 /* JXHttpTool.m */; };
 		04F2B5381D0031D700120402 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F2B5371D0031D700120402 /* NSArray+Log.m */; };
@@ -441,14 +451,27 @@
 		0497CFE51CFE8554007E3E17 /* EaseConversationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EaseConversationCell.h; sourceTree = "<group>"; };
 		0497CFE61CFE8554007E3E17 /* EaseConversationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EaseConversationCell.m; sourceTree = "<group>"; };
 		0497CFE81CFE8554007E3E17 /* EaseUIResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EaseUIResource.bundle; sourceTree = "<group>"; };
+		04A10B851D0511B000CF9987 /* JXConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXConst.h; sourceTree = "<group>"; };
+		04A10B861D0511B000CF9987 /* JXConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXConst.m; sourceTree = "<group>"; };
+		04B340E01D06A9F100D87E24 /* JXAccountTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXAccountTool.h; sourceTree = "<group>"; };
+		04B340E11D06A9F100D87E24 /* JXAccountTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXAccountTool.m; sourceTree = "<group>"; };
+		04B340E31D06AA0000D87E24 /* JXAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXAccount.h; sourceTree = "<group>"; };
+		04B340E41D06AA0000D87E24 /* JXAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXAccount.m; sourceTree = "<group>"; };
+		04B340EA1D06AC1E00D87E24 /* JXLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXLoginViewController.h; sourceTree = "<group>"; };
+		04B340EB1D06AC1E00D87E24 /* JXLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXLoginViewController.m; sourceTree = "<group>"; };
+		04B340EC1D06AC1E00D87E24 /* JXLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXLoginViewController.xib; sourceTree = "<group>"; };
+		04B340F01D06AE3200D87E24 /* MOBFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MOBFoundation.framework; sourceTree = "<group>"; };
+		04B340F11D06AE3200D87E24 /* SMS_SDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SMS_SDK.framework; sourceTree = "<group>"; };
+		04B340F41D06B40000D87E24 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		04B340F61D06B40800D87E24 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		04B340F81D06B40F00D87E24 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		04B340FA1D06B41A00D87E24 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		04BA22301CF4252C00513146 /* skin */ = {isa = PBXFileReference; lastKnownFileType = folder; path = skin; sourceTree = "<group>"; };
 		04BA22341CF54A5400513146 /* JXRescueDetailPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXRescueDetailPopView.h; sourceTree = "<group>"; };
 		04BA22351CF54A5400513146 /* JXRescueDetailPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXRescueDetailPopView.m; sourceTree = "<group>"; };
 		04BA22371CF54A6100513146 /* JXRescueDetailPopView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXRescueDetailPopView.xib; sourceTree = "<group>"; };
 		04BA22791CF5810600513146 /* JXSkinTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXSkinTool.h; sourceTree = "<group>"; };
 		04BA227A1CF5810600513146 /* JXSkinTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXSkinTool.m; sourceTree = "<group>"; };
-		04F2B52C1D001C2B00120402 /* JXOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXOrder.h; sourceTree = "<group>"; };
-		04F2B52D1D001C2B00120402 /* JXOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXOrder.m; sourceTree = "<group>"; };
 		04F2B52E1D001C2B00120402 /* JXRescueItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXRescueItem.h; sourceTree = "<group>"; };
 		04F2B52F1D001C2B00120402 /* JXRescueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXRescueItem.m; sourceTree = "<group>"; };
 		04F2B5321D001C9F00120402 /* JXHttpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXHttpTool.h; sourceTree = "<group>"; };
@@ -521,12 +544,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04B340FB1D06B41A00D87E24 /* libstdc++.tbd in Frameworks */,
+				04B340F91D06B40F00D87E24 /* JavaScriptCore.framework in Frameworks */,
+				04B340F71D06B40800D87E24 /* MessageUI.framework in Frameworks */,
+				04B340F51D06B40000D87E24 /* libicucore.tbd in Frameworks */,
+				0497CD001CFC24C4007E3E17 /* libz.tbd in Frameworks */,
+				04B340F31D06AE3200D87E24 /* SMS_SDK.framework in Frameworks */,
 				0497CD061CFC24FB007E3E17 /* libiconv.tbd in Frameworks */,
 				0497CFF41CFE8554007E3E17 /* libopencore-amrnb.a in Frameworks */,
 				0497CD041CFC24EE007E3E17 /* libsqlite3.tbd in Frameworks */,
 				0497CD021CFC24E2007E3E17 /* libstdc++.6.0.9.tbd in Frameworks */,
-				0497CD001CFC24C4007E3E17 /* libz.tbd in Frameworks */,
 				0497CCFE1CFC24B8007E3E17 /* libc++.tbd in Frameworks */,
+				04B340F21D06AE3200D87E24 /* MOBFoundation.framework in Frameworks */,
 				0497CCFC1CFC24A9007E3E17 /* ImageIO.framework in Frameworks */,
 				0497CCFA1CFC2499007E3E17 /* MobileCoreServices.framework in Frameworks */,
 				0497CCF81CFC248F007E3E17 /* AVFoundation.framework in Frameworks */,
@@ -1169,6 +1198,49 @@
 			path = resources;
 			sourceTree = "<group>";
 		};
+		04B340E61D06AC0600D87E24 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				04B340E71D06AC0600D87E24 /* Controller */,
+				04B340E81D06AC0600D87E24 /* Model */,
+				04B340E91D06AC0600D87E24 /* View */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		04B340E71D06AC0600D87E24 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				04B340EA1D06AC1E00D87E24 /* JXLoginViewController.h */,
+				04B340EB1D06AC1E00D87E24 /* JXLoginViewController.m */,
+				04B340EC1D06AC1E00D87E24 /* JXLoginViewController.xib */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		04B340E81D06AC0600D87E24 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		04B340E91D06AC0600D87E24 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		04B340EF1D06AE3200D87E24 /* SMS_SDK */ = {
+			isa = PBXGroup;
+			children = (
+				04B340F01D06AE3200D87E24 /* MOBFoundation.framework */,
+				04B340F11D06AE3200D87E24 /* SMS_SDK.framework */,
+			);
+			path = SMS_SDK;
+			sourceTree = "<group>";
+		};
 		04F2B5351D0031D700120402 /* Log */ = {
 			isa = PBXGroup;
 			children = (
@@ -1253,6 +1325,7 @@
 		04F54A571CED54960095DA09 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				04B340E61D06AC0600D87E24 /* Login */,
 				04F54A581CED54960095DA09 /* Main */,
 				04F54A5E1CED54960095DA09 /* Order */,
 				04F54A621CED54960095DA09 /* Profile */,
@@ -1299,6 +1372,8 @@
 		04F54A5B1CED54960095DA09 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				04B340E31D06AA0000D87E24 /* JXAccount.h */,
+				04B340E41D06AA0000D87E24 /* JXAccount.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1306,6 +1381,7 @@
 		04F54A5C1CED54960095DA09 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
+				04B340EF1D06AE3200D87E24 /* SMS_SDK */,
 				0497CEED1CFE8554007E3E17 /* EaseUI */,
 				0497CCC11CFC2422007E3E17 /* HyphenateSDK */,
 			);
@@ -1348,8 +1424,6 @@
 		04F54A601CED54960095DA09 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				04F2B52C1D001C2B00120402 /* JXOrder.h */,
-				04F2B52D1D001C2B00120402 /* JXOrder.m */,
 				04F2B52E1D001C2B00120402 /* JXRescueItem.h */,
 				04F2B52F1D001C2B00120402 /* JXRescueItem.m */,
 				04F2B53E1D01270300120402 /* JXAnnotation.h */,
@@ -1456,6 +1530,8 @@
 			children = (
 				04F54A271CED53920095DA09 /* AppDelegate.h */,
 				04F54A281CED53920095DA09 /* AppDelegate.m */,
+				04A10B851D0511B000CF9987 /* JXConst.h */,
+				04A10B861D0511B000CF9987 /* JXConst.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -1481,6 +1557,8 @@
 		04F54AA41CF3FDDC0095DA09 /* Toos */ = {
 			isa = PBXGroup;
 			children = (
+				04B340E01D06A9F100D87E24 /* JXAccountTool.h */,
+				04B340E11D06A9F100D87E24 /* JXAccountTool.m */,
 				04F2B5321D001C9F00120402 /* JXHttpTool.h */,
 				04F2B5331D001C9F00120402 /* JXHttpTool.m */,
 				04BA22791CF5810600513146 /* JXSkinTool.h */,
@@ -1492,6 +1570,10 @@
 		940DAC9273D1A5355ADA0330 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				04B340FA1D06B41A00D87E24 /* libstdc++.tbd */,
+				04B340F81D06B40F00D87E24 /* JavaScriptCore.framework */,
+				04B340F61D06B40800D87E24 /* MessageUI.framework */,
+				04B340F41D06B40000D87E24 /* libicucore.tbd */,
 				0497CD051CFC24FB007E3E17 /* libiconv.tbd */,
 				0497CD031CFC24EE007E3E17 /* libsqlite3.tbd */,
 				0497CD011CFC24E2007E3E17 /* libstdc++.6.0.9.tbd */,
@@ -1624,6 +1706,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04B340EE1D06AC1E00D87E24 /* JXLoginViewController.xib in Resources */,
 				04BA22381CF54A6100513146 /* JXRescueDetailPopView.xib in Resources */,
 				0497D04A1CFE8554007E3E17 /* EaseUIResource.bundle in Resources */,
 				04F54A861CED642F0095DA09 /* JXMyOrderTableViewCell.xib in Resources */,
@@ -1722,6 +1805,7 @@
 				0497D00F1CFE8554007E3E17 /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				0497D03A1CFE8554007E3E17 /* EaseBubbleView+Gif.m in Sources */,
 				0497CFFF1CFE8554007E3E17 /* EMSDImageCache.m in Sources */,
+				04B340ED1D06AC1E00D87E24 /* JXLoginViewController.m in Sources */,
 				0497D0071CFE8554007E3E17 /* NSData+EMImageContentType.m in Sources */,
 				0497D0291CFE8554007E3E17 /* EaseEmoji.m in Sources */,
 				0497D0001CFE8554007E3E17 /* EMSDWebImageCompat.m in Sources */,
@@ -1730,8 +1814,10 @@
 				0497CFF91CFE8554007E3E17 /* MWPhoto.m in Sources */,
 				0497D0371CFE8554007E3E17 /* EaseMessageCell.m in Sources */,
 				0497D0081CFE8554007E3E17 /* UIButton+EMWebCache.m in Sources */,
+				04B340E21D06A9F100D87E24 /* JXAccountTool.m in Sources */,
 				0497D0171CFE8554007E3E17 /* PSTCollectionViewUpdateItem.m in Sources */,
 				04F2B5311D001C2B00120402 /* JXRescueItem.m in Sources */,
+				04B340E51D06AA0000D87E24 /* JXAccount.m in Sources */,
 				0497D0111CFE8554007E3E17 /* PSTCollectionViewCell.m in Sources */,
 				0497D02B1CFE8554007E3E17 /* EaseEmotionEscape.m in Sources */,
 				0497D01B1CFE8554007E3E17 /* PSTGridLayoutSection.m in Sources */,
@@ -1766,7 +1852,6 @@
 				0497D0271CFE8554007E3E17 /* EaseConvertToCommonEmoticonsHelper.m in Sources */,
 				04F54AA31CEEFECC0095DA09 /* JXFeeRingView.m in Sources */,
 				0497CFED1CFE8554007E3E17 /* EMCDDeviceManager+Microphone.m in Sources */,
-				04F2B5301D001C2B00120402 /* JXOrder.m in Sources */,
 				04F2B5381D0031D700120402 /* NSArray+Log.m in Sources */,
 				0497CFEE1CFE8554007E3E17 /* EMCDDeviceManager+ProximitySensor.m in Sources */,
 				0497D0031CFE8554007E3E17 /* EMSDWebImageDownloaderOperation.m in Sources */,
@@ -1813,6 +1898,7 @@
 				04F54A6E1CED56930095DA09 /* JXTabBar.m in Sources */,
 				0497CFF81CFE8554007E3E17 /* MWGridViewController.m in Sources */,
 				0497D0401CFE8554007E3E17 /* EaseBubbleView.m in Sources */,
+				04A10B871D0511B000CF9987 /* JXConst.m in Sources */,
 				0497D0181CFE8554007E3E17 /* PSTGridLayoutInfo.m in Sources */,
 				0497D0151CFE8554007E3E17 /* PSTCollectionViewItemKey.m in Sources */,
 				0497CFF21CFE8554007E3E17 /* wav.mm in Sources */,
@@ -1964,6 +2050,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: 盼盼 张 (KR55YNEC3V)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 盼盼 张 (KR55YNEC3V)";
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/RoadRescue/Classes/Main/SDK/SMS_SDK",
+				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/RoadRescue/RoadRescue-Prefix.pch";
 				INFOPLIST_FILE = RoadRescue/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1989,6 +2079,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: 盼盼 张 (KR55YNEC3V)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 盼盼 张 (KR55YNEC3V)";
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/RoadRescue/Classes/Main/SDK/SMS_SDK",
+				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/RoadRescue/RoadRescue-Prefix.pch";
 				INFOPLIST_FILE = RoadRescue/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

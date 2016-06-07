@@ -48,4 +48,5 @@
 @property (nonatomic, assign) NSInteger rescueIndex;
 /** 事故描述 */
 @property (nonatomic, copy) NSString *accidentDes;
+
 @end

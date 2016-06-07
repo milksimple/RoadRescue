@@ -12,6 +12,8 @@
 #import "JXOrderManageViewController.h"
 #import "JXProfileViewController.h"
 #import "JXRescueViewController.h"
+#import "JXAccountTool.h"
+#import "JXLoginViewController.h"
 
 @interface JXTabBarViewController () <JXTabBarDelegate>
 
@@ -48,11 +50,23 @@
 
 #pragma mark - JXTabBarDelegate
 - (void)tabBarDidClickedRescueButton:(JXTabBar *)tabBar {
-    JXRescueViewController *rescueVC = [[JXRescueViewController alloc] init];
-    JXNavigationController *nav = [[JXNavigationController alloc] initWithRootViewController:rescueVC];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self presentViewController:nav animated:YES completion:nil];
-    });
+    JXAccount *account = [JXAccountTool account];
+    if (account.telephone.length > 0 && account.token.length > 0) {
+        JXRescueViewController *rescueVC = [[JXRescueViewController alloc] init];
+        JXNavigationController *nav = [[JXNavigationController alloc] initWithRootViewController:rescueVC];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:nav animated:YES completion:nil];
+        });
+    }
+    else {
+        JXLoginViewController *loginVC = [[JXLoginViewController alloc] init];
+        JXNavigationController *nav = [[JXNavigationController alloc] initWithRootViewController:loginVC];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:nav animated:YES completion:nil];
+        });
+    }
+    
+    
 //    [self presentViewController:nav animated:YES completion:nil];
 }
 

@@ -50,6 +50,8 @@
 
 @property (nonatomic, weak) UILabel *totalPriceLabel;
 
+@property (nonatomic, strong) UIButton *tipButton;
+
 @end
 
 @implementation JXFeeRingView
@@ -69,6 +71,29 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     return self;
 }
 
+#pragma mark - lazy
+- (UIButton *)tipButton {
+    if (_tipButton == nil) {
+        _tipButton = [[UIButton alloc] init];
+        _tipButton.userInteractionEnabled = NO;
+        [_tipButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        _tipButton.layer.borderColor = [UIColor grayColor].CGColor;
+        _tipButton.layer.cornerRadius = 5;
+        _tipButton.titleLabel.font = [UIFont systemFontOfSize:15];
+        [_tipButton addTarget:self action:@selector(tipButtonDidClicked:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _tipButton;
+}
+
+- (void)tipButtonDidClicked:(UIButton *)tipButton {
+    [tipButton removeFromSuperview];
+    
+    // 通知代理
+    if ([self.delegate respondsToSelector:@selector(feeRingViewDidClickedReloadButton)]) {
+        [self.delegate feeRingViewDidClickedReloadButton];
+    }
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     
@@ -77,7 +102,7 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     self.ringCenter = CGPointMake(hoMargin + circleW*0.5 + radius, self.jx_height*0.5);
 }
 
-+ (instancetype)feeRingViewWithTotalPrice:(NSInteger)totalPrice redBagFee:(NSInteger)redBagFee allowanceFee:(NSInteger)allowanceFee fareFee:(NSInteger)fareFee actuallyPay:(NSInteger)actuallyPay {
++ (instancetype)feeRingViewWithTotalPrice:(CGFloat)totalPrice redBagFee:(CGFloat)redBagFee allowanceFee:(CGFloat)allowanceFee fareFee:(CGFloat)fareFee actuallyPay:(CGFloat)actuallyPay {
     JXFeeRingView *feeRingView = [[JXFeeRingView alloc] init];
     feeRingView.totalPrice = totalPrice;
     feeRingView.redBagFee = redBagFee;
@@ -94,7 +119,7 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     totalPriceLabel.font = [UIFont systemFontOfSize:20];
     totalPriceLabel.textAlignment = NSTextAlignmentCenter;
     totalPriceLabel.numberOfLines = 0;
-    totalPriceLabel.text = [NSString stringWithFormat:@"总价\n¥%zd", self.totalPrice];
+    totalPriceLabel.text = [NSString stringWithFormat:@"总价\n¥%.2f", self.totalPrice];
     [self addSubview:totalPriceLabel];
     self.totalPriceLabel = totalPriceLabel;
     
@@ -113,7 +138,7 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     redPayLabel.text = @"-¥50";
     [self addSubview:redPayLabel];
     self.redPayLabel = redPayLabel;
-    self.redPayLabel.text = [NSString stringWithFormat:@"-¥%zd", self.redBagFee];
+    self.redPayLabel.text = [NSString stringWithFormat:@"-¥%.2f", self.redBagFee];
     
     UIView *redSeparator = [[UIView alloc] init];
     redSeparator.backgroundColor = JXRingRedColor;
@@ -136,7 +161,7 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     bluePayLabel.text = @"-¥635";
     [self addSubview:bluePayLabel];
     self.bluePayLabel = bluePayLabel;
-    self.bluePayLabel.text = [NSString stringWithFormat:@"-¥%zd", self.allowanceFee];
+    self.bluePayLabel.text = [NSString stringWithFormat:@"-¥%.2f", self.allowanceFee];
     
     UIView *blueSeparator = [[UIView alloc] init];
     blueSeparator.backgroundColor = JXRingBlueColor;
@@ -158,7 +183,7 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     greenPayLabel.text = @"¥50";
     [self addSubview:greenPayLabel];
     self.greenPayLabel = greenPayLabel;
-    self.greenPayLabel.text = [NSString stringWithFormat:@"¥%zd", self.fareFee];
+    self.greenPayLabel.text = [NSString stringWithFormat:@"¥%.2f", self.fareFee];
     
     UIView *greenSeparator = [[UIView alloc] init];
     greenSeparator.backgroundColor = JXRingGreenColor;
@@ -177,10 +202,15 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     orangePayLabel.textColor = JXRingOrangeColor;
     orangePayLabel.adjustsFontSizeToFitWidth = YES;
     orangePayLabel.font = JXPayLabelFont;
-    orangePayLabel.text = @"¥200000";
     [self addSubview:orangePayLabel];
     self.orangePayLabel = orangePayLabel;
-    self.orangePayLabel.text = [NSString stringWithFormat:@"¥%zd", self.actuallyPay];
+    if (self.freeFare) { // 免运费
+        self.orangePayLabel.text = [NSString stringWithFormat:@"¥%.2f", self.actuallyPay];
+    }
+    else { // 不免运费
+        self.orangePayLabel.text = [NSString stringWithFormat:@"¥%.2f", self.actuallyPay + self.fareFee];
+    }
+    
     
     UIView *orangeSeparator = [[UIView alloc] init];
     orangeSeparator.backgroundColor = JXRingOrangeColor;
@@ -191,6 +221,10 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    
+    // 提示按钮
+    self.tipButton.jx_size = CGSizeMake(300, 40);
+    self.tipButton.center = self.center;
     
     // 总价
     CGRect totalPriceLabelRect = CGRectMake(self.ringCenter.x - radius + circleW, self.ringCenter.y - radius + circleW, (radius - circleW)*2, (radius - circleW)*2);
@@ -288,14 +322,37 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     [self setNeedsDisplay];
 }
 
+- (void)setTipStr:(NSString *)tipStr {
+    _tipStr = tipStr;
+    
+    [self.tipButton setTitle:tipStr forState:UIControlStateNormal];
+}
+
+- (void)setLoadSuccess:(BOOL)loadSuccess {
+    _loadSuccess = loadSuccess;
+    
+    if (loadSuccess) {
+        [self.tipButton setTitle:@"请拖动滑竿选择油料总量" forState:UIControlStateNormal];
+        self.tipButton.userInteractionEnabled = NO;
+        self.tipButton.layer.borderWidth = 0;
+    }
+    else {
+        [self.tipButton setTitle:@"获取今日油价失败，点击重新获取" forState:UIControlStateNormal];
+        self.tipButton.userInteractionEnabled = YES;
+        self.tipButton.layer.borderWidth = 1;
+    }
+    
+    [self setNeedsDisplay];
+}
+
 /** 总价 */
-- (void)setTotalPrice:(NSInteger)totalPrice {
+- (void)setTotalPrice:(CGFloat)totalPrice {
     _totalPrice = totalPrice;
     
 }
 
 /** 红包返利 */
-- (void)setRedBagFee:(NSInteger)redBagFee {
+- (void)setRedBagFee:(CGFloat)redBagFee {
     _redBagFee = redBagFee;
     
     if (self.totalPrice == 0) return;
@@ -303,7 +360,7 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
 }
 
 /** 优惠补贴 */
-- (void)setAllowanceFee:(NSInteger)allowanceFee {
+- (void)setAllowanceFee:(CGFloat)allowanceFee {
     _allowanceFee = allowanceFee;
     
     if (self.totalPrice == 0) return;
@@ -311,7 +368,7 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
 }
 
 /** 运费 */
-- (void)setFareFee:(NSInteger)fareFee {
+- (void)setFareFee:(CGFloat)fareFee {
     _fareFee = fareFee;
     
     if (self.totalPrice == 0) return;
@@ -319,7 +376,7 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
 }
 
 /** 待付油款 */
-- (void)setActuallyPay:(NSInteger)actuallyPay {
+- (void)setActuallyPay:(CGFloat)actuallyPay {
     _actuallyPay = actuallyPay;
     
     if (self.totalPrice == 0) return;
@@ -361,15 +418,14 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
 }
 
 - (void)drawRect:(CGRect)rect {
-    // 获得当前上下文
-    CGContextRef ctx =UIGraphicsGetCurrentContext();
-    
-    if (self.totalPrice == 0) { // 画出提示
-        NSString *tipStr = @"请稍后...";
-        [tipStr drawInRect:CGRectMake(self.jx_centerX - 30, self.jx_centerY - 10, 60, 20) withAttributes:@{NSFontAttributeName:JXPayLabelFont}];
+    if (self.totalPrice == 0) {
+        [self addSubview:self.tipButton];
         
         return;
     }
+    
+    // 获得当前上下文
+    CGContextRef ctx =UIGraphicsGetCurrentContext();
     
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self setup];

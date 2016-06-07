@@ -14,8 +14,11 @@
 #import "EMSDK.h"
 #import "JXHttpTool.h"
 #import <MJExtension.h>
+#import "JXConst.h"
+#import "MBProgressHUD+MJ.h"
+#import <MBProgressHUD.h>
 
-@interface JXRescueDetailViewController () <UIPickerViewDataSource, UIPickerViewDelegate, UIScrollViewDelegate>
+@interface JXRescueDetailViewController () <UIPickerViewDataSource, UIPickerViewDelegate, UIScrollViewDelegate, JXRescueDetailPopViewDelegate, JXFeeRingViewDelegate>
 @property (weak, nonatomic) IBOutlet JXFeeRingView *feeRingView;
 @property (weak, nonatomic) IBOutlet UIPickerView *oilPickerView;
 @property (weak, nonatomic) IBOutlet UIImageView *staffView;
@@ -26,6 +29,7 @@
 @property (nonatomic, strong) NSMutableArray *itemList;
 /** 救援项目 */
 @property (nonatomic, strong) JXRescueItem *rescueItem;
+@property (weak, nonatomic) IBOutlet UIView *corverView;
 
 @end
 
@@ -59,12 +63,8 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"救援明细选择";
-    
-//    self.feeRingView.totalPrice = 2600;
-//    self.feeRingView.redBagPercentage = 0.1;
-//    self.feeRingView.allowancePercentage = 0.2;
-//    self.feeRingView.fareFee = 0.05;
-//    self.feeRingView.actuallyPaidPercentage = 0.65;
+    self.feeRingView.delegate = self;
+
     // 标尺图片
     UIImage *staffImg = [JXSkinTool skinToolImageWithImageName:@"rescue_staff"];
 //    UIImage *resizableStaffImg = [staffImg resizableImageWithCapInsets:UIEdgeInsetsZero resizingMode:UIImageResizingModeTile];
@@ -83,36 +83,67 @@
     
     [self.slider setThumbImage:[JXSkinTool skinToolImageWithImageName:@"rescue_slider_thumb"] forState:UIControlStateNormal];
     
+    // 请求今日油价
+    [self loadOilPrice];
+}
+
+- (void)loadOilPrice {
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@"正在获取今日油价" toView:self.feeRingView];
+    hud.dimBackground = NO;
+    hud.color = [UIColor whiteColor];
+    hud.activityIndicatorColor = [UIColor grayColor];
+    hud.labelColor = [UIColor grayColor];
+    
+    NSMutableDictionary *paras = [NSMutableDictionary dictionary];
+#warning 测试，还没有公式，仅测下接口
+    paras[@"moblie"] = @"13888650223";
+    paras[@"token"] = @"7F9D459A";
+    paras[@"itemType"] = @(self.orderDetail.itemTypes);
+    JXLog(@"loadOilPrice - paras = %@", paras);
+    [JXHttpTool post:[NSString stringWithFormat:@"%@/order/orderFee", JXServerName] params:paras success:^(id json) {
+        JXLog(@"请求成功 - %@", json);
+        [MBProgressHUD hideHUDForView:self.feeRingView];
+        self.feeRingView.loadSuccess = YES;
+        self.corverView.userInteractionEnabled = NO;
+        
+    } failure:^(NSError *error) {
+        JXLog(@"请求失败 - %@", error);
+        [MBProgressHUD hideHUDForView:self.feeRingView];
+        
+        self.feeRingView.loadSuccess = NO;
+    }];
 }
 
 - (IBAction)upButtonClicked:(UIButton *)upButton {
     NSInteger selectedRow = [self.oilPickerView selectedRowInComponent:0] - 1;
-    if (selectedRow == 0) {
-        upButton.enabled = NO;
-    }
-    else {
-        upButton.enabled = YES;
-    }
-    if (selectedRow != 3) {
-        self.downButton.enabled = YES;
-    }
+//    if (selectedRow == 0) {
+//        upButton.enabled = NO;
+//    }
+//    else {
+//        upButton.enabled = YES;
+//    }
+//    if (selectedRow != 3) {
+//        self.downButton.enabled = YES;
+//    }
 
     [self.oilPickerView selectRow:selectedRow inComponent:0 animated:YES];
+    [self pickerView:self.oilPickerView didSelectRow:selectedRow inComponent:0];
 }
 
 - (IBAction)downButtonClicked:(UIButton *)downButton {
     NSInteger selectedRow = [self.oilPickerView selectedRowInComponent:0] + 1;
-    if (selectedRow == 3) {
-        downButton.enabled = NO;
-    }
-    else {
-        downButton.enabled = YES;
-    }
-    if (selectedRow != 0) {
-        self.upButton.enabled = YES;
-    }
+//    if (selectedRow == 3) {
+//        downButton.enabled = NO;
+//    }
+//    else {
+//        downButton.enabled = YES;
+//    }
+//    if (selectedRow != 0) {
+//        self.upButton.enabled = YES;
+//    }
 
     [self.oilPickerView selectRow:selectedRow inComponent:0 animated:YES];
+    [self pickerView:self.oilPickerView didSelectRow:selectedRow inComponent:0];
 }
 
 /*
@@ -136,12 +167,18 @@
     NSInteger itemCnt = (NSInteger)(slider.value);
     self.rescueItem.itemCnt = itemCnt;
     
-    CGFloat totalPrice = 5.57 * itemCnt;
+    CGFloat fareFee = 50;
+    CGFloat totalPrice = 5.57 * itemCnt + fareFee;
     CGFloat redBagFee = totalPrice * 0.1;
     CGFloat allowanceFee = totalPrice * 0.15;
-    CGFloat fareFee = 50;
-    CGFloat actuallyPay = totalPrice - redBagFee - allowanceFee + fareFee;
+    CGFloat actuallyPay = totalPrice - redBagFee - allowanceFee - fareFee;
     
+    if (itemCnt >= 10) {
+        self.feeRingView.freeFare = YES;
+    }
+    else {
+        self.feeRingView.freeFare = NO;
+    }
     self.feeRingView.totalPrice = totalPrice;
     self.feeRingView.redBagFee = redBagFee;
     self.feeRingView.allowanceFee = allowanceFee;
@@ -156,55 +193,17 @@
 }
 
 - (IBAction)rescueRequestButtonClicked {
-    JXLog(@"self.orderDetail = %@", self.orderDetail);
     self.orderDetail.itemList = self.itemList;
-    // 发送请求
-    NSMutableDictionary *paras = [NSMutableDictionary dictionary];
-    paras[@"moblie"] = @"13888650223";
-    paras[@"token"] = @"7F9D459A";
-    NSDictionary *orderDic = [self.orderDetail mj_keyValues];
-    NSData *orderData = [NSJSONSerialization dataWithJSONObject:orderDic options:0 error:nil];
-    NSString *orderStr = [[NSString alloc] initWithData:orderData encoding:NSUTF8StringEncoding];
-    paras[@"order"] = orderStr;
-    JXLog(@"orderStr = %@", orderStr);
     
-    [JXHttpTool post:[NSString stringWithFormat:@"%@/order/addOrder", JXServerName] params:paras success:^(id json) {
-        JXLog(@"请求成功 - %@", json);
-    } failure:^(NSError *error) {
-        JXLog(@"请求失败 - %@", error);
-    }];
+    JXRescueItem *item = self.itemList[0];
+    JXLog(@"item.itemClass= %zd", item.itemClass);
+    JXLog(@"self.itemClass = %zd", self.rescueItem.itemClass);
     
     JXRescueDetailPopView *rescueDetailPopView = [JXRescueDetailPopView popView];
+    rescueDetailPopView.orderDetail = self.orderDetail;
+    rescueDetailPopView.delegate = self;
     [rescueDetailPopView show];
     
-#warning 测试
-    // 发送透传消息
-//    EMCmdMessageBody *body = [[EMCmdMessageBody alloc] initWithAction:@"下单"];
-//    NSString *from = [[EMClient sharedClient] currentUsername];
-//    
-//    // 生成message
-//    EMMessage *message = [[EMMessage alloc] initWithConversationID:@"6001" from:from to:@"oiler001" body:body ext:nil];
-//    message.chatType = EMChatTypeChat; // 设置为单聊消息
-//    
-//    [[EMClient sharedClient].chatManager asyncSendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
-//        if (!error) { // 发送成功
-//            JXLog(@"用户发送消息成功 == 下单成功");
-//        }
-//    }];
-    
-    // 发送文本消息
-    EMTextMessageBody *body = [[EMTextMessageBody alloc] initWithText:@"下单"];
-    NSString *from = [[EMClient sharedClient] currentUsername];
-    
-    //生成Message
-    EMMessage *message = [[EMMessage alloc] initWithConversationID:@"oiler001" from:from to:@"oiler001" body:body ext:nil];
-    message.chatType = EMChatTypeChat;
-    
-    [[EMClient sharedClient].chatManager asyncSendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
-        if (!error) { // 发送成功
-            JXLog(@"用户发送消息成功 == 下单成功");
-        }
-    }];
 }
 
 #pragma mark - UIPickerViewDataSource
@@ -253,6 +252,7 @@
     switch (row) {
         case 0:
             self.rescueItem.itemClass = 0;
+            // 可能要在此处切换油价，重新计算费用
             break;
             
         case 1:
@@ -261,6 +261,7 @@
             
         case 2:
             self.rescueItem.itemClass = 97;
+            
             break;
             
         default:
@@ -279,6 +280,85 @@
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.view endEditing:YES];
+}
+
+#pragma mark - JXRescueDetailPopViewDelegate
+- (void)rescueDetailPopViewDidClickedConfirmButton {
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@"正在提交订单"];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    
+    // 发送请求
+    NSMutableDictionary *paras = [NSMutableDictionary dictionary];
+#warning 测试
+    paras[@"moblie"] = @"13888650223";
+    paras[@"token"] = @"7F9D459A";
+    NSDictionary *orderDic = [self.orderDetail mj_keyValues];
+    NSData *orderData = [NSJSONSerialization dataWithJSONObject:orderDic options:0 error:nil];
+    NSString *orderStr = [[NSString alloc] initWithData:orderData encoding:NSUTF8StringEncoding];
+    paras[@"order"] = orderStr;
+    
+    [JXHttpTool post:[NSString stringWithFormat:@"%@/order/addOrder", JXServerName] params:paras success:^(id json) {
+        [MBProgressHUD hideHUD];
+        JXLog(@"提交订单请求成功 - %@", json);
+        
+        BOOL success = [json[@"success"] boolValue];
+        if (success) {
+            [MBProgressHUD showSuccess:@"提交订单成功!"];
+            [self dismissViewControllerAnimated:YES completion:^{
+                // 1.发送通知，下订单成功
+                // 赋值订单号
+                self.orderDetail.orderNum = json[@"data"][@"orderNum"];
+                [JXNotificationCenter postNotificationName:JXPlaceAnOrderNotification object:nil userInfo:@{JXNewOrderDetailKey:self.orderDetail}];
+                
+                
+                // 2. 发送消息，通知救援队
+#warning 测试
+                // 发送透传消息
+                //    EMCmdMessageBody *body = [[EMCmdMessageBody alloc] initWithAction:@"下单"];
+                //    NSString *from = [[EMClient sharedClient] currentUsername];
+                //
+                //    // 生成message
+                //    EMMessage *message = [[EMMessage alloc] initWithConversationID:@"6001" from:from to:@"oiler001" body:body ext:nil];
+                //    message.chatType = EMChatTypeChat; // 设置为单聊消息
+                //
+                //    [[EMClient sharedClient].chatManager asyncSendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
+                //        if (!error) { // 发送成功
+                //            JXLog(@"用户发送消息成功 == 下单成功");
+                //        }
+                //    }];
+                
+                // 发送文本消息
+                EMTextMessageBody *body = [[EMTextMessageBody alloc] initWithText:@"下单"];
+                NSString *from = [[EMClient sharedClient] currentUsername];
+                
+                //生成Message
+                EMMessage *message = [[EMMessage alloc] initWithConversationID:@"oiler001" from:from to:@"oiler001" body:body ext:nil];
+                message.chatType = EMChatTypeChat;
+                
+                [[EMClient sharedClient].chatManager asyncSendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
+                    if (!error) { // 发送成功
+                        JXLog(@"用户发送消息成功 == 下单成功");
+                    }
+                }];
+
+            }];
+        }
+    } failure:^(NSError *error) {
+        JXLog(@"请求失败 - %@", error);
+        [MBProgressHUD hideHUD];
+
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"订单提交失败" message:@"请检查网络后重新提交订单" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cfmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+        [alertVC addAction:cfmAction];
+        [self presentViewController:alertVC animated:YES completion:nil];
+        
+    }];
+
+}
+
+#pragma mark - JXFeeRingViewDelegate
+- (void)feeRingViewDidClickedReloadButton {
+    [self loadOilPrice];
 }
 
 @end

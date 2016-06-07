@@ -7,7 +7,7 @@
 //  我的订单cell
 
 #import <UIKit/UIKit.h>
-@class JXOrder;
+@class JXOrderDetail;
 
 @protocol JXMyOrderTableViewCellDelegate <NSObject>
 
@@ -23,6 +23,6 @@
 
 @property (nonatomic, weak) id<JXMyOrderTableViewCellDelegate> delegate;
 /** 订单模型 */
-@property (nonatomic, strong) JXOrder *order;
+@property (nonatomic, strong) JXOrderDetail *orderDetail;
 
 @end

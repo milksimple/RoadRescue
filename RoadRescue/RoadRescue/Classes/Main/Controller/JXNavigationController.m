@@ -28,6 +28,9 @@
 
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
     viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil];
+    if (self.childViewControllers.count >= 1) {
+        viewController.hidesBottomBarWhenPushed = YES;
+    }
     
     [super pushViewController:viewController animated:animated];
 }

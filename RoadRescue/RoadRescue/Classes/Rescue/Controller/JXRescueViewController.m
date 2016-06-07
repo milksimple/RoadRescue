@@ -66,39 +66,10 @@
     [self setupNav];
     
     self.accidentDesView.placeholder = @"添加详细事故描述（可选）";
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     
     // 定位
     [self setupLocation];
 }
-
-//- (void)viewWillAppear:(BOOL)animated {
-//    [super viewWillAppear:animated];
-//    
-//    CGFloat currentMaxY = CGRectGetMaxY(self.nextButton.frame) + 20;
-//    if (currentMaxY < JXScreenH) {
-//        //        self.contentViewBottomConstraint.constant = JXScreenH + 10 - CGRectGetMaxY(self.nextButton.frame) + 20;
-//        //
-//        //        JXLog(@"%f  %f", self.contentView.frame.size.height, JXScreenH + 10 - CGRectGetMaxY(self.nextButton.frame));
-//        //        [self.view layoutIfNeeded];
-//        self.nextButtonTopConstraint.constant = 200;
-//    }
-//    
-//    
-//}
-
-//- (void)viewDidAppear:(BOOL)animated {
-//    [super viewDidAppear:animated];
-//    
-//    CGFloat currentMaxY = CGRectGetMaxY(self.nextButton.frame) + 20;
-//    if (currentMaxY < JXScreenH) {
-////        self.contentViewBottomConstraint.constant = JXScreenH + 10 - CGRectGetMaxY(self.nextButton.frame) + 20;
-////        
-////        JXLog(@"%f  %f", self.contentView.frame.size.height, JXScreenH + 10 - CGRectGetMaxY(self.nextButton.frame));
-////        [self.view layoutIfNeeded];
-//        self.nextButtonTopConstraint.constant = 200;
-//    }
-//}
 
 - (void)setupNav {
     self.navigationItem.title = @"发布救援申请";
@@ -108,16 +79,11 @@
     cancelButton.titleLabel.textColor = [UIColor whiteColor];
     cancelButton.titleLabel.font = [UIFont systemFontOfSize:14];
     [cancelButton addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cancelButton];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cancelButton];
     
     self.navigationController.navigationBar.barTintColor = JXMiOrangeColor;
-//    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor bla]}];
-    
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 }
-
-//- (UIStatusBarStyle)preferredStatusBarStyle {
-//    return UIStatusBarStyleLightContent;
-//}
 
 - (void)cancel {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -141,8 +107,10 @@
             [self.locMgr startUpdatingLocation];
         }
         else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"无法进行定位" message:@"请检查您的设备是否开启定位功能" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alert show];
+            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"无法进行定位" message:@"请检查您的设备是否开启定位功能" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cfmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+            [alertVC addAction:cfmAction];
+            [self presentViewController:alertVC animated:YES completion:nil];
         }
     }
 }
@@ -153,8 +121,10 @@
 - (IBAction)nextButtonClicked {    
     if (self.orderDetail.lon == 0 || self.orderDetail.lat == 0) { // 没有定位到
         // 提示没有定位到
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"没有定位到您的位置" message:@"还没有定位到您的位置，请稍后再试" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show];
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"无法进行定位" message:@"请检查您的设备是否开启定位功能" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cfmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+        [alertVC addAction:cfmAction];
+        [self presentViewController:alertVC animated:YES completion:nil];
         return;
     }
     
@@ -168,8 +138,10 @@
         self.orderDetail.itemTypes = 3;
     }
     else { // 没有选择任何项目
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请选择服务项目" message:@"" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show];
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"请选择服务项目" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cfmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+        [alertVC addAction:cfmAction];
+        [self presentViewController:alertVC animated:YES completion:nil];
         return;
     }
     
@@ -203,12 +175,17 @@
     [self.geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
         if (!error) {
             CLPlacemark *placemark = placemarks.firstObject;
-            self.addressShortLabel.text = [NSString stringWithFormat:@"%@%@", placemark.thoroughfare, placemark.subThoroughfare];
-            self.addressDesLabel.text = [NSString stringWithFormat:@"%@ %@%@%@", placemark.locality, placemark.subLocality, placemark.thoroughfare, placemark.subThoroughfare];
             
-            JXLog(@"placemark.addressDictionary = %@", placemark.addressDictionary);
-            JXLog(@"areasOfInterest = %@", placemark.areasOfInterest);
-            JXLog(@"name = %@, thoroughfare = %@, subThoroughfare= %@, locality = %@, subLocality = %@ administrativeArea = %@", placemark.name, placemark.thoroughfare, placemark.subThoroughfare, placemark.locality, placemark.subLocality, placemark.administrativeArea);
+            NSString *thoroughfare = placemark.thoroughfare == nil ? @"" : placemark.thoroughfare;
+            NSString *subThoroughfare = placemark.subThoroughfare == nil ? @"" : placemark.subThoroughfare;
+            NSString *locality = placemark.locality == nil ? @"" : placemark.locality;
+            NSString *subLocality = placemark.subLocality == nil ? @"" : placemark.subLocality;
+            self.addressShortLabel.text = [NSString stringWithFormat:@"%@%@", thoroughfare, subThoroughfare];
+            self.addressDesLabel.text = [NSString stringWithFormat:@"%@ %@%@%@", locality, subLocality, thoroughfare, subThoroughfare];
+            
+//            JXLog(@"placemark.addressDictionary = %@", placemark.addressDictionary);
+//            JXLog(@"areasOfInterest = %@", placemark.areasOfInterest);
+//            JXLog(@"name = %@, thoroughfare = %@, subThoroughfare= %@, locality = %@, subLocality = %@ administrativeArea = %@", placemark.name, placemark.thoroughfare, placemark.subThoroughfare, placemark.locality, placemark.subLocality, placemark.administrativeArea);
         }
     }];
 }

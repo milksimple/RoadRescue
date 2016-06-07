@@ -14,19 +14,22 @@
 #import "EMCDDeviceManager+Remind.h"
 #import "JXHttpTool.h"
 #import <MJRefresh.h>
-#import "JXOrder.h"
+#import "JXOrderDetail.h"
 #import <MJExtension.h>
 #import "JXOrderDetailViewController.h"
 #import "MBProgressHUD+MJ.h"
+#import "JXConst.h"
+#import "JXAccountTool.h"
 
 @interface JXOrderManageViewController () <JXMyOrderTableViewCellDelegate, EMChatManagerDelegate>
 
 @property (nonatomic, strong) JXMyOrderCompletePopView *orderCompletePopView;
 
-@property (nonatomic, strong) NSMutableArray *orders;
+@property (nonatomic, strong) NSMutableArray *orderDetails;
 /** 请求参数 */
 @property (nonatomic, strong) NSMutableDictionary *paras;
 
+@property (nonatomic, strong) JXAccount *account;
 @end
 
 @implementation JXOrderManageViewController
@@ -38,11 +41,18 @@
     return _orderCompletePopView;
 }
 
-- (NSMutableArray *)orders {
-    if (_orders == nil) {
-        _orders = [NSMutableArray array];
+- (NSMutableArray *)orderDetails {
+    if (_orderDetails == nil) {
+        _orderDetails = [NSMutableArray array];
     }
-    return _orders;
+    return _orderDetails;
+}
+
+- (JXAccount *)account {
+    if (_account == nil) {
+        _account = [JXAccountTool account];
+    }
+    return _account;
 }
 
 - (void)viewDidLoad {
@@ -60,6 +70,9 @@
     //消息回调:EMChatManagerChatDelegate
     //注册消息回调
     [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
+    
+    // 监听新订单的通知
+    [JXNotificationCenter addObserver:self selector:@selector(placedAnNewOrder:) name:JXPlaceAnOrderNotification object:nil];
 }
 
 - (void)setupRefresh {
@@ -72,9 +85,14 @@
  *  加载新订单
  */
 - (void)loadNewOrder {
+    if (self.account.telephone.length == 0 || self.account.token.length == 0) {
+        return;
+    }
+    
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
-    paras[@"moblie"] = @"13888650223";
-    paras[@"token"] = @"7F9D459A";
+#warning 测试
+    paras[@"moblie"] = self.account.telephone;
+    paras[@"token"] = self.account.token;
     paras[@"orderType"] = @1;
     paras[@"start"] = @0;
     paras[@"pageSize"] = @8;
@@ -82,12 +100,13 @@
     
     [JXHttpTool post:[NSString stringWithFormat:@"%@/order/list", JXServerName] params:paras success:^(id json) {
         [self.tableView.mj_header endRefreshing];
+        JXLog(@"新订单请求成功 - %@", json);
         if (paras != self.paras) {
             return;
         }
         BOOL success = [json[@"success"] boolValue];
         if (success) {
-            self.orders = [JXOrder mj_objectArrayWithKeyValuesArray:json[@"data"]];
+            self.orderDetails = [JXOrderDetail mj_objectArrayWithKeyValuesArray:json[@"data"]];
             [self.tableView reloadData];
         }
         
@@ -104,14 +123,14 @@
 
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.orders.count;
+    return self.orderDetails.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     JXMyOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[JXMyOrderTableViewCell reuseIdentifier] forIndexPath:indexPath];
     cell.delegate = self;
-    cell.order = self.orders[indexPath.row];
+    cell.orderDetail = self.orderDetails[indexPath.row];
     
     return cell;
 }
@@ -159,6 +178,18 @@
                 break;
         }
     }
+}
+
+#pragma mark - 通知 JXPlaceAnOrderNotification
+- (void)placedAnNewOrder:(NSNotification *)noti {
+    JXOrderDetail *orderDetail = noti.userInfo[JXNewOrderDetailKey];
+    [self.orderDetails insertObject:orderDetail atIndex:0];
+    
+    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationRight];
+}
+
+- (void)dealloc {
+    [JXNotificationCenter removeObserver:self];
 }
 
 @end

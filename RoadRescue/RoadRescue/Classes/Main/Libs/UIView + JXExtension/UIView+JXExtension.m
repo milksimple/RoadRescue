@@ -106,4 +106,12 @@
     return self.frame.origin;
 }
 
+- (void)setJx_center:(CGPoint)jx_center {
+    self.center = jx_center;
+}
+
+- (CGPoint)jx_center {
+    return self.center;
+}
+
 @end
