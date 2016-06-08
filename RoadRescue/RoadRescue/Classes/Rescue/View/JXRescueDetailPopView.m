@@ -19,9 +19,11 @@
 @property (weak, nonatomic) IBOutlet UIView *fixItemContainer;
 @property (weak, nonatomic) IBOutlet UIView *totalPriceItemContainer;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *oilContainerConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *fixContainerConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *totalPriceContainerConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *oilButtonWidthCst;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *fixButtonWidthCst;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *oilContrainerHeightCst;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *fixContainerHeightCst;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *totalPriceContainerHeightCst;
 
 @property (weak, nonatomic) IBOutlet UILabel *addressShortLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressDesLabel;
@@ -46,10 +48,6 @@
     self.frame = [UIScreen mainScreen].bounds;
     UIImage *closeImg = [JXSkinTool skinToolImageWithImageName:@"rescue_close"];
     [self.closeButton setImage:closeImg forState:UIControlStateNormal];
-    
-    // 隐藏维修项目
-    self.totalPriceContainerConstraint.constant = 0;
-    self.fixItemContainer.hidden = YES;
 }
 
 - (void)setOrderDetail:(JXOrderDetail *)orderDetail {
@@ -57,26 +55,20 @@
     
     switch (orderDetail.itemTypes) {
         case 1: // 油料救援
-            self.totalPriceContainerConstraint.constant = 40;
-            self.fixItemContainer.hidden = YES;
-            
-            self.oilButton.selected = YES;
-            self.fixButton.selected = NO;
+            self.fixButtonWidthCst.constant = 0;
+            self.fixContainerHeightCst.constant = 0;
             break;
             
         case 2: // 简易维修
-            self.fixContainerConstraint.constant = 10;
-            self.totalPriceContainerConstraint.constant = 40;
-            self.oilItemContainer.hidden = YES;
-            
-            self.oilButton.selected = NO;
-            self.fixButton.selected = YES;
+            self.oilButtonWidthCst.constant = 0;
+            self.oilContrainerHeightCst.constant = 0;
             break;
             
         case 3: // 油料救援 + 简易维修
-            self.oilButton.selected = YES;
-            self.fixButton.selected = YES;
             break;
+            
+            
+            
         default:
             break;
     }
@@ -106,7 +98,7 @@
         }
     }
     
-    self.totalPriceLabel.text = [NSString stringWithFormat:@"¥%f", orderDetail.totalPrice];
+    self.totalPriceLabel.text = [NSString stringWithFormat:@"¥%.2f", orderDetail.totalPrice];
 }
 
 - (IBAction)closeButtonClicked {
@@ -129,6 +121,10 @@
 
 - (void)dismiss {
     [self removeFromSuperview];
+}
+
+- (void)dealloc {
+    
 }
 
 @end

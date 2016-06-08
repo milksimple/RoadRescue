@@ -2047,6 +2047,7 @@
 			baseConfigurationReference = 6A9F96CA012EAFF010CF9725 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer: 盼盼 张 (KR55YNEC3V)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 盼盼 张 (KR55YNEC3V)";
 				ENABLE_BITCODE = NO;
@@ -2076,6 +2077,7 @@
 			baseConfigurationReference = 5948512AB8F1024898D542B0 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer: 盼盼 张 (KR55YNEC3V)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 盼盼 张 (KR55YNEC3V)";
 				ENABLE_BITCODE = NO;

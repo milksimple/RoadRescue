@@ -99,6 +99,7 @@
     paras[@"moblie"] = @"13888650223";
     paras[@"token"] = @"7F9D459A";
     paras[@"itemType"] = @(self.orderDetail.itemTypes);
+    
     JXLog(@"loadOilPrice - paras = %@", paras);
     [JXHttpTool post:[NSString stringWithFormat:@"%@/order/orderFee", JXServerName] params:paras success:^(id json) {
         JXLog(@"请求成功 - %@", json);

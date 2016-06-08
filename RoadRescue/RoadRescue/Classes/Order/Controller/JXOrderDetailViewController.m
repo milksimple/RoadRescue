@@ -12,8 +12,15 @@
 #import "JXHttpTool.h"
 #import "JXOrderDetail.h"
 #import <MJExtension.h>
+#import "UIView+JXExtension.h"
 
 @interface JXOrderDetailViewController () <MKMapViewDelegate>
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
+
+
+@property (weak, nonatomic) IBOutlet UIImageView *waveBgView;
+
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIButton *addressButton;
@@ -51,9 +58,24 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"订单详情";
+    // 设置wave背景图
+    UIImage *waveBgImg = [JXSkinTool skinToolImageWithImageName:@"order_wave_bg"];
+    UIImage *resizableImg = [waveBgImg resizableImageWithCapInsets:UIEdgeInsetsMake(10, 0, 10, 0) resizingMode:UIImageResizingModeTile];
+    self.waveBgView.image = resizableImg;
     
     [self loadData];
 }
+
+#pragma mark - 内容不够一个屏幕高度，scrollview也能滚动
+/*
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if (self.contentView.jx_height <= self.view.jx_height - 64) {
+        self.scrollView.contentSize = CGSizeMake(JXScreenW, JXScreenH - 64 + 1);
+    }
+}
+*/
 
 - (void)loadData {
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
