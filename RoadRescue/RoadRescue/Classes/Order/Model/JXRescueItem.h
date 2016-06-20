@@ -21,4 +21,6 @@
 @property (nonatomic, assign) CGFloat subsidy;
 /** 红包金额 */
 @property (nonatomic, assign) CGFloat giftMoney;
+/** 项目单价 */
+@property (nonatomic, assign) CGFloat unitPrice;
 @end

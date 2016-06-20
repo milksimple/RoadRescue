@@ -155,7 +155,6 @@
                     <constraints>
                         <constraint firstItem="eoa-FF-NZY" firstAttribute="leading" secondItem="2fR-3z-eTi" secondAttribute="leading" id="4Sp-7x-ZxJ"/>
                         <constraint firstAttribute="trailing" secondItem="qgE-n1-OJj" secondAttribute="trailing" constant="20" id="4r6-CZ-zKe"/>
-                        <constraint firstItem="2fR-3z-eTi" firstAttribute="top" secondItem="b5C-dE-GbM" secondAttribute="bottom" constant="30" id="6HJ-vA-rRu"/>
                         <constraint firstItem="hPR-cJ-duL" firstAttribute="centerX" secondItem="mrO-EA-zDv" secondAttribute="centerX" id="6iH-0f-4zf"/>
                         <constraint firstItem="rqs-AX-aen" firstAttribute="leading" secondItem="TxX-QA-UCe" secondAttribute="trailing" constant="10" id="7PO-rL-Hmb"/>
                         <constraint firstItem="vK6-zG-XzM" firstAttribute="centerX" secondItem="mrO-EA-zDv" secondAttribute="centerX" id="7ZJ-6z-UbV"/>
@@ -181,7 +180,6 @@
                         <constraint firstItem="qgE-n1-OJj" firstAttribute="leading" secondItem="lxh-Wl-I2Y" secondAttribute="trailing" constant="10" id="sna-Y4-Fu4"/>
                         <constraint firstItem="lxh-Wl-I2Y" firstAttribute="leading" secondItem="ffZ-Vr-xvg" secondAttribute="trailing" constant="10" id="t6n-D8-P4x"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hPR-cJ-duL" secondAttribute="trailing" constant="10" id="tP9-n1-Ix6"/>
-                        <constraint firstItem="b5C-dE-GbM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mrO-EA-zDv" secondAttribute="leading" constant="10" id="vgS-FO-QrR"/>
                         <constraint firstItem="Aag-hH-Wgd" firstAttribute="trailing" secondItem="qgE-n1-OJj" secondAttribute="trailing" id="xFT-eA-Wvo"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
@@ -189,12 +187,6 @@
                             <integer key="value" value="10"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="6HJ-vA-rRu"/>
-                            <exclude reference="vgS-FO-QrR"/>
-                        </mask>
-                    </variation>
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.70589632601351349" colorSpace="calibratedWhite"/>
@@ -208,7 +200,7 @@
             <connections>
                 <outlet property="container" destination="mrO-EA-zDv" id="DKD-Pp-IW0"/>
             </connections>
-            <point key="canvasLocation" x="278" y="308"/>
+            <point key="canvasLocation" x="212" y="255"/>
         </view>
     </objects>
     <resources>

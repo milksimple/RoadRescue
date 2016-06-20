@@ -175,7 +175,7 @@
         if (!error) { // 验证成功,可以开始注册
             JXLog(@"验证成功");
             NSMutableDictionary *paras = [NSMutableDictionary dictionary];
-            paras[@"moblie"] = self.telephoneField.text;
+            paras[@"mobile"] = self.telephoneField.text;
             [JXHttpTool post:[NSString stringWithFormat:@"%@/register", JXServerName] params:paras success:^(id json) {
                 [MBProgressHUD hideHUD];
                 
@@ -186,7 +186,7 @@
                     
                     // 存储token
                     JXAccount *account = [[JXAccount alloc] init];
-                    account.telephone = paras[@"moblie"];
+                    account.telephone = paras[@"mobile"];
                     account.token = json[@"data"][@"token"];
                     [JXAccountTool saveAccount:account];
                     

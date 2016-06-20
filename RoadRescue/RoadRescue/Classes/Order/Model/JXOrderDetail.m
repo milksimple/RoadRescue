@@ -15,6 +15,14 @@
     return @{@"itemList":[JXRescueItem class]};
 }
 
+- (void)setLon:(CGFloat)lon {
+    _lon = round(lon*1000000)/1000000;
+}
+
+- (void)setLat:(CGFloat)lat {
+    _lat = round(lat*1000000)/1000000;
+}
+
 @end
 
  

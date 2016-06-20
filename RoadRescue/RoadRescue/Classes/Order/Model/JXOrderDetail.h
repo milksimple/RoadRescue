@@ -39,7 +39,7 @@
 /** 总价 */
 @property (nonatomic, assign) CGFloat totalPrice;
 /** 救援状态<-1-订单已取消,  0-已下单,1-已接单,2-完成等待付款,9-完成> */
-@property (nonatomic, assign) NSInteger itemStatus;
+@property (nonatomic, assign) NSInteger orderStatus;
 /** 救援队mobile */
 @property (nonatomic, copy) NSString *mobile;
 /** 下单时间 */

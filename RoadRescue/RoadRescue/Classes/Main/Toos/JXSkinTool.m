@@ -16,7 +16,7 @@ static NSString * const JXSkinKey = @"skinType";
 + (void)initialize {
     _type = [JXUserDefaults objectForKey:JXSkinKey];
     if (_type == nil) {
-        _type = @"origin";
+        _type = JXSkinTypeOriginStr;
     }
 }
 
@@ -25,11 +25,20 @@ static NSString * const JXSkinKey = @"skinType";
     
     [JXUserDefaults setObject:type forKey:JXSkinKey];
     [JXUserDefaults synchronize];
+    
+    // 发出通知，皮肤改了
+    [JXNotificationCenter postNotificationName:JXChangedSkinNotification object:nil];
+}
+
+/** 获取皮肤类型 */
++ (NSString *)skinType {
+    return _type;
 }
 
 + (UIImage *)skinToolImageWithImageName:(NSString *)name {
     NSString *imageName = [NSString stringWithFormat:@"skin/%@/%@", _type, name];
     UIImage *image = [UIImage imageNamed:imageName];
+
     return image;
 }
 
@@ -49,8 +58,9 @@ static NSString * const JXSkinKey = @"skinType";
     NSInteger r = [rgbArray[0] integerValue];
     NSInteger g = [rgbArray[1] integerValue];
     NSInteger b = [rgbArray[2] integerValue];
+    CGFloat a = [rgbArray[3] floatValue];
     
-    return JXColor(r, g, b);
+    return JXAlphaColor(r, g, b, a);
 }
 
 @end

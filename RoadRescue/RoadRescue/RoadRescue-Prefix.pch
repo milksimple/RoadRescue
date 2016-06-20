@@ -18,6 +18,7 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import "JXSkinTool.h"
+#import "JXConst.h"
 
 #define iOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)
 
@@ -41,6 +42,8 @@
 #define JXAlphaColor(r, g, b, a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:a]
 // 随机色
 #define JXRandomColor JXColor(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))
+// 全局背景色
+#define JXGlobalBgColor JXColor(242, 242, 242);
 // 大米最常用的颜色
 #define JXMiOrangeColor JXColor(251, 124, 21)
 

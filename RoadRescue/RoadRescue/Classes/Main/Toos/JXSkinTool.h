@@ -15,6 +15,9 @@
  */
 + (void)setSkinType:(NSString *)type;
 
+/** 获取皮肤类型 */
++ (NSString *)skinType;
+
 /**
  *  通过图片名获得当前皮肤下的image
  *

@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     // 1. 初始化子控制器
     JXOrderManageViewController *orderManageVC = [[JXOrderManageViewController alloc] init];
     [self addChildVC:orderManageVC image:@"tabbar_order_normal" selectedImage:@"tabbar_order_selected" title:@"订单管理"];
@@ -65,9 +65,6 @@
             [self presentViewController:nav animated:YES completion:nil];
         });
     }
-    
-    
-//    [self presentViewController:nav animated:YES completion:nil];
 }
 
 @end

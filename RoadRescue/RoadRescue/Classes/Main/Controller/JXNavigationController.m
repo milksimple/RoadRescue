@@ -24,6 +24,24 @@
     UIImage *navBack = [JXSkinTool skinToolImageWithImageName:@"nav_back"];
     navigationBar.backIndicatorImage = [navBack imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     navigationBar.backIndicatorTransitionMaskImage = [navBack imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    [navigationBar setBackgroundImage:[JXSkinTool skinToolImageWithImageName:@"nav_bg"] forBarMetrics:UIBarMetricsDefault];
+    
+    navigationBar.shadowImage = [UIImage new];
+//    [navigationBar setBarTintColor:JXAlphaColor(234, 234, 234, 0.5)];
+}
+
+- (instancetype)initWithRootViewController:(UIViewController *)rootViewController {
+    if (self = [super initWithRootViewController:rootViewController]) {
+        // 监听修改皮肤的通知
+        [JXNotificationCenter addObserver:self selector:@selector(skinChanged) name:JXChangedSkinNotification object:nil];
+    }
+    return self;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
 }
 
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
@@ -33,6 +51,14 @@
     }
     
     [super pushViewController:viewController animated:animated];
+}
+
+- (void)skinChanged {
+    [self.navigationBar setBackgroundImage:[JXSkinTool skinToolImageWithImageName:@"nav_bg"] forBarMetrics:UIBarMetricsDefault];
+}
+
+- (void)dealloc {
+    [JXNotificationCenter removeObserver:self];
 }
 
 @end

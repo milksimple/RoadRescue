@@ -30,6 +30,7 @@
 @property (nonatomic, strong) NSMutableDictionary *paras;
 
 @property (nonatomic, strong) JXAccount *account;
+
 @end
 
 @implementation JXOrderManageViewController
@@ -73,6 +74,18 @@
     
     // 监听新订单的通知
     [JXNotificationCenter addObserver:self selector:@selector(placedAnNewOrder:) name:JXPlaceAnOrderNotification object:nil];
+    
+    // 设置背景
+    UIImageView *bgView = [[UIImageView alloc] init];
+    bgView.frame = self.view.bounds;
+    bgView.image = [JXSkinTool skinToolImageWithImageName:@"complete_bg.jpg"];
+    self.tableView.backgroundView = bgView;
+    // 监听修改皮肤的通知
+    [JXNotificationCenter addObserver:self selector:@selector(skinChanged) name:JXChangedSkinNotification object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 }
 
 - (void)setupRefresh {
@@ -91,9 +104,9 @@
     
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
 #warning 测试
-    paras[@"moblie"] = self.account.telephone;
+    paras[@"mobile"] = self.account.telephone;
     paras[@"token"] = self.account.token;
-    paras[@"moblie"] = @"13888650223";
+    paras[@"mobile"] = @"13888650223";
     paras[@"token"] = @"7F9D459A";
     paras[@"orderType"] = @1;
     paras[@"start"] = @0;
@@ -186,8 +199,15 @@
 - (void)placedAnNewOrder:(NSNotification *)noti {
     JXOrderDetail *orderDetail = noti.userInfo[JXNewOrderDetailKey];
     [self.orderDetails insertObject:orderDetail atIndex:0];
-    
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationRight];
+}
+
+#pragma mark - 通知 JXChangedSkinNotification
+- (void)skinChanged {
+    [self.tableView reloadData];
+    
+    UIImageView *bgView = (UIImageView *)self.tableView.backgroundView;
+    bgView.image = [JXSkinTool skinToolImageWithImageName:@"complete_bg.jpg"];
 }
 
 - (void)dealloc {

@@ -38,6 +38,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *fixRescueButton;
 @property (weak, nonatomic) IBOutlet UIButton *seeButton;
 
+@property (weak, nonatomic) IBOutlet UIView *separator;
 
 @end
 
@@ -66,12 +67,6 @@
     self.containerView.layer.shouldRasterize=YES;
     //设置抗锯齿边缘
     self.containerView.layer.rasterizationScale=[UIScreen mainScreen].scale;
-
-    UIImage *waveBgImg = [JXSkinTool skinToolImageWithImageName:@"order_wave_bg"];
-    UIImage *resizableImg = [waveBgImg resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 10, 0) resizingMode:UIImageResizingModeTile];
-    self.waveBgView.image = resizableImg;
-    
-    self.translucentView.image = [JXSkinTool skinToolImageWithImageName:@"order_translucent_bg"];
 }
 
 - (void)setOrderDetail:(JXOrderDetail *)orderDetail {
@@ -100,7 +95,7 @@
             break;
     }
     
-    switch (orderDetail.itemStatus) {
+    switch (orderDetail.orderStatus) {
         case 0: // 已下单
             _title = @"燃油耗尽";
             _time = nil;
@@ -152,7 +147,7 @@
     
     
     [self.addressButton setTitle:orderDetail.addressDes forState:UIControlStateNormal];
-    self.totalPriceLabel.text = [NSString stringWithFormat:@"¥%f", orderDetail.totalPrice];
+    self.totalPriceLabel.text = [NSString stringWithFormat:@"¥%.2f", orderDetail.totalPrice];
     self.oilCountLabel.text = [NSString stringWithFormat:@"%zdL", rescueItem.itemCnt];
     
     self.oilRescueButton.selected = _oilSelected;
@@ -166,9 +161,18 @@
     
     [self.seeButton setBackgroundImage:[UIImage imageNamed:_seeBtnBgImgName] forState:UIControlStateNormal];
     
+    // 设置皮肤
     UIImage *cellTopBgImg = [JXSkinTool skinToolImageWithImageName:_topBgImgName];
     UIImage *brickResizableImg = [cellTopBgImg resizableImageWithCapInsets:UIEdgeInsetsZero resizingMode:UIImageResizingModeTile];
     self.cellTopBgView.image = brickResizableImg;
+    
+    UIImage *waveBgImg = [JXSkinTool skinToolImageWithImageName:@"order_wave_bg"];
+    UIImage *resizableImg = [waveBgImg resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 10, 0) resizingMode:UIImageResizingModeTile];
+    self.waveBgView.image = resizableImg;
+    
+    self.translucentView.image = [JXSkinTool skinToolImageWithImageName:@"order_translucent_bg"];
+    
+    self.separator.backgroundColor = [JXSkinTool skinToolColorWithKey:@"order_tableviewcellSeparator"];
 }
 
 /**

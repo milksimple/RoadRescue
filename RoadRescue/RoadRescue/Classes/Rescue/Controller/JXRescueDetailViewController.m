@@ -31,6 +31,31 @@
 @property (nonatomic, strong) JXRescueItem *rescueItem;
 @property (weak, nonatomic) IBOutlet UIView *corverView;
 
+@property (weak, nonatomic) IBOutlet UIImageView *bgView;
+
+@property (weak, nonatomic) IBOutlet UIView *todayPriceContainer;
+@property (weak, nonatomic) IBOutlet UIView *tdyPriContSep;
+
+@property (weak, nonatomic) IBOutlet UILabel *todayOilPriceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *oilNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *oilPriceLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *todayAllowanceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *allowancePriceLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *fareLabel;
+@property (weak, nonatomic) IBOutlet UILabel *farePriceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *fareExtraLabel;
+
+@property (weak, nonatomic) IBOutlet UIView *chooseOilCountContainer;
+@property (weak, nonatomic) IBOutlet UIView *chsOilCntSepLeft;
+@property (weak, nonatomic) IBOutlet UIView *chsOilCntSepRight;
+@property (weak, nonatomic) IBOutlet UILabel *chsOilCntLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *userChoosedOilCntLabel;
+
+@property (weak, nonatomic) IBOutlet UIButton *rescueButton;
+
 @end
 
 @implementation JXRescueDetailViewController
@@ -85,20 +110,35 @@
     
     // 请求今日油价
     [self loadOilPrice];
+    
+    // 设置背景
+    self.bgView.image = [JXSkinTool skinToolImageWithImageName:@"complete_bg.jpg"];
+    // 今日油价container
+    self.todayPriceContainer.backgroundColor = [JXSkinTool skinToolColorWithKey:@"rescue_detail_price_container_bg"];
+    // 各种titleLabel的字体颜色
+    self.todayOilPriceLabel.textColor = self.oilNameLabel.textColor = self.todayAllowanceLabel.textColor = self.fareLabel.textColor = self.fareExtraLabel.textColor = self.chsOilCntLabel.textColor = self.userChoosedOilCntLabel.textColor = [JXSkinTool skinToolColorWithKey:@"rescue_detail_title_text"];
+    
+    // 各种分割线的颜色
+    self.tdyPriContSep.backgroundColor = self.chsOilCntSepLeft.backgroundColor = self.chsOilCntSepRight.backgroundColor = [JXSkinTool skinToolColorWithKey:@"rescue_header_separator"];
+    
+    // 救援按钮
+    [self.rescueButton setBackgroundImage:[JXSkinTool skinToolImageWithImageName:@"rescue_next"] forState:UIControlStateNormal];
+    [self.rescueButton setTitleColor:[JXSkinTool skinToolColorWithKey:@"rescue_next"] forState:UIControlStateNormal];
 }
 
 - (void)loadOilPrice {
     MBProgressHUD *hud = [MBProgressHUD showMessage:@"正在获取今日油价" toView:self.feeRingView];
     hud.dimBackground = NO;
-    hud.color = [UIColor whiteColor];
-    hud.activityIndicatorColor = [UIColor grayColor];
-    hud.labelColor = [UIColor grayColor];
+    hud.color = JXAlphaColor(0, 0, 0, 0);
+    UIColor *hudLabelColor = [JXSkinTool skinToolColorWithKey:@"rescue_detail_title_text"];
+    hud.activityIndicatorColor = hudLabelColor;
+    hud.labelColor = hudLabelColor;
     
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
 #warning 测试，还没有公式，仅测下接口
-    paras[@"moblie"] = @"13888650223";
+    paras[@"mobile"] = @"13888650223";
     paras[@"token"] = @"7F9D459A";
-    paras[@"itemType"] = @(self.orderDetail.itemTypes);
+    paras[@"itemType"] = @(1);
     
     JXLog(@"loadOilPrice - paras = %@", paras);
     [JXHttpTool post:[NSString stringWithFormat:@"%@/order/orderFee", JXServerName] params:paras success:^(id json) {
@@ -106,6 +146,8 @@
         [MBProgressHUD hideHUDForView:self.feeRingView];
         self.feeRingView.loadSuccess = YES;
         self.corverView.userInteractionEnabled = NO;
+        
+        self.rescueItem.unitPrice = [json[@"data"][0][@"unitPrice"] floatValue];
         
     } failure:^(NSError *error) {
         JXLog(@"请求失败 - %@", error);
@@ -218,6 +260,7 @@
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(nullable UIView *)view {
     UILabel *oilLabel = [[UILabel alloc] init];
+    oilLabel.textColor = [JXSkinTool skinToolColorWithKey:@"rescue_detail_title_text"];
     oilLabel.font = [UIFont systemFontOfSize:13];
     oilLabel.textAlignment = NSTextAlignmentCenter;
     switch (row) {
@@ -288,16 +331,49 @@
     MBProgressHUD *hud = [MBProgressHUD showMessage:@"正在提交订单"];
     hud.mode = MBProgressHUDModeIndeterminate;
     
+    // 先请求当前是否有未完成的订单
+    NSMutableDictionary *paras = [NSMutableDictionary dictionary];
+    paras[@"mobile"] = @"13888650223";
+    paras[@"token"] = @"7F9D459A";
+    [JXHttpTool post:[NSString stringWithFormat:@"%@/order/findFinishOrder", JXServerName] params:paras success:^(id json) {
+        JXLog(@"是否有未完成订单请求成功 - %@", json);
+        BOOL success = [json[@"success"] boolValue];
+        if (success) {
+            BOOL finished = [json[@"data"] boolValue];
+            if (finished) { // 所有订单已完成
+                [self requestPlaceOrder];
+            }
+            else { // 有未完成订单
+                [MBProgressHUD hideHUD];
+                
+                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"不能提交订单" message:@"您当前还有未完成的订单，不能提交新订单。" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *cfmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+                [alertVC addAction:cfmAction];
+                [self presentViewController:alertVC animated:YES completion:nil];
+            }
+        }
+
+    } failure:^(NSError *error) {
+        JXLog(@"是否有未完成订单请求失败 - %@", error);
+        [MBProgressHUD hideHUD];
+    }];
+
+}
+
+/**
+ *  请求下订单
+ */
+- (void)requestPlaceOrder {
     // 发送请求
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
 #warning 测试
-    paras[@"moblie"] = @"13888650223";
+    paras[@"mobile"] = @"13888650223";
     paras[@"token"] = @"7F9D459A";
     NSDictionary *orderDic = [self.orderDetail mj_keyValues];
     NSData *orderData = [NSJSONSerialization dataWithJSONObject:orderDic options:0 error:nil];
     NSString *orderStr = [[NSString alloc] initWithData:orderData encoding:NSUTF8StringEncoding];
     paras[@"order"] = orderStr;
-    
+    JXLog(@"下单 - paras = %@", paras);
     [JXHttpTool post:[NSString stringWithFormat:@"%@/order/addOrder", JXServerName] params:paras success:^(id json) {
         [MBProgressHUD hideHUD];
         JXLog(@"提交订单请求成功 - %@", json);
@@ -341,20 +417,19 @@
                         JXLog(@"用户发送消息成功 == 下单成功");
                     }
                 }];
-
+                
             }];
         }
     } failure:^(NSError *error) {
         JXLog(@"请求失败 - %@", error);
         [MBProgressHUD hideHUD];
-
+        
         UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"订单提交失败" message:@"请检查网络后重新提交订单" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cfmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
         [alertVC addAction:cfmAction];
         [self presentViewController:alertVC animated:YES completion:nil];
         
     }];
-
 }
 
 #pragma mark - JXFeeRingViewDelegate

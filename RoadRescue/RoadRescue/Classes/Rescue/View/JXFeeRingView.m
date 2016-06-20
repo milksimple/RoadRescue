@@ -52,6 +52,9 @@
 
 @property (nonatomic, strong) UIButton *tipButton;
 
+/** 圆环遮盖图 */
+@property (nonatomic, weak) UIImageView *circleCorver;
+
 @end
 
 @implementation JXFeeRingView
@@ -64,7 +67,7 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = [UIColor whiteColor];
+//        self.backgroundColor = [UIColor whiteColor];
         // 计算圆心
         self.ringCenter = CGPointMake(hoMargin + circleW*0.5 + radius, self.jx_height*0.5);
     }
@@ -76,8 +79,9 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     if (_tipButton == nil) {
         _tipButton = [[UIButton alloc] init];
         _tipButton.userInteractionEnabled = NO;
-        [_tipButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        _tipButton.layer.borderColor = [UIColor grayColor].CGColor;
+        UIColor *titleColor = [JXSkinTool skinToolColorWithKey:@"rescue_detail_title_text"];
+        [_tipButton setTitleColor:titleColor forState:UIControlStateNormal];
+        _tipButton.layer.borderColor = titleColor.CGColor;
         _tipButton.layer.cornerRadius = 5;
         _tipButton.titleLabel.font = [UIFont systemFontOfSize:15];
         [_tipButton addTarget:self action:@selector(tipButtonDidClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -97,7 +101,7 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    self.backgroundColor = [UIColor whiteColor];
+//    self.backgroundColor = [UIColor clearColor];
     // 计算圆心
     self.ringCenter = CGPointMake(hoMargin + circleW*0.5 + radius, self.jx_height*0.5);
 }
@@ -113,6 +117,13 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
 }
 
 - (void)setup {
+    UIColor *titleColor = [JXSkinTool skinToolColorWithKey:@"rescue_detail_title_text"];
+    
+    // 加上背景遮盖图
+    UIImageView *circleCorver = [[UIImageView alloc] initWithImage:[JXSkinTool skinToolImageWithImageName:@"rescue_circle_corver"]];
+    [self addSubview:circleCorver];
+    self.circleCorver = circleCorver;
+    
     // 总价
     UILabel *totalPriceLabel = [[UILabel alloc] init];
     totalPriceLabel.textColor = JXMiOrangeColor;
@@ -125,7 +136,7 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     
     // 红包
     UILabel *redTitleLabel = [[UILabel alloc] init];
-    redTitleLabel.textColor = JXTitleLabelColor;
+    redTitleLabel.textColor = titleColor;
     redTitleLabel.font = JXTitleLabelFont;
     redTitleLabel.text = @"红包返利";
     [self addSubview:redTitleLabel];
@@ -147,7 +158,7 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     
     // 优惠
     UILabel *blueTitleLabel = [[UILabel alloc] init];
-    blueTitleLabel.textColor = JXTitleLabelColor;
+    blueTitleLabel.textColor = titleColor;
     blueTitleLabel.font = JXTitleLabelFont;
     blueTitleLabel.text = @"优惠补贴";
     [self addSubview:blueTitleLabel];
@@ -170,7 +181,7 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     
     // 运费
     UILabel *greenTitleLabel = [[UILabel alloc] init];
-    greenTitleLabel.textColor = JXTitleLabelColor;
+    greenTitleLabel.textColor = titleColor;
     greenTitleLabel.font = JXTitleLabelFont;
     greenTitleLabel.text = @"运费";
     [self addSubview:greenTitleLabel];
@@ -192,7 +203,7 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     
     // 实付
     UILabel *orangeTitleLabel = [[UILabel alloc] init];
-    orangeTitleLabel.textColor = JXTitleLabelColor;
+    orangeTitleLabel.textColor = titleColor;
     orangeTitleLabel.font = JXTitleLabelFont;
     orangeTitleLabel.text = @"待付油款";
     [self addSubview:orangeTitleLabel];
@@ -216,106 +227,6 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     orangeSeparator.backgroundColor = JXRingOrangeColor;
     [self addSubview:orangeSeparator];
     self.orangeSeparator = orangeSeparator;
-}
-
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    
-    // 提示按钮
-    self.tipButton.jx_size = CGSizeMake(300, 40);
-    self.tipButton.center = self.center;
-    
-    // 总价
-    CGRect totalPriceLabelRect = CGRectMake(self.ringCenter.x - radius + circleW, self.ringCenter.y - radius + circleW, (radius - circleW)*2, (radius - circleW)*2);
-    self.totalPriceLabel.frame = totalPriceLabelRect;
-    
-    // 红包
-    CGFloat redTitleLabelW = 70;
-    CGFloat redTitleLabelH = 20;
-    CGFloat redTitleLabelX = self.jx_width - hoMargin - redTitleLabelW;
-    CGFloat redTitleLabelY = alMargin;
-    self.redTitleLabel.frame = CGRectMake(redTitleLabelX, redTitleLabelY, redTitleLabelW, redTitleLabelH);
-    
-    CGFloat redPayLabelX = redTitleLabelX;
-    CGFloat redPayLabelY = CGRectGetMaxY(self.redTitleLabel.frame);
-    CGFloat redPayLabelW = redTitleLabelW;
-    CGFloat redPayLabelH = 20;
-    self.redPayLabel.frame = CGRectMake(redPayLabelX, redPayLabelY, redPayLabelW, redPayLabelH);
-    
-    CGFloat redSeparatorW = 2;
-    CGFloat redSeparatorH = redTitleLabelH + redPayLabelH;
-    CGFloat redSeparatorX = redPayLabelX - 5 - redSeparatorW;
-    CGFloat redSeparatorY = redTitleLabelY;
-    self.redSeparator.frame = CGRectMake(redSeparatorX, redSeparatorY, redSeparatorW, redSeparatorH);
-    
-    self.redRightPoint = CGPointMake(redSeparatorX - 5, redSeparatorY + redSeparatorH*0.5);
-    
-    // 竖线间的垂直间距
-    CGFloat separatorMargin = (self.jx_height - 2*alMargin - 4*redSeparatorH)/3.0;
-    
-    // 优惠补贴
-    CGFloat blueTitleLabelW = redTitleLabelW;
-    CGFloat blueTitleLabelH = redTitleLabelH;
-    CGFloat blueTitleLabelX = redTitleLabelX;
-    CGFloat blueTitleLabelY = CGRectGetMaxY(self.redPayLabel.frame) + separatorMargin;
-    self.blueTitleLabel.frame = CGRectMake(blueTitleLabelX, blueTitleLabelY, blueTitleLabelW, blueTitleLabelH);
-    
-    CGFloat bluePayLabelX = redTitleLabelX;
-    CGFloat bluePayLabelY = CGRectGetMaxY(self.blueTitleLabel.frame);
-    CGFloat bluePayLabelW = redTitleLabelW;
-    CGFloat bluePayLabelH = redTitleLabelH;
-    self.bluePayLabel.frame = CGRectMake(bluePayLabelX, bluePayLabelY, bluePayLabelW, bluePayLabelH);
-    
-    CGFloat blueSeparatorW = redSeparatorW;
-    CGFloat blueSeparatorH = redSeparatorH;
-    CGFloat blueSeparatorX = redSeparatorX;
-    CGFloat blueSeparatorY = blueTitleLabelY;
-    self.blueSeparator.frame = CGRectMake(blueSeparatorX, blueSeparatorY, blueSeparatorW, blueSeparatorH);
-    
-    self.blueRightPoint = CGPointMake(blueSeparatorX - 5, blueSeparatorY + blueSeparatorH*0.5);
-    
-    // 运费
-    CGFloat greenTitleLabelW = redTitleLabelW;
-    CGFloat greenTitleLabelH = redTitleLabelH;
-    CGFloat greenTitleLabelX = redTitleLabelX;
-    CGFloat greenTitleLabelY = CGRectGetMaxY(self.bluePayLabel.frame) + separatorMargin;
-    self.greenTitleLabel.frame = CGRectMake(greenTitleLabelX, greenTitleLabelY, greenTitleLabelW, greenTitleLabelH);
-    
-    CGFloat greenPayLabelX = redTitleLabelX;
-    CGFloat greenPayLabelY = CGRectGetMaxY(self.greenTitleLabel.frame);
-    CGFloat greenPayLabelW = redTitleLabelW;
-    CGFloat greenPayLabelH = redTitleLabelH;
-    self.greenPayLabel.frame = CGRectMake(greenPayLabelX, greenPayLabelY, greenPayLabelW, greenPayLabelH);
-    
-    CGFloat greenSeparatorW = redSeparatorW;
-    CGFloat greenSeparatorH = redSeparatorH;
-    CGFloat greenSeparatorX = redSeparatorX;
-    CGFloat greenSeparatorY = greenTitleLabelY;
-    self.greenSeparator.frame = CGRectMake(greenSeparatorX, greenSeparatorY, greenSeparatorW, greenSeparatorH);
-    
-    self.greenRightPoint = CGPointMake(greenSeparatorX - 5, greenSeparatorY + greenSeparatorH*0.5);
-    
-    // 待付油款
-    CGFloat orangeTitleLabelW = redTitleLabelW;
-    CGFloat orangeTitleLabelH = redTitleLabelH;
-    CGFloat orangeTitleLabelX = redTitleLabelX;
-    CGFloat orangeTitleLabelY = CGRectGetMaxY(self.greenPayLabel.frame) + separatorMargin;
-    self.orangeTitleLabel.frame = CGRectMake(orangeTitleLabelX, orangeTitleLabelY, orangeTitleLabelW, orangeTitleLabelH);
-    
-    CGFloat orangePayLabelX = redTitleLabelX;
-    CGFloat orangePayLabelY = CGRectGetMaxY(self.orangeTitleLabel.frame);
-    CGFloat orangePayLabelW = redTitleLabelW;
-    CGFloat orangePayLabelH = redTitleLabelH;
-    self.orangePayLabel.frame = CGRectMake(orangePayLabelX, orangePayLabelY, orangePayLabelW, orangePayLabelH);
-    
-    CGFloat orangeSeparatorW = redSeparatorW;
-    CGFloat orangeSeparatorH = redSeparatorH;
-    CGFloat orangeSeparatorX = redSeparatorX;
-    CGFloat orangeSeparatorY = orangeTitleLabelY;
-    self.orangeSeparator.frame = CGRectMake(orangeSeparatorX, orangeSeparatorY, orangeSeparatorW, orangeSeparatorH);
-    
-    self.orangeRightPoint = CGPointMake(orangeSeparatorX - 5, orangeSeparatorY + orangeSeparatorH*0.5);
 }
 
 - (void)redraw {
@@ -417,6 +328,108 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     [self setNeedsDisplay];
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    // 圆环遮盖
+    self.circleCorver.center = self.ringCenter;
+    
+    // 提示按钮
+    self.tipButton.jx_size = CGSizeMake(300, 40);
+    self.tipButton.center = self.center;
+    
+    // 总价
+    CGRect totalPriceLabelRect = CGRectMake(self.ringCenter.x - radius + circleW, self.ringCenter.y - radius + circleW, (radius - circleW)*2, (radius - circleW)*2);
+    self.totalPriceLabel.frame = totalPriceLabelRect;
+    
+    // 红包
+    CGFloat redTitleLabelW = 70;
+    CGFloat redTitleLabelH = 20;
+    CGFloat redTitleLabelX = self.jx_width - hoMargin - redTitleLabelW;
+    CGFloat redTitleLabelY = alMargin;
+    self.redTitleLabel.frame = CGRectMake(redTitleLabelX, redTitleLabelY, redTitleLabelW, redTitleLabelH);
+    
+    CGFloat redPayLabelX = redTitleLabelX;
+    CGFloat redPayLabelY = CGRectGetMaxY(self.redTitleLabel.frame);
+    CGFloat redPayLabelW = redTitleLabelW;
+    CGFloat redPayLabelH = 20;
+    self.redPayLabel.frame = CGRectMake(redPayLabelX, redPayLabelY, redPayLabelW, redPayLabelH);
+    
+    CGFloat redSeparatorW = 2;
+    CGFloat redSeparatorH = redTitleLabelH + redPayLabelH;
+    CGFloat redSeparatorX = redPayLabelX - 5 - redSeparatorW;
+    CGFloat redSeparatorY = redTitleLabelY;
+    self.redSeparator.frame = CGRectMake(redSeparatorX, redSeparatorY, redSeparatorW, redSeparatorH);
+    
+    self.redRightPoint = CGPointMake(redSeparatorX - 5, redSeparatorY + redSeparatorH*0.5);
+    
+    // 竖线间的垂直间距
+    CGFloat separatorMargin = (self.jx_height - 2*alMargin - 4*redSeparatorH)/3.0;
+    
+    // 优惠补贴
+    CGFloat blueTitleLabelW = redTitleLabelW;
+    CGFloat blueTitleLabelH = redTitleLabelH;
+    CGFloat blueTitleLabelX = redTitleLabelX;
+    CGFloat blueTitleLabelY = CGRectGetMaxY(self.redPayLabel.frame) + separatorMargin;
+    self.blueTitleLabel.frame = CGRectMake(blueTitleLabelX, blueTitleLabelY, blueTitleLabelW, blueTitleLabelH);
+    
+    CGFloat bluePayLabelX = redTitleLabelX;
+    CGFloat bluePayLabelY = CGRectGetMaxY(self.blueTitleLabel.frame);
+    CGFloat bluePayLabelW = redTitleLabelW;
+    CGFloat bluePayLabelH = redTitleLabelH;
+    self.bluePayLabel.frame = CGRectMake(bluePayLabelX, bluePayLabelY, bluePayLabelW, bluePayLabelH);
+    
+    CGFloat blueSeparatorW = redSeparatorW;
+    CGFloat blueSeparatorH = redSeparatorH;
+    CGFloat blueSeparatorX = redSeparatorX;
+    CGFloat blueSeparatorY = blueTitleLabelY;
+    self.blueSeparator.frame = CGRectMake(blueSeparatorX, blueSeparatorY, blueSeparatorW, blueSeparatorH);
+    
+    self.blueRightPoint = CGPointMake(blueSeparatorX - 5, blueSeparatorY + blueSeparatorH*0.5);
+    
+    // 运费
+    CGFloat greenTitleLabelW = redTitleLabelW;
+    CGFloat greenTitleLabelH = redTitleLabelH;
+    CGFloat greenTitleLabelX = redTitleLabelX;
+    CGFloat greenTitleLabelY = CGRectGetMaxY(self.bluePayLabel.frame) + separatorMargin;
+    self.greenTitleLabel.frame = CGRectMake(greenTitleLabelX, greenTitleLabelY, greenTitleLabelW, greenTitleLabelH);
+    
+    CGFloat greenPayLabelX = redTitleLabelX;
+    CGFloat greenPayLabelY = CGRectGetMaxY(self.greenTitleLabel.frame);
+    CGFloat greenPayLabelW = redTitleLabelW;
+    CGFloat greenPayLabelH = redTitleLabelH;
+    self.greenPayLabel.frame = CGRectMake(greenPayLabelX, greenPayLabelY, greenPayLabelW, greenPayLabelH);
+    
+    CGFloat greenSeparatorW = redSeparatorW;
+    CGFloat greenSeparatorH = redSeparatorH;
+    CGFloat greenSeparatorX = redSeparatorX;
+    CGFloat greenSeparatorY = greenTitleLabelY;
+    self.greenSeparator.frame = CGRectMake(greenSeparatorX, greenSeparatorY, greenSeparatorW, greenSeparatorH);
+    
+    self.greenRightPoint = CGPointMake(greenSeparatorX - 5, greenSeparatorY + greenSeparatorH*0.5);
+    
+    // 待付油款
+    CGFloat orangeTitleLabelW = redTitleLabelW;
+    CGFloat orangeTitleLabelH = redTitleLabelH;
+    CGFloat orangeTitleLabelX = redTitleLabelX;
+    CGFloat orangeTitleLabelY = CGRectGetMaxY(self.greenPayLabel.frame) + separatorMargin;
+    self.orangeTitleLabel.frame = CGRectMake(orangeTitleLabelX, orangeTitleLabelY, orangeTitleLabelW, orangeTitleLabelH);
+    
+    CGFloat orangePayLabelX = redTitleLabelX;
+    CGFloat orangePayLabelY = CGRectGetMaxY(self.orangeTitleLabel.frame);
+    CGFloat orangePayLabelW = redTitleLabelW;
+    CGFloat orangePayLabelH = redTitleLabelH;
+    self.orangePayLabel.frame = CGRectMake(orangePayLabelX, orangePayLabelY, orangePayLabelW, orangePayLabelH);
+    
+    CGFloat orangeSeparatorW = redSeparatorW;
+    CGFloat orangeSeparatorH = redSeparatorH;
+    CGFloat orangeSeparatorX = redSeparatorX;
+    CGFloat orangeSeparatorY = orangeTitleLabelY;
+    self.orangeSeparator.frame = CGRectMake(orangeSeparatorX, orangeSeparatorY, orangeSeparatorW, orangeSeparatorH);
+    
+    self.orangeRightPoint = CGPointMake(orangeSeparatorX - 5, orangeSeparatorY + orangeSeparatorH*0.5);
+}
+
 - (void)drawRect:(CGRect)rect {
     if (self.totalPrice == 0) {
         [self addSubview:self.tipButton];
@@ -428,8 +441,6 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     CGContextRef ctx =UIGraphicsGetCurrentContext();
     
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    [self setup];
-    [self layoutIfNeeded];
     
     // 现在一圈不是360度，而是
     CGFloat completeAngle = M_PI * 1.9;
@@ -533,6 +544,9 @@ static CGFloat alMargin = 10; // 图形距离整个view的上下的边距
     [self drawDottedLineFromPoint:self.orangeLeftPoint toPoint:self.orangeCenterPoint withContext:ctx lineColor:JXRingOrangeColor];
     // 画出中间点到右边点虚线
     [self drawDottedLineFromPoint:self.orangeCenterPoint toPoint:self.orangeRightPoint withContext:ctx lineColor:JXRingOrangeColor];
+    
+    [self setup];
+    [self layoutIfNeeded];
 }
 
 - (void)drawRingWithCenter:(CGPoint)center radius:(CGFloat)radius startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle clockwise:(BOOL)clockwise lineWidth:(CGFloat)lineWidth color:(UIColor *)color {

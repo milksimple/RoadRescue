@@ -3,6 +3,30 @@
 <plist version="1.0">
 <dict>
 	<key>rescueDetail_request_button_text</key>
-	<string>255,255,255</string>
+	<string>255,255,255,1</string>
+	<key>order_tableviewcellSeparator</key>
+	<string>240,240,240,0.7</string>
+	<key>rescue_nav_barTint</key>
+	<string>251,124,21,1</string>
+	<key>rescue_header_separator</key>
+	<string>231,231,231,1</string>
+	<key>rescue_header_label_bg</key>
+	<string>245,245,245,1</string>
+	<key>rescue_header_label_text</key>
+	<string>168,168,168,1</string>
+	<key>rescue_content_bg</key>
+	<string>255,255,255,1</string>
+	<key>rescue_content_text</key>
+	<string>99,99,99,1</string>
+	<key>rescue_content_separator</key>
+	<string>241,241,241,1</string>
+	<key>rescue_next</key>
+	<string>255,255,255,1</string>
+	<key>rescue_detail_price_container_bg</key>
+	<string>245,245,245,1</string>
+	<key>rescue_detail_title_text</key>
+	<string>110,110,110,1</string>
+	<key>rescue_detail_picker_bg</key>
+	<string>255,255,255,1</string>
 </dict>
 </plist>

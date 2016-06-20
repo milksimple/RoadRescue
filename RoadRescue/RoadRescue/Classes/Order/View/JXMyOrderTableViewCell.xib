@@ -16,7 +16,7 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GN5-Vv-Ae9" userLabel="separator">
                         <rect key="frame" x="10" y="202" width="300" height="1"/>
-                        <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.52941176470588236" green="0.52941176470588236" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="S8z-jp-LAS"/>
                         </constraints>
@@ -127,7 +127,6 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I9F-1D-YcP">
                                 <rect key="frame" x="240" y="104" width="50" height="30"/>
-                                <color key="backgroundColor" red="0.18039215689999999" green="0.82352941180000006" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="d6q-hf-rjr"/>
                                     <constraint firstAttribute="width" constant="50" id="hsP-oV-Gxj"/>
@@ -193,7 +192,7 @@
                         </variation>
                     </view>
                 </subviews>
-                <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="GN5-Vv-Ae9" secondAttribute="bottom" constant="1" id="Gcc-Yh-kfc"/>
                     <constraint firstAttribute="trailing" secondItem="Us2-s1-5Dr" secondAttribute="trailing" constant="10" id="Yat-JA-sTc"/>
@@ -203,6 +202,7 @@
                     <constraint firstItem="Us2-s1-5Dr" firstAttribute="top" secondItem="zH6-SR-c87" secondAttribute="top" constant="20" id="o67-BI-xL0"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="addressButton" destination="jeO-Lo-jX2" id="Ie9-FD-8xs"/>
                 <outlet property="cellTopBgView" destination="L2u-lu-gZD" id="v6U-ra-dh8"/>
@@ -212,6 +212,7 @@
                 <outlet property="oilNameLabel" destination="rCM-1D-u51" id="KfZ-1b-zOO"/>
                 <outlet property="oilRescueButton" destination="HCf-qt-PTt" id="N7h-ez-odP"/>
                 <outlet property="seeButton" destination="I9F-1D-YcP" id="c3h-ha-DEd"/>
+                <outlet property="separator" destination="GN5-Vv-Ae9" id="bWK-iz-byT"/>
                 <outlet property="timeLabel" destination="2le-Ci-rJ3" id="Mvl-hq-A9u"/>
                 <outlet property="titleLabel" destination="2pA-8R-Axh" id="nXr-di-im4"/>
                 <outlet property="totalPriceLabel" destination="yM9-RT-A2b" id="AyF-Vm-rqX"/>

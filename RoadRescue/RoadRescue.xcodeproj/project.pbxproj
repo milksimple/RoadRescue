@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0423B93F1D0CF67500B5209C /* JXProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0423B9331D0CF67500B5209C /* JXProfileViewController.m */; };
+		0423B9401D0CF67500B5209C /* JXIncomeViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0423B9371D0CF67500B5209C /* JXIncomeViewCell.m */; };
+		0423B9411D0CF67500B5209C /* JXIncomeViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0423B9381D0CF67500B5209C /* JXIncomeViewCell.xib */; };
+		0423B9421D0CF67500B5209C /* JXProfileHeaderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0423B93A1D0CF67500B5209C /* JXProfileHeaderViewCell.m */; };
+		0423B9431D0CF67500B5209C /* JXProfileHeaderViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0423B93B1D0CF67500B5209C /* JXProfileHeaderViewCell.xib */; };
+		0423B9441D0CF67500B5209C /* JXProfileViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0423B93D1D0CF67500B5209C /* JXProfileViewCell.m */; };
+		0423B9451D0CF67500B5209C /* JXProfileViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0423B93E1D0CF67500B5209C /* JXProfileViewCell.xib */; };
+		0423B9491D10F5ED00B5209C /* UIImage+JXExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0423B9481D10F5ED00B5209C /* UIImage+JXExtension.m */; };
+		0423B94C1D12546100B5209C /* JXSkinFeeRingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0423B94B1D12546100B5209C /* JXSkinFeeRingView.m */; };
 		0497CCEF1CFC2422007E3E17 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0497CCEB1CFC2422007E3E17 /* libcrypto.a */; };
 		0497CCF01CFC2422007E3E17 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0497CCEC1CFC2422007E3E17 /* libcurl.a */; };
 		0497CCF11CFC2422007E3E17 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0497CCED1CFC2422007E3E17 /* libssl.a */; };
@@ -153,7 +162,6 @@
 		04F54A751CED59C40095DA09 /* UIView+JXExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A741CED59C40095DA09 /* UIView+JXExtension.m */; };
 		04F54A781CED5AAD0095DA09 /* JXNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A771CED5AAD0095DA09 /* JXNavigationController.m */; };
 		04F54A7B1CED5B110095DA09 /* JXOrderManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A7A1CED5B110095DA09 /* JXOrderManageViewController.m */; };
-		04F54A7E1CED5B300095DA09 /* JXProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A7D1CED5B300095DA09 /* JXProfileViewController.m */; };
 		04F54A811CED5F110095DA09 /* JXRescueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A801CED5F110095DA09 /* JXRescueViewController.m */; };
 		04F54A851CED642F0095DA09 /* JXMyOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A831CED642F0095DA09 /* JXMyOrderTableViewCell.m */; };
 		04F54A861CED642F0095DA09 /* JXMyOrderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F54A841CED642F0095DA09 /* JXMyOrderTableViewCell.xib */; };
@@ -188,6 +196,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0423B9321D0CF67500B5209C /* JXProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXProfileViewController.h; sourceTree = "<group>"; };
+		0423B9331D0CF67500B5209C /* JXProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXProfileViewController.m; sourceTree = "<group>"; };
+		0423B9361D0CF67500B5209C /* JXIncomeViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXIncomeViewCell.h; sourceTree = "<group>"; };
+		0423B9371D0CF67500B5209C /* JXIncomeViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXIncomeViewCell.m; sourceTree = "<group>"; };
+		0423B9381D0CF67500B5209C /* JXIncomeViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXIncomeViewCell.xib; sourceTree = "<group>"; };
+		0423B9391D0CF67500B5209C /* JXProfileHeaderViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXProfileHeaderViewCell.h; sourceTree = "<group>"; };
+		0423B93A1D0CF67500B5209C /* JXProfileHeaderViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXProfileHeaderViewCell.m; sourceTree = "<group>"; };
+		0423B93B1D0CF67500B5209C /* JXProfileHeaderViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXProfileHeaderViewCell.xib; sourceTree = "<group>"; };
+		0423B93C1D0CF67500B5209C /* JXProfileViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXProfileViewCell.h; sourceTree = "<group>"; };
+		0423B93D1D0CF67500B5209C /* JXProfileViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXProfileViewCell.m; sourceTree = "<group>"; };
+		0423B93E1D0CF67500B5209C /* JXProfileViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXProfileViewCell.xib; sourceTree = "<group>"; };
+		0423B9471D10F5ED00B5209C /* UIImage+JXExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+JXExtension.h"; sourceTree = "<group>"; };
+		0423B9481D10F5ED00B5209C /* UIImage+JXExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+JXExtension.m"; sourceTree = "<group>"; };
+		0423B94A1D12546100B5209C /* JXSkinFeeRingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXSkinFeeRingView.h; sourceTree = "<group>"; };
+		0423B94B1D12546100B5209C /* JXSkinFeeRingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXSkinFeeRingView.m; sourceTree = "<group>"; };
 		0497CCC31CFC2422007E3E17 /* EMCallLocalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCallLocalView.h; sourceTree = "<group>"; };
 		0497CCC41CFC2422007E3E17 /* EMCallManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCallManagerDelegate.h; sourceTree = "<group>"; };
 		0497CCC51CFC2422007E3E17 /* EMCallRemoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCallRemoteView.h; sourceTree = "<group>"; };
@@ -511,8 +534,6 @@
 		04F54A771CED5AAD0095DA09 /* JXNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXNavigationController.m; sourceTree = "<group>"; };
 		04F54A791CED5B110095DA09 /* JXOrderManageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXOrderManageViewController.h; sourceTree = "<group>"; };
 		04F54A7A1CED5B110095DA09 /* JXOrderManageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXOrderManageViewController.m; sourceTree = "<group>"; };
-		04F54A7C1CED5B300095DA09 /* JXProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXProfileViewController.h; sourceTree = "<group>"; };
-		04F54A7D1CED5B300095DA09 /* JXProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXProfileViewController.m; sourceTree = "<group>"; };
 		04F54A7F1CED5F110095DA09 /* JXRescueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXRescueViewController.h; sourceTree = "<group>"; };
 		04F54A801CED5F110095DA09 /* JXRescueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXRescueViewController.m; sourceTree = "<group>"; };
 		04F54A821CED642F0095DA09 /* JXMyOrderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXMyOrderTableViewCell.h; sourceTree = "<group>"; };
@@ -587,6 +608,58 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0423B9301D0CF67500B5209C /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				0423B9311D0CF67500B5209C /* Controller */,
+				0423B9341D0CF67500B5209C /* Model */,
+				0423B9351D0CF67500B5209C /* View */,
+			);
+			name = Profile;
+			path = ../Profile;
+			sourceTree = "<group>";
+		};
+		0423B9311D0CF67500B5209C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0423B9321D0CF67500B5209C /* JXProfileViewController.h */,
+				0423B9331D0CF67500B5209C /* JXProfileViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		0423B9341D0CF67500B5209C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0423B9351D0CF67500B5209C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0423B9361D0CF67500B5209C /* JXIncomeViewCell.h */,
+				0423B9371D0CF67500B5209C /* JXIncomeViewCell.m */,
+				0423B9381D0CF67500B5209C /* JXIncomeViewCell.xib */,
+				0423B9391D0CF67500B5209C /* JXProfileHeaderViewCell.h */,
+				0423B93A1D0CF67500B5209C /* JXProfileHeaderViewCell.m */,
+				0423B93B1D0CF67500B5209C /* JXProfileHeaderViewCell.xib */,
+				0423B93C1D0CF67500B5209C /* JXProfileViewCell.h */,
+				0423B93D1D0CF67500B5209C /* JXProfileViewCell.m */,
+				0423B93E1D0CF67500B5209C /* JXProfileViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0423B9461D10F5BD00B5209C /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				0423B9471D10F5ED00B5209C /* UIImage+JXExtension.h */,
+				0423B9481D10F5ED00B5209C /* UIImage+JXExtension.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
 		0497CCC11CFC2422007E3E17 /* HyphenateSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -1328,8 +1401,8 @@
 				04B340E61D06AC0600D87E24 /* Login */,
 				04F54A581CED54960095DA09 /* Main */,
 				04F54A5E1CED54960095DA09 /* Order */,
-				04F54A621CED54960095DA09 /* Profile */,
 				04F54A661CED54960095DA09 /* Rescue */,
+				0423B9301D0CF67500B5209C /* Profile */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1337,6 +1410,7 @@
 		04F54A581CED54960095DA09 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				0423B9461D10F5BD00B5209C /* Category */,
 				04F54AA41CF3FDDC0095DA09 /* Toos */,
 				04F54A591CED54960095DA09 /* Controller */,
 				04F54A5A1CED54960095DA09 /* Libs */,
@@ -1450,39 +1524,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		04F54A621CED54960095DA09 /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-				04F54A631CED54960095DA09 /* Controller */,
-				04F54A641CED54960095DA09 /* Model */,
-				04F54A651CED54960095DA09 /* View */,
-			);
-			path = Profile;
-			sourceTree = "<group>";
-		};
-		04F54A631CED54960095DA09 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				04F54A7C1CED5B300095DA09 /* JXProfileViewController.h */,
-				04F54A7D1CED5B300095DA09 /* JXProfileViewController.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		04F54A641CED54960095DA09 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		04F54A651CED54960095DA09 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		04F54A661CED54960095DA09 /* Rescue */ = {
 			isa = PBXGroup;
 			children = (
@@ -1518,6 +1559,8 @@
 			children = (
 				04F54AA11CEEFECC0095DA09 /* JXFeeRingView.h */,
 				04F54AA21CEEFECC0095DA09 /* JXFeeRingView.m */,
+				0423B94A1D12546100B5209C /* JXSkinFeeRingView.h */,
+				0423B94B1D12546100B5209C /* JXSkinFeeRingView.m */,
 				04BA22341CF54A5400513146 /* JXRescueDetailPopView.h */,
 				04BA22351CF54A5400513146 /* JXRescueDetailPopView.m */,
 				04BA22371CF54A6100513146 /* JXRescueDetailPopView.xib */,
@@ -1709,11 +1752,14 @@
 				04B340EE1D06AC1E00D87E24 /* JXLoginViewController.xib in Resources */,
 				04BA22381CF54A6100513146 /* JXRescueDetailPopView.xib in Resources */,
 				0497D04A1CFE8554007E3E17 /* EaseUIResource.bundle in Resources */,
+				0423B9411D0CF67500B5209C /* JXIncomeViewCell.xib in Resources */,
+				0423B9451D0CF67500B5209C /* JXProfileViewCell.xib in Resources */,
 				04F54A861CED642F0095DA09 /* JXMyOrderTableViewCell.xib in Resources */,
 				04BA22311CF4252C00513146 /* skin in Resources */,
 				04F2B53D1D0125C600120402 /* JXOrderDetailViewController.xib in Resources */,
 				04F54A8D1CED9E1B0095DA09 /* JXOrderPopView.xib in Resources */,
 				04F54A341CED53920095DA09 /* LaunchScreen.storyboard in Resources */,
+				0423B9431D0CF67500B5209C /* JXProfileHeaderViewCell.xib in Resources */,
 				04F54A941CEEBBB70095DA09 /* JXRescueViewController.xib in Resources */,
 				04F54A921CEEA4850095DA09 /* JXMyOrderCompletePopView.xib in Resources */,
 				04F54A311CED53920095DA09 /* Assets.xcassets in Resources */,
@@ -1821,7 +1867,9 @@
 				0497D0111CFE8554007E3E17 /* PSTCollectionViewCell.m in Sources */,
 				0497D02B1CFE8554007E3E17 /* EaseEmotionEscape.m in Sources */,
 				0497D01B1CFE8554007E3E17 /* PSTGridLayoutSection.m in Sources */,
+				0423B9441D0CF67500B5209C /* JXProfileViewCell.m in Sources */,
 				0497D0491CFE8554007E3E17 /* EaseConversationCell.m in Sources */,
+				0423B94C1D12546100B5209C /* JXSkinFeeRingView.m in Sources */,
 				0497D0021CFE8554007E3E17 /* EMSDWebImageDownloader.m in Sources */,
 				0497CFF31CFE8554007E3E17 /* EMVoiceConverter.mm in Sources */,
 				04F2B5341D001C9F00120402 /* JXHttpTool.m in Sources */,
@@ -1834,6 +1882,7 @@
 				0497CFFB1CFE8554007E3E17 /* MWTapDetectingImageView.m in Sources */,
 				0497D02F1CFE8554007E3E17 /* EaseLocationViewController.m in Sources */,
 				0497CFF01CFE8554007E3E17 /* EMCDDeviceManagerBase.m in Sources */,
+				0423B9421D0CF67500B5209C /* JXProfileHeaderViewCell.m in Sources */,
 				0497CFF11CFE8554007E3E17 /* amrFileCodec.mm in Sources */,
 				04BA22361CF54A5400513146 /* JXRescueDetailPopView.m in Sources */,
 				0497CFF61CFE8554007E3E17 /* MWCaptionView.m in Sources */,
@@ -1854,6 +1903,7 @@
 				0497CFED1CFE8554007E3E17 /* EMCDDeviceManager+Microphone.m in Sources */,
 				04F2B5381D0031D700120402 /* NSArray+Log.m in Sources */,
 				0497CFEE1CFE8554007E3E17 /* EMCDDeviceManager+ProximitySensor.m in Sources */,
+				0423B9491D10F5ED00B5209C /* UIImage+JXExtension.m in Sources */,
 				0497D0031CFE8554007E3E17 /* EMSDWebImageDownloaderOperation.m in Sources */,
 				0497D0361CFE8554007E3E17 /* EaseCustomMessageCell.m in Sources */,
 				04F2B5431D0128D200120402 /* JXOrderDetail.m in Sources */,
@@ -1883,11 +1933,11 @@
 				0497D0061CFE8554007E3E17 /* MKAnnotationView+EMWebCache.m in Sources */,
 				0497D0471CFE8554007E3E17 /* EaseChatBarMoreView.m in Sources */,
 				0497D0441CFE8554007E3E17 /* EaseTextView.m in Sources */,
-				04F54A7E1CED5B300095DA09 /* JXProfileViewController.m in Sources */,
 				0497D00A1CFE8554007E3E17 /* UIImage+EMMultiFormat.m in Sources */,
 				0497D0041CFE8554007E3E17 /* EMSDWebImageManager.m in Sources */,
 				0497D0321CFE8554007E3E17 /* EaseUsersListViewController.m in Sources */,
 				04F54A9B1CEEF20C0095DA09 /* JXTextView.m in Sources */,
+				0423B93F1D0CF67500B5209C /* JXProfileViewController.m in Sources */,
 				0497D0101CFE8554007E3E17 /* PSTCollectionView.m in Sources */,
 				04F54A9F1CEEFD970095DA09 /* JXRescueDetailViewController.m in Sources */,
 				04F2B53C1D0125C600120402 /* JXOrderDetailViewController.m in Sources */,
@@ -1900,6 +1950,7 @@
 				0497D0401CFE8554007E3E17 /* EaseBubbleView.m in Sources */,
 				04A10B871D0511B000CF9987 /* JXConst.m in Sources */,
 				0497D0181CFE8554007E3E17 /* PSTGridLayoutInfo.m in Sources */,
+				0423B9401D0CF67500B5209C /* JXIncomeViewCell.m in Sources */,
 				0497D0151CFE8554007E3E17 /* PSTCollectionViewItemKey.m in Sources */,
 				0497CFF21CFE8554007E3E17 /* wav.mm in Sources */,
 				0497CFEF1CFE8554007E3E17 /* EMCDDeviceManager+Remind.m in Sources */,

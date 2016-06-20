@@ -19,20 +19,19 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-
+        self.backgroundImage = [JXSkinTool skinToolImageWithImageName:@"tabbar_bg"];
+        
+        // 监听修改皮肤的通知
+        [JXNotificationCenter addObserver:self selector:@selector(skinChanged) name:JXChangedSkinNotification object:nil];
     }
     return self;
 }
 
-//- (void)setup {
-//    UIButton *rescueButton = [[UIButton alloc] init];
-//    [rescueButton setImage:[UIImage imageNamed:@"tabbar_rescue"] forState:UIControlStateNormal];
-//    rescueButton.jx_size = [UIImage imageNamed:@"tabbar_rescue"].size;
-//    
-//    [rescueButton addTarget:self action:@selector(rescueButtonDidClicked) forControlEvents:UIControlEventTouchUpInside];
-//    [self addSubview:rescueButton];
-//    self.rescueButton = rescueButton;
-//}
+- (void)skinChanged {
+    self.backgroundImage = [JXSkinTool skinToolImageWithImageName:@"tabbar_bg"];
+    
+    [self.rescueButton setImage:[JXSkinTool skinToolImageWithImageName:@"tabbar_rescue"] forState:UIControlStateNormal];
+}
 
 - (void)rescueButtonDidClicked {
     if ([self.delegate respondsToSelector:@selector(tabBarDidClickedRescueButton:)]) {
@@ -54,8 +53,9 @@
     
     if (self.rescueButton == nil) {
         UIButton *rescueButton = [[UIButton alloc] init];
-        [rescueButton setImage:[UIImage imageNamed:@"tabbar_rescue"] forState:UIControlStateNormal];
-        rescueButton.jx_size = [UIImage imageNamed:@"tabbar_rescue"].size;
+        UIImage *rescueImg = [JXSkinTool skinToolImageWithImageName:@"tabbar_rescue"];
+        [rescueButton setImage:rescueImg forState:UIControlStateNormal];
+        rescueButton.jx_size = rescueImg.size;
         
         [rescueButton addTarget:self action:@selector(rescueButtonDidClicked) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:rescueButton];
@@ -69,6 +69,7 @@
     // 2.设置其他tabbarButton的位置和尺寸
     CGFloat tabbarButtonW = self.jx_width / 3;
     CGFloat tabbarButtonIndex = 0;
+    
     for (UIView *child in self.subviews) {
         Class class = NSClassFromString(@"UITabBarButton");
         if ([child isKindOfClass:class]) {
@@ -84,10 +85,16 @@
             }
         }
         
-//        if (child.jx_height == 0.5) {
-//            child.hidden = YES;
-//        }
+        Class bgImgClass = NSClassFromString(@"_UITabBarBackgroundView");
+        if ([child isKindOfClass:bgImgClass]) {
+            UIImageView *bgView = (UIImageView *)child;
+            bgView.contentMode = UIViewContentModeScaleAspectFill;
+        }
     }
+}
+
+- (void)dealloc {
+    [JXNotificationCenter removeObserver:self];
 }
 
 @end

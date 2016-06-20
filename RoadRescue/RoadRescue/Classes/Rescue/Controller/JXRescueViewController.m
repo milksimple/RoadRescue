@@ -34,6 +34,28 @@
 @property (nonatomic, strong) CLGeocoder *geocoder;
 @property (nonatomic, strong) JXOrderDetail *orderDetail;
 
+@property (weak, nonatomic) IBOutlet UIImageView *bgView;
+
+@property (weak, nonatomic) IBOutlet UIView *headerSeparator1R;
+@property (weak, nonatomic) IBOutlet UIView *headerSeparator1L;
+@property (weak, nonatomic) IBOutlet UILabel *chooseAcdTypeLabel;
+
+@property (weak, nonatomic) IBOutlet UIView *headerSeparator2R;
+@property (weak, nonatomic) IBOutlet UIView *headerSeparator2L;
+@property (weak, nonatomic) IBOutlet UILabel *rescueAddressLabel;
+
+@property (weak, nonatomic) IBOutlet UIView *headerSeparator3R;
+@property (weak, nonatomic) IBOutlet UIView *headerSeparator3L;
+@property (weak, nonatomic) IBOutlet UILabel *chooseSerItemLabel;
+
+@property (weak, nonatomic) IBOutlet UIView *chooseAcdTypeContentView;
+@property (weak, nonatomic) IBOutlet UIView *addressContainer;
+
+@property (weak, nonatomic) IBOutlet UIView *chooseAcdContSeparator;
+@property (weak, nonatomic) IBOutlet UIButton *chooseAcdContButton;
+
+@property (weak, nonatomic) IBOutlet UIImageView *rescueAddressLocationView;
+
 @end
 
 @implementation JXRescueViewController
@@ -69,6 +91,39 @@
     
     // 定位
     [self setupLocation];
+    
+    
+    // 导航栏背景
+    UIImage *navBgImg = [JXSkinTool skinToolImageWithImageName:@"rescue_nav_bg"];
+    // 这尼玛还要来个特殊处理？
+    if (navBgImg == nil) {
+        navBgImg = [UIImage new];
+    }
+    [self.navigationController.navigationBar setBackgroundImage:navBgImg forBarMetrics:UIBarMetricsDefault];
+    
+    // 设置背景
+    self.bgView.image = [JXSkinTool skinToolImageWithImageName:@"complete_bg.jpg"];
+    // 分割线的颜色
+    self.headerSeparator1R.backgroundColor = self.headerSeparator1L.backgroundColor = self.headerSeparator2R.backgroundColor = self.headerSeparator2L.backgroundColor = self.headerSeparator3R.backgroundColor = self.headerSeparator3L.backgroundColor = [JXSkinTool skinToolColorWithKey:@"rescue_header_separator"];
+    // header里面label背景色
+    self.chooseAcdTypeLabel.backgroundColor = self.rescueAddressLabel.backgroundColor = self.chooseSerItemLabel.backgroundColor = [JXSkinTool skinToolColorWithKey:@"rescue_header_label_bg"];
+    // header里面label字体颜色
+    self.chooseAcdTypeLabel.textColor = self.rescueAddressLabel.textColor = self.chooseSerItemLabel.textColor = [JXSkinTool skinToolColorWithKey:@"rescue_header_label_text"];
+    
+    
+    // content背景色
+    self.chooseAcdTypeContentView.backgroundColor = self.addressContainer.backgroundColor = [JXSkinTool skinToolColorWithKey:@"rescue_content_bg"];
+    
+    // content内部字体颜色
+    self.accidentypeField.textColor = self.addressShortLabel.textColor = self.addressDesLabel.textColor = [JXSkinTool skinToolColorWithKey:@"rescue_content_text"];
+    self.chooseAcdContSeparator.backgroundColor = [JXSkinTool skinToolColorWithKey:@"rescue_content_separator"];
+    
+    [self.chooseAcdContButton setImage:[JXSkinTool skinToolImageWithImageName:@"triangle_down"] forState:UIControlStateNormal];
+    self.rescueAddressLocationView.image = [JXSkinTool skinToolImageWithImageName:@"location"];
+    
+    // 下一步按钮
+    [self.nextButton setBackgroundImage:[JXSkinTool skinToolImageWithImageName:@"rescue_next"] forState:UIControlStateNormal];
+    [self.nextButton setTitleColor:[JXSkinTool skinToolColorWithKey:@"rescue_next"] forState:UIControlStateNormal];
 }
 
 - (void)setupNav {
@@ -81,7 +136,9 @@
     [cancelButton addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cancelButton];
     
-    self.navigationController.navigationBar.barTintColor = JXMiOrangeColor;
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"transparent64"] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.navigationBar.barTintColor = [JXSkinTool skinToolColorWithKey:@"rescue_nav_barTint"];
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 }
 
@@ -145,6 +202,7 @@
         return;
     }
     
+#warning 测试数据
     self.orderDetail.orderer = @"13888650223";
     self.orderDetail.accidentDes = self.accidentDesView.text;
     self.orderDetail.addressShort = self.addressShortLabel.text;
@@ -176,12 +234,25 @@
         if (!error) {
             CLPlacemark *placemark = placemarks.firstObject;
             
-            NSString *thoroughfare = placemark.thoroughfare == nil ? @"" : placemark.thoroughfare;
-            NSString *subThoroughfare = placemark.subThoroughfare == nil ? @"" : placemark.subThoroughfare;
-            NSString *locality = placemark.locality == nil ? @"" : placemark.locality;
-            NSString *subLocality = placemark.subLocality == nil ? @"" : placemark.subLocality;
+            NSString *thoroughfare = placemark.thoroughfare.length == 0 ? @"" : placemark.thoroughfare;
+            NSString *subThoroughfare = placemark.subThoroughfare.length == 0 ? @"" : placemark.subThoroughfare;
+            NSString *locality = placemark.locality.length == 0 ? @"" : placemark.locality;
+            NSString *subLocality = placemark.subLocality.length == 0 ? @"" : placemark.subLocality;
             self.addressShortLabel.text = [NSString stringWithFormat:@"%@%@", thoroughfare, subThoroughfare];
+            if (self.addressShortLabel.text.length == 0) {
+                self.addressShortLabel.text = placemark.name;
+            }
+            if (self.addressShortLabel.text.length == 0) {
+                self.addressShortLabel.text = @"未获取到详细位置信息";
+            }
+            
             self.addressDesLabel.text = [NSString stringWithFormat:@"%@ %@%@%@", locality, subLocality, thoroughfare, subThoroughfare];
+            if (self.addressDesLabel.text.length == 0) {
+                self.addressDesLabel.text = self.addressShortLabel.text = placemark.name;
+            }
+            if (self.addressDesLabel.text.length == 0) {
+                self.addressDesLabel.text = @"未获取到详细位置信息";
+            }
             
 //            JXLog(@"placemark.addressDictionary = %@", placemark.addressDictionary);
 //            JXLog(@"areasOfInterest = %@", placemark.areasOfInterest);

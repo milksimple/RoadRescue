@@ -18,7 +18,6 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 
-
 @property (weak, nonatomic) IBOutlet UIImageView *waveBgView;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -80,11 +79,11 @@
 - (void)loadData {
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
 #warning 测试
-    paras[@"moblie"] = @"13888650223";
+    paras[@"mobile"] = @"13888650223";
     paras[@"token"] = @"7F9D459A";
     paras[@"orderNum"] = self.orderNum;
-    JXLog(@"orderNum = %@", self.orderNum);
     paras[@"orderType"] = @1;
+
     [JXHttpTool post:[NSString stringWithFormat:@"%@/order/findOrder", JXServerName] params:paras success:^(id json) {
         JXLog(@"请求成功 - %@", json);
         self.orderDetail = [JXOrderDetail mj_objectWithKeyValues:json[@"data"]];
@@ -142,7 +141,7 @@
     // 救援描述
     self.rescueDesLabel.text = orderDetail.accidentDes;
     // 总价
-    self.totalPriceLabel.text = [NSString stringWithFormat:@"¥%f", orderDetail.totalPrice];
+    self.totalPriceLabel.text = [NSString stringWithFormat:@"¥%.2f", orderDetail.totalPrice];
     // 救援指数
     self.rescueNumLabel.text = [NSString stringWithFormat:@"%zd", orderDetail.rescueIndex];
     // 地图
@@ -166,6 +165,9 @@
     
 }
 
+- (void)dealloc {
+    JXLog(@"JXOrderDetailViewController - dealloc");
+}
 
 //#pragma mark - MKMapViewDelegate
 //- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
