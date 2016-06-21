@@ -23,7 +23,10 @@
 
 @interface JXOrderManageViewController () <JXMyOrderTableViewCellDelegate, EMChatManagerDelegate>
 
-@property (nonatomic, strong) JXMyOrderCompletePopView *orderCompletePopView;
+@property (nonatomic, weak) JXMyOrderCompletePopView *orderCompletePopView;
+
+/** 有人接单提示view */
+@property (nonatomic, weak) JXOrderPopView *orderPopView;
 
 @property (nonatomic, strong) NSMutableArray *orderDetails;
 /** 请求参数 */
@@ -40,6 +43,13 @@
         _orderCompletePopView = [JXMyOrderCompletePopView completePopView];
     }
     return _orderCompletePopView;
+}
+
+- (JXOrderPopView *)orderPopView {
+    if (_orderPopView == nil) {
+        _orderPopView = [JXOrderPopView popView];
+    }
+    return _orderPopView;
 }
 
 - (NSMutableArray *)orderDetails {
@@ -177,6 +187,7 @@
                 
                 // 弹出有救援队接单提醒
                 [self.orderCompletePopView show];
+//                [self.orderPopView show];
                 
                 // 判断是否在后台
                 if (JXApplication.applicationState == UIApplicationStateBackground) {

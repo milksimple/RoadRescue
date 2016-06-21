@@ -201,7 +201,7 @@
                 JXLog(@"注册请求失败 - %@", error);
             }];
         }
-        else { // 验证失败,不需要请求注册
+        else { // 验证失败,不能请求注册
             [MBProgressHUD hideHUD];
             [MBProgressHUD showError:[NSString stringWithFormat:@"%@", error.userInfo[@"commitVerificationCode"]]];
             JXLog(@"验证失败-错误信息:%@",error);

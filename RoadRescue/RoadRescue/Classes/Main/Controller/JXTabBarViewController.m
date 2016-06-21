@@ -38,8 +38,8 @@
 }
 
 - (void)addChildVC:(UIViewController *)childVC image:(NSString *)image selectedImage:(NSString *)selectedImage title:(NSString *)title {
-    childVC.tabBarItem.image = [UIImage imageNamed:image];
-    childVC.tabBarItem.selectedImage = [[UIImage imageNamed:selectedImage] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    childVC.tabBarItem.image = [JXSkinTool skinToolImageWithImageName:image];
+    childVC.tabBarItem.selectedImage = [[JXSkinTool skinToolImageWithImageName:selectedImage] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     childVC.tabBarItem.title = title;
     [childVC.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:JXColor(117, 117, 117)} forState:UIControlStateNormal];
     [childVC.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:JXColor(248, 119, 44)} forState:UIControlStateSelected];
@@ -50,6 +50,15 @@
 
 #pragma mark - JXTabBarDelegate
 - (void)tabBarDidClickedRescueButton:(JXTabBar *)tabBar {
+#warning 测试
+    JXRescueViewController *rescueVC = [[JXRescueViewController alloc] init];
+    JXNavigationController *nav = [[JXNavigationController alloc] initWithRootViewController:rescueVC];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:nav animated:YES completion:nil];
+    });
+    
+    return;
+    
     JXAccount *account = [JXAccountTool account];
     if (account.telephone.length > 0 && account.token.length > 0) {
         JXRescueViewController *rescueVC = [[JXRescueViewController alloc] init];

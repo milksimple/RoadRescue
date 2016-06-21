@@ -28,5 +28,7 @@
 	<string>255,255,255,1</string>
 	<key>rescue_detail_picker_bg</key>
 	<string>255,255,255,0</string>
+	<key>order_recevied_tip_title</key>
+	<string>255,255,255,1</string>
 </dict>
 </plist>

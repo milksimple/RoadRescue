@@ -11,6 +11,16 @@
 @interface JXOrderPopView()
 @property (weak, nonatomic) IBOutlet UIView *container;
 
+@property (weak, nonatomic) IBOutlet UIImageView *topBgView;
+@property (weak, nonatomic) IBOutlet UIImageView *waveBgView;
+
+@property (weak, nonatomic) IBOutlet UIImageView *trueView;
+
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *detailLabel;
+
+@property (weak, nonatomic) IBOutlet UIButton *knowButton;
+
 @end
 
 @implementation JXOrderPopView
@@ -23,6 +33,24 @@
     [super awakeFromNib];
     
     self.frame = [UIScreen mainScreen].bounds;
+    
+    // 设置背景
+    [self setupBg];
+}
+
+/**
+ *  设置背景
+ */
+- (void)setupBg {
+    self.topBgView.image = [JXSkinTool skinToolImageWithImageName:@"order_received_tip_topBg"];
+    self.waveBgView.image = [JXSkinTool skinToolImageWithImageName:@"order_received_tip_waveBg"];
+    
+    self.trueView.image = [JXSkinTool skinToolImageWithImageName:@"order_true"];
+    
+    self.titleLabel.textColor = self.detailLabel.textColor = [JXSkinTool skinToolColorWithKey:@"order_recevied_tip_title"];
+    
+    [self.knowButton setBackgroundImage:[JXSkinTool skinToolImageWithImageName:@"rescue_next"] forState:UIControlStateNormal];
+    [self.knowButton setTitleColor:[JXSkinTool skinToolColorWithKey:@"rescue_next"] forState:UIControlStateNormal];
 }
 
 - (IBAction)knowButtonClicked {

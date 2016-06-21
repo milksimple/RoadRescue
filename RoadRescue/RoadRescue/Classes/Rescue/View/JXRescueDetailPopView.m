@@ -34,6 +34,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *fixItemLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalPriceLabel;
 
+@property (weak, nonatomic) IBOutlet UIImageView *topBgView;
+@property (weak, nonatomic) IBOutlet UIImageView *waveBgView;
+
+@property (weak, nonatomic) IBOutlet UIImageView *locationView;
+
+@property (weak, nonatomic) IBOutlet UIButton *confirmButton;
+
 @end
 
 @implementation JXRescueDetailPopView
@@ -46,8 +53,21 @@
     [super awakeFromNib];
     
     self.frame = [UIScreen mainScreen].bounds;
-    UIImage *closeImg = [JXSkinTool skinToolImageWithImageName:@"rescue_close"];
-    [self.closeButton setImage:closeImg forState:UIControlStateNormal];
+    
+    // 设置背景
+    [self setupBg];
+}
+
+- (void)setupBg {
+    // 关闭按钮
+    [self.closeButton setImage:[JXSkinTool skinToolImageWithImageName:@"rescue_close"] forState:UIControlStateNormal];
+    
+    self.topBgView.image = [JXSkinTool skinToolImageWithImageName:@"rescue_pop_topBg"];
+    self.waveBgView.image = [JXSkinTool skinToolImageWithImageName:@"rescue_pop_waveBg"];
+    
+    // 确定按钮
+    [self.confirmButton setBackgroundImage:[JXSkinTool skinToolImageWithImageName:@"rescue_next"] forState:UIControlStateNormal];
+    [self.confirmButton setTitleColor:[JXSkinTool skinToolColorWithKey:@"rescue_next"] forState:UIControlStateNormal];
 }
 
 - (void)setOrderDetail:(JXOrderDetail *)orderDetail {
