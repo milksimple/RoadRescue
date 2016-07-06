@@ -10,12 +10,35 @@
 #import "JXProfileHeaderViewCell.h"
 #import "JXIncomeViewCell.h"
 #import "JXProfileViewCell.h"
+#import "JXSkinViewController.h"
+#import "JXAccountTool.h"
+#import "JXNavigationController.h"
 
 @interface JXProfileViewController ()
+
+/** 账号信息 */
+@property (nonatomic, strong) JXAccount *account;
+
+/** 更换主题控制器 */
+@property (nonatomic, strong) JXSkinViewController *skinVC;
 
 @end
 
 @implementation JXProfileViewController
+#pragma mark - lazy
+- (JXAccount *)account {
+    if (_account == nil) {
+        _account = [JXAccountTool account];
+    }
+    return _account;
+}
+
+- (JXSkinViewController *)skinVC {
+    if (_skinVC == nil) {
+        _skinVC = [[JXSkinViewController alloc] init];
+    }
+    return _skinVC;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -24,10 +47,17 @@
     self.tableView.backgroundColor = JXGlobalBgColor;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([JXProfileViewCell class]) bundle:nil] forCellReuseIdentifier:[JXProfileViewCell reuseIdentifier]];
+    
+    // 设置背景
+    UIImageView *bgView = [[UIImageView alloc] init];
+    bgView.frame = self.view.bounds;
+    bgView.image = [JXSkinTool skinToolImageWithImageName:@"complete_bg.jpg"];
+    self.tableView.backgroundView = bgView;
+    // 监听修改皮肤的通知
+    [JXNotificationCenter addObserver:self selector:@selector(skinChanged) name:JXChangedSkinNotification object:nil];
 }
 
 #pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
 }
@@ -44,12 +74,13 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) { // 个人header
             JXProfileHeaderViewCell *headerCell = [JXProfileHeaderViewCell headerViewCell];
+            headerCell.account = self.account;
             return headerCell;
         }
         else { // 红包
             JXProfileViewCell *profileCell = [tableView dequeueReusableCellWithIdentifier:[JXProfileViewCell reuseIdentifier] forIndexPath:indexPath];
             profileCell.type = JXProfileViewCellTypeRedbag;
-            profileCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//            profileCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             return profileCell;
         }
     }
@@ -84,35 +115,18 @@
     }
     else {
         switch (indexPath.row) {
-            case 0: // 设置
+            case 0: { // 设置
                 
                 break;
+            }
                 
             case 1: // 帮助
                 
                 break;
                 
             case 2:  { // 换肤
-                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"切换皮肤" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-                UIAlertAction *originAction = [UIAlertAction actionWithTitle:@"普通" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    [JXSkinTool setSkinType:JXSkinTypeOriginStr];
-                    [wSelf.tableView reloadData];
-                }];
-                UIAlertAction *brickAction = [UIAlertAction actionWithTitle:@"碳纤维" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    [JXSkinTool setSkinType:JXSkinTypeBrickStr];
-                    [wSelf.tableView reloadData];
-                }];
-                UIAlertAction *woodAction = [UIAlertAction actionWithTitle:@"木纹" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    [JXSkinTool setSkinType:JXSkinTypeWoodStr];
-                    [wSelf.tableView reloadData];
-                }];
-                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-                [alertVC addAction:originAction];
-                [alertVC addAction:brickAction];
-                [alertVC addAction:woodAction];
-                [alertVC addAction:cancelAction];
-                
-                [self presentViewController:alertVC animated:YES completion:nil];
+                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.skinVC];
+                [self presentViewController:nav animated:YES completion:nil];
                 break;
             }
                 
@@ -120,6 +134,12 @@
                 break;
         }
     }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *header = [[UIView alloc] init];
+    header.backgroundColor = [UIColor clearColor];
+    return header;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -143,6 +163,22 @@
     else {
         return 20;
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.01;
+}
+
+#pragma mark - 通知 JXChangedSkinNotification
+- (void)skinChanged {
+    [self.tableView reloadData];
+    
+    UIImageView *bgView = (UIImageView *)self.tableView.backgroundView;
+    bgView.image = [JXSkinTool skinToolImageWithImageName:@"complete_bg.jpg"];
+}
+
+- (void)dealloc {
+    [JXNotificationCenter removeObserver:self];
 }
 
 @end

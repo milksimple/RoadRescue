@@ -21,7 +21,7 @@
     UINavigationBar *navigationBar = [UINavigationBar appearanceWhenContainedIn:[self class], nil];
     
     // 使用自己的图片替换原来的返回图片
-    UIImage *navBack = [JXSkinTool skinToolImageWithImageName:@"nav_back"];
+    UIImage *navBack = [JXSkinTool skinToolImageWithImageName:@"nav_back_gray"];
     navigationBar.backIndicatorImage = [navBack imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     navigationBar.backIndicatorTransitionMaskImage = [navBack imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
@@ -29,6 +29,9 @@
     
     navigationBar.shadowImage = [UIImage new];
 //    [navigationBar setBarTintColor:JXAlphaColor(234, 234, 234, 0.5)];
+    
+    // 设置标题颜色
+    [navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[JXSkinTool skinToolColorWithKey:@"navbar_title"]}];
 }
 
 - (instancetype)initWithRootViewController:(UIViewController *)rootViewController {
@@ -55,6 +58,11 @@
 
 - (void)skinChanged {
     [self.navigationBar setBackgroundImage:[JXSkinTool skinToolImageWithImageName:@"nav_bg"] forBarMetrics:UIBarMetricsDefault];
+    
+    // 获取特定类的所有导航条
+//    UINavigationBar *navigationBar = [UINavigationBar appearanceWhenContainedIn:[self class], nil];
+    // 设置标题颜色
+    [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[JXSkinTool skinToolColorWithKey:@"navbar_title"]}];
 }
 
 - (void)dealloc {

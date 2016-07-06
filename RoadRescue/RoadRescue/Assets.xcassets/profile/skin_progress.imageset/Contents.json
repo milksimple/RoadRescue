@@ -1,0 +1,38 @@
+{
+  "images" : [
+    {
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "resizing" : {
+        "mode" : "3-part-horizontal",
+        "center" : {
+          "mode" : "tile",
+          "width" : 1
+        },
+        "cap-insets" : {
+          "right" : 6,
+          "left" : 6
+        }
+      },
+      "idiom" : "universal",
+      "filename" : "skin_progress@3x.png",
+      "alignment-insets" : {
+        "top" : 0,
+        "left" : 0,
+        "bottom" : 0,
+        "right" : 5
+      },
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}

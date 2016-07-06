@@ -12,7 +12,7 @@
 
 + (void)get:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError *error))failure {
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
-    mgr.requestSerializer.timeoutInterval = 6;
+    mgr.requestSerializer.timeoutInterval = 12;
     [mgr GET:url parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {
             success(responseObject);
@@ -27,7 +27,7 @@
 
 + (void)post:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError *error))failure {
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
-    mgr.requestSerializer.timeoutInterval = 6;
+    mgr.requestSerializer.timeoutInterval = 12;
     [mgr POST:url parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {
             success(responseObject);
@@ -41,7 +41,7 @@
 
 + (void)post:(NSString *)url params:(NSDictionary *)params constructingWithBlock:(void(^)(id<AFMultipartFormData> formData))block success:(void(^)(id json))success failure:(void (^)(NSError *error))failure {
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
-    mgr.requestSerializer.timeoutInterval = 10;
+//    mgr.requestSerializer.timeoutInterval = 10;
     [mgr POST:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         if (block) {
             block(formData);

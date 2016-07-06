@@ -7,10 +7,14 @@
 //  点击订单查看弹出的框
 
 #import <UIKit/UIKit.h>
+@class JXRescueTeam;
 
 @interface JXOrderPopView : UIView
 
 + (instancetype)popView;
+
+/** 救援队信息模型 */
+@property (nonatomic, strong) JXRescueTeam *rescueTeam;
 
 - (void)show;
 

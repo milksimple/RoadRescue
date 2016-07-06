@@ -20,6 +20,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.backgroundImage = [JXSkinTool skinToolImageWithImageName:@"tabbar_bg"];
+        self.shadowImage = [UIImage new];
         
         // 监听修改皮肤的通知
         [JXNotificationCenter addObserver:self selector:@selector(skinChanged) name:JXChangedSkinNotification object:nil];

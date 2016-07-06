@@ -14,15 +14,19 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nfv-NH-yOJ">
-                        <rect key="frame" x="10" y="8" width="27" height="27"/>
+                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sI0-Ga-4pA" userLabel="bgView">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Nfv-NH-yOJ">
+                        <rect key="frame" x="10" y="19" width="27" height="27"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="27" id="CAG-YP-Epd"/>
                             <constraint firstAttribute="width" constant="27" id="PFL-GJ-fg3"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="救援队资料" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P04-dv-bAo">
-                        <rect key="frame" x="47" y="13" width="70" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="救援队资料" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P04-dv-bAo">
+                        <rect key="frame" x="47" y="24" width="70" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.27450980392156865" green="0.27450980392156865" blue="0.27450980392156865" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -53,17 +57,29 @@
                     <constraint firstAttribute="trailing" secondItem="3Jh-WJ-OLb" secondAttribute="trailing" constant="10" id="2pm-cg-zwC"/>
                     <constraint firstItem="Nfv-NH-yOJ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="7tX-bH-aCN"/>
                     <constraint firstItem="Nfv-NH-yOJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="9YY-d0-gfR"/>
+                    <constraint firstItem="MrU-Ws-Gnu" firstAttribute="top" secondItem="sI0-Ga-4pA" secondAttribute="bottom" id="AXS-4a-kip"/>
+                    <constraint firstAttribute="bottom" secondItem="sI0-Ga-4pA" secondAttribute="bottom" id="B2n-6w-ejm"/>
                     <constraint firstItem="MrU-Ws-Gnu" firstAttribute="leading" secondItem="P04-dv-bAo" secondAttribute="leading" id="DdI-XB-UPw"/>
+                    <constraint firstItem="sI0-Ga-4pA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="IRe-VY-sBu"/>
+                    <constraint firstItem="sI0-Ga-4pA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="P9U-TY-X1i"/>
                     <constraint firstItem="3Jh-WJ-OLb" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="SYR-dS-BEQ"/>
                     <constraint firstAttribute="trailing" secondItem="MrU-Ws-Gnu" secondAttribute="trailing" id="Xs6-fs-Fkf"/>
                     <constraint firstItem="P04-dv-bAo" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="mJY-4P-RiX"/>
                     <constraint firstItem="P04-dv-bAo" firstAttribute="leading" secondItem="Nfv-NH-yOJ" secondAttribute="trailing" constant="10" id="mhs-Zh-OhF"/>
                     <constraint firstAttribute="bottom" secondItem="MrU-Ws-Gnu" secondAttribute="bottom" id="nh0-4c-eXE"/>
+                    <constraint firstAttribute="trailing" secondItem="sI0-Ga-4pA" secondAttribute="trailing" id="uPX-Tx-uXZ"/>
                     <constraint firstAttribute="trailing" secondItem="YvD-yE-Bjx" secondAttribute="trailing" constant="10" id="uXy-fq-qMg"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="AXS-4a-kip"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="accessory" destination="YvD-yE-Bjx" id="18G-pg-la1"/>
+                <outlet property="bgView" destination="sI0-Ga-4pA" id="Ofc-A3-NYR"/>
                 <outlet property="iconView" destination="Nfv-NH-yOJ" id="Ukh-iT-0bx"/>
                 <outlet property="rightLabel" destination="3Jh-WJ-OLb" id="FuU-zR-3vU"/>
                 <outlet property="separator" destination="MrU-Ws-Gnu" id="Seg-lY-e6Q"/>

@@ -14,6 +14,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gon-U1-u1a" userLabel="bgView">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="57"/>
+                        <color key="backgroundColor" white="1" alpha="0.29653188344594594" colorSpace="calibratedWhite"/>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥125600" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HZW-SY-53J">
                         <rect key="frame" x="10" y="18" width="83" height="24"/>
                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -47,8 +51,10 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstItem="IWe-vT-U3u" firstAttribute="leading" secondItem="mf0-C6-Hz0" secondAttribute="trailing" constant="10" id="6Zb-br-dkU"/>
+                    <constraint firstAttribute="trailing" secondItem="Gon-U1-u1a" secondAttribute="trailing" id="7IS-Ah-hlB"/>
                     <constraint firstItem="mf0-C6-Hz0" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="7rt-qa-4Cf"/>
                     <constraint firstAttribute="bottom" secondItem="ziC-1o-2X8" secondAttribute="bottom" constant="1" id="Ixk-k6-Evh"/>
                     <constraint firstItem="HZW-SY-53J" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Jgv-C2-wuc"/>
@@ -56,9 +62,12 @@
                     <constraint firstItem="IWe-vT-U3u" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="OYV-J0-SVJ"/>
                     <constraint firstItem="yql-xn-TCx" firstAttribute="leading" secondItem="HZW-SY-53J" secondAttribute="trailing" constant="5" id="PS0-Ei-78d"/>
                     <constraint firstItem="ziC-1o-2X8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="VbF-rO-egw"/>
+                    <constraint firstItem="ziC-1o-2X8" firstAttribute="top" secondItem="Gon-U1-u1a" secondAttribute="bottom" id="lTF-xi-InP"/>
                     <constraint firstAttribute="trailing" secondItem="ziC-1o-2X8" secondAttribute="trailing" id="lth-bI-gYk"/>
+                    <constraint firstItem="Gon-U1-u1a" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="nli-Me-mA6"/>
                     <constraint firstAttribute="trailing" secondItem="IWe-vT-U3u" secondAttribute="trailing" constant="10" id="qRk-qx-0Pq"/>
                     <constraint firstItem="HZW-SY-53J" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="twg-Qz-m4N"/>
+                    <constraint firstItem="Gon-U1-u1a" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="z5y-zw-XcP"/>
                 </constraints>
             </tableViewCellContentView>
             <point key="canvasLocation" x="305" y="441"/>

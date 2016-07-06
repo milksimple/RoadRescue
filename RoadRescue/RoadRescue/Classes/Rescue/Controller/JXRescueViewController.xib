@@ -68,7 +68,6 @@
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="选择事故类型" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lbx-Cw-HDL">
                                                     <rect key="frame" x="40" y="7" width="78" height="16"/>
-                                                    <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="95" id="Idv-3s-fK8"/>
                                                     </constraints>
@@ -111,7 +110,7 @@
                                                         <constraint firstAttribute="height" constant="30" id="UqP-Ip-JiS"/>
                                                     </constraints>
                                                     <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tVU-M4-Etx">
@@ -129,10 +128,10 @@
                                                     </constraints>
                                                 </view>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="SkD-GV-8Q9" customClass="JXTextView">
-                                                    <rect key="frame" x="10" y="46" width="560" height="244"/>
+                                                    <rect key="frame" x="10" y="36" width="560" height="254"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                             </subviews>
@@ -152,7 +151,7 @@
                                                 <constraint firstItem="tVU-M4-Etx" firstAttribute="bottom" secondItem="b7I-9E-2mB" secondAttribute="bottom" id="fdX-9e-wB1"/>
                                                 <constraint firstItem="SkD-GV-8Q9" firstAttribute="leading" secondItem="d5s-sN-Xn2" secondAttribute="leading" constant="10" id="ig8-lO-bhI"/>
                                                 <constraint firstItem="tVU-M4-Etx" firstAttribute="leading" secondItem="d5s-sN-Xn2" secondAttribute="leading" id="jLo-aL-RF1"/>
-                                                <constraint firstItem="SkD-GV-8Q9" firstAttribute="top" secondItem="TYF-rP-60B" secondAttribute="bottom" constant="10" id="jdZ-rt-wDX"/>
+                                                <constraint firstItem="SkD-GV-8Q9" firstAttribute="top" secondItem="TYF-rP-60B" secondAttribute="bottom" id="jdZ-rt-wDX"/>
                                                 <constraint firstAttribute="trailing" secondItem="b7I-9E-2mB" secondAttribute="trailing" id="jiR-oB-aaJ"/>
                                                 <constraint firstItem="TYF-rP-60B" firstAttribute="leading" secondItem="d5s-sN-Xn2" secondAttribute="leading" id="t82-Yr-olO"/>
                                                 <constraint firstAttribute="bottom" secondItem="SkD-GV-8Q9" secondAttribute="bottom" id="wgT-tj-eGU"/>
@@ -182,7 +181,6 @@
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="救援地点" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D8h-ay-MZC">
                                                     <rect key="frame" x="40" y="7" width="52" height="16"/>
-                                                    <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="95" id="MYp-b9-Ot3"/>
                                                     </constraints>
@@ -234,7 +232,6 @@
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="选择服务项目" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="by2-fJ-Yjj">
                                                     <rect key="frame" x="40" y="7" width="78" height="16"/>
-                                                    <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="95" id="VV1-T3-Tut"/>
                                                     </constraints>

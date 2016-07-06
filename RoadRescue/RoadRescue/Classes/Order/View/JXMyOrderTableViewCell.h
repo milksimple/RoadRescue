@@ -25,4 +25,6 @@
 /** 订单模型 */
 @property (nonatomic, strong) JXOrderDetail *orderDetail;
 
++ (CGFloat)rowHeight;
+
 @end

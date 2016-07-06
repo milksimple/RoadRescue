@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>navbar_title</key>
+	<string>0,0,0,1</string>
+	<key>tabbar_item_title_normal</key>
+	<string>117,117,117,1</string>
+	<key>tabbar_item_title_selected</key>
+	<string>248,119,44,1</string>
+	<key>rescueDetail_request_button_text</key>
+	<string>255,255,255,1</string>
+	<key>order_tableviewcellSeparator</key>
+	<string>240,240,240,0.7</string>
+	<key>rescue_nav_barTint</key>
+	<string>251,124,21,1</string>
+	<key>rescue_header_separator</key>
+	<string>231,231,231,1</string>
+	<key>rescue_header_label_bg</key>
+	<string>245,245,245,0</string>
+	<key>rescue_header_label_text</key>
+	<string>168,168,168,1</string>
+	<key>rescue_content_bg</key>
+	<string>255,255,255,1</string>
+	<key>rescue_content_text</key>
+	<string>99,99,99,1</string>
+	<key>rescue_content_separator</key>
+	<string>241,241,241,1</string>
+	<key>rescue_next</key>
+	<string>255,255,255,1</string>
+	<key>rescue_detail_price_container_bg</key>
+	<string>245,245,245,1</string>
+	<key>rescue_detail_title_text</key>
+	<string>110,110,110,1</string>
+	<key>rescue_detail_picker_bg</key>
+	<string>255,255,255,1</string>
+	<key>order_recevied_tip_title</key>
+	<string>25,25,25,1</string>
+	<key>profile_header_bg</key>
+	<string>242,242,242,1</string>
+	<key>profile_header_separator</key>
+	<string>235,235,235,1</string>
+	<key>profile_title_text</key>
+	<string>53,53,53,1</string>
+	<key>profile_cell_bg</key>
+	<string>255,255,255,1</string>
+	<key>profile_cell_separator</key>
+	<string>235,235,235,1</string>
+	<key>rescue_nav_title</key>
+	<string>255,255,255,1</string>
+</dict>
+</plist>

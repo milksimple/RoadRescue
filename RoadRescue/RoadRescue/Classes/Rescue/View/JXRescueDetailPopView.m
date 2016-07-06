@@ -59,6 +59,9 @@
 }
 
 - (void)setupBg {
+    // 位置
+    self.locationView.image = [JXSkinTool skinToolImageWithImageName:@"location"];
+    
     // 关闭按钮
     [self.closeButton setImage:[JXSkinTool skinToolImageWithImageName:@"rescue_close"] forState:UIControlStateNormal];
     
@@ -68,6 +71,7 @@
     // 确定按钮
     [self.confirmButton setBackgroundImage:[JXSkinTool skinToolImageWithImageName:@"rescue_next"] forState:UIControlStateNormal];
     [self.confirmButton setTitleColor:[JXSkinTool skinToolColorWithKey:@"rescue_next"] forState:UIControlStateNormal];
+    
 }
 
 - (void)setOrderDetail:(JXOrderDetail *)orderDetail {
@@ -86,8 +90,6 @@
             
         case 3: // 油料救援 + 简易维修
             break;
-            
-            
             
         default:
             break;

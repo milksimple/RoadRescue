@@ -20,8 +20,9 @@
 #import "MBProgressHUD+MJ.h"
 #import "JXConst.h"
 #import "JXAccountTool.h"
+#import "JXLoadTipView.h"
 
-@interface JXOrderManageViewController () <JXMyOrderTableViewCellDelegate, EMChatManagerDelegate>
+@interface JXOrderManageViewController () <JXMyOrderTableViewCellDelegate, EMChatManagerDelegate, JXLoadTipViewDelegate>
 
 @property (nonatomic, weak) JXMyOrderCompletePopView *orderCompletePopView;
 
@@ -33,6 +34,9 @@
 @property (nonatomic, strong) NSMutableDictionary *paras;
 
 @property (nonatomic, strong) JXAccount *account;
+
+/** 加载提示view */
+@property (nonatomic, weak) JXLoadTipView *tipView;
 
 @end
 
@@ -64,6 +68,14 @@
         _account = [JXAccountTool account];
     }
     return _account;
+}
+
+- (JXLoadTipView *)tipView {
+    if (_tipView == nil) {
+        _tipView = [JXLoadTipView loadTipView];
+        _tipView.delegate = self;
+    }
+    return _tipView;
 }
 
 - (void)viewDidLoad {
@@ -99,7 +111,32 @@
 }
 
 - (void)setupRefresh {
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewOrder)];
+    MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewOrder)];
+    header.lastUpdatedTimeLabel.hidden = YES;
+    header.stateLabel.hidden = YES;
+    header.automaticallyChangeAlpha = YES;
+    
+    // Set the ordinary state of animated images
+    NSMutableArray *idleImages = [NSMutableArray array];
+    for (int i = 1; i < 13; i ++) {
+        [idleImages addObject:[UIImage imageNamed:[NSString stringWithFormat:@"%d", i]]];
+    }
+    [header setImages:idleImages forState:MJRefreshStateIdle];
+    
+    // Set the pulling state of animated images（Enter the status of refreshing as soon as loosen）
+    NSMutableArray *pullingImages = [NSMutableArray array];
+    for (int i = 1; i < 13; i ++) {
+        [pullingImages addObject:[UIImage imageNamed:[NSString stringWithFormat:@"%d", i]]];
+    }
+    [header setImages:pullingImages forState:MJRefreshStatePulling];
+    
+    // Set the refreshing state of animated images
+    NSMutableArray *refreshingImages = [NSMutableArray array];
+    for (int i = 1; i < 13; i ++) {
+        [refreshingImages addObject:[UIImage imageNamed:[NSString stringWithFormat:@"%d", i]]];
+    }
+    [header setImages:refreshingImages forState:MJRefreshStateRefreshing];
+    self.tableView.mj_header = header;
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreOrder)];
     [self.tableView.mj_footer setAutomaticallyHidden:YES];
 }
@@ -109,15 +146,16 @@
  */
 - (void)loadNewOrder {
     if (self.account.telephone.length == 0 || self.account.token.length == 0) {
+        [self.tableView.mj_header endRefreshing];
+        self.tipView.type = JXLoadTipViewTypeNoReloadButton;
+        self.tipView.tipTitle = @"您还没有任何订单哦，快去试试下单吧！";
+        [self.tipView showTipViewToView:self.view];
         return;
     }
     
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
-#warning 测试
     paras[@"mobile"] = self.account.telephone;
     paras[@"token"] = self.account.token;
-    paras[@"mobile"] = @"13888650223";
-    paras[@"token"] = @"7F9D459A";
     paras[@"orderType"] = @1;
     paras[@"start"] = @0;
     paras[@"pageSize"] = @8;
@@ -133,21 +171,71 @@
         if (success) {
             self.orderDetails = [JXOrderDetail mj_objectArrayWithKeyValuesArray:json[@"data"]];
             [self.tableView reloadData];
+            
+            if (self.orderDetails.count == 0) {
+                self.tipView.type = JXLoadTipViewTypeNoReloadButton;
+                self.tipView.tipTitle = @"您还没有任何订单哦，快去试试下单吧！";
+                [self.tipView showTipViewToView:self.view];
+            }
+            else {
+                [self.tipView removeFromSuperview];
+            }
         }
         
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
-        [MBProgressHUD showError:@"网络连接失败"];
+        if (self.orderDetails.count == 0) {
+            self.tipView.type = JXLoadTipViewTypeHasReloadButton;
+            self.tipView.tipTitle = @"啊哦，网络不给力";
+            [self.tipView showTipViewToView:self.view];
+        }
+        else {
+            [MBProgressHUD showError:@"网络连接失败"];
+        }
         JXLog(@"新订单请求失败 - %@", error);
     }];
 }
 
 - (void)loadMoreOrder {
+    if (self.account.telephone.length == 0 || self.account.token.length == 0) {
+        return;
+    }
     
+    NSMutableDictionary *paras = [NSMutableDictionary dictionary];
+    paras[@"mobile"] = self.account.telephone;
+    paras[@"token"] = self.account.token;
+    paras[@"orderType"] = @1;
+    paras[@"start"] = @(self.orderDetails.count);
+    paras[@"pageSize"] = @8;
+    self.paras = paras;
+    
+    [JXHttpTool post:[NSString stringWithFormat:@"%@/order/list", JXServerName] params:paras success:^(id json) {
+        [self.tableView.mj_footer endRefreshing];
+        JXLog(@"新订单请求成功 - %@", json);
+        if (paras != self.paras) {
+            return;
+        }
+        BOOL success = [json[@"success"] boolValue];
+        if (success) {
+            NSArray *moreOrderDetails = [JXOrderDetail mj_objectArrayWithKeyValuesArray:json[@"data"]];
+            [self.orderDetails addObjectsFromArray:moreOrderDetails];
+            [self.tableView reloadData];
+            
+        }
+        
+    } failure:^(NSError *error) {
+        [self.tableView.mj_footer endRefreshing];
+        [MBProgressHUD showError:@"网络连接失败"];
+        JXLog(@"新订单请求失败 - %@", error);
+    }];
 }
 
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (self.orderDetails.count > 0) {
+        [self.tipView removeFromSuperview];
+    }
+    
     return self.orderDetails.count;
 }
 
@@ -161,7 +249,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 208;
+    return [JXMyOrderTableViewCell rowHeight];
 }
 
 #pragma mark - JXMyOrderTableViewCellDelegate
@@ -206,11 +294,26 @@
     }
 }
 
+- (void)didReceiveCmdMessages:(NSArray *)aCmdMessages{
+    for (EMMessage *message in aCmdMessages) {
+        EMCmdMessageBody *body = (EMCmdMessageBody *)message.body;
+        JXLog(@"收到的action是 -- %@",body.action);
+    }
+}
+
 #pragma mark - 通知 JXPlaceAnOrderNotification
 - (void)placedAnNewOrder:(NSNotification *)noti {
     JXOrderDetail *orderDetail = noti.userInfo[JXNewOrderDetailKey];
     [self.orderDetails insertObject:orderDetail atIndex:0];
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationRight];
+}
+
+#pragma mark - 通知 JXCancelAnOrderNotification
+- (void)cancelAnOrder:(NSNotification *)noti {
+    JXOrderDetail *orderDetail = noti.userInfo[JXCancelOrderDetailKey];
+    NSInteger row = [self.orderDetails indexOfObject:orderDetail];
+    [self.orderDetails removeObject:orderDetail];
+    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
 }
 
 #pragma mark - 通知 JXChangedSkinNotification
@@ -219,6 +322,11 @@
     
     UIImageView *bgView = (UIImageView *)self.tableView.backgroundView;
     bgView.image = [JXSkinTool skinToolImageWithImageName:@"complete_bg.jpg"];
+}
+
+#pragma mark - JXLoadTipViewDelegate
+- (void)loadTipViewDidClickedReloadButton {
+    [self loadNewOrder];
 }
 
 - (void)dealloc {

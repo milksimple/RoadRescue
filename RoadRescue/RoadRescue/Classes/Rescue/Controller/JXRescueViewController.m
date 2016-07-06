@@ -15,6 +15,7 @@
 #import "JXRescueDetailViewController.h"
 #import "JXOrderDetail.h"
 #import <CoreLocation/CoreLocation.h>
+#import "JXAccountTool.h"
 
 @interface JXRescueViewController () <UIScrollViewDelegate, CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -56,6 +57,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *rescueAddressLocationView;
 
+@property (nonatomic, strong) JXAccount *account;
 @end
 
 @implementation JXRescueViewController
@@ -82,16 +84,23 @@
     return _geocoder;
 }
 
+- (JXAccount *)account {
+    if (_account == nil) {
+        _account = [JXAccountTool account];
+    }
+    return _account;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self setupNav];
     
     self.accidentDesView.placeholder = @"添加详细事故描述（可选）";
+    self.accidentDesView.placeholderColor = [UIColor blackColor];
     
     // 定位
     [self setupLocation];
-    
     
     // 导航栏背景
     UIImage *navBgImg = [JXSkinTool skinToolImageWithImageName:@"rescue_nav_bg"];
@@ -102,14 +111,17 @@
     [self.navigationController.navigationBar setBackgroundImage:navBgImg forBarMetrics:UIBarMetricsDefault];
     
     // 设置背景
-    self.bgView.image = [JXSkinTool skinToolImageWithImageName:@"complete_bg.jpg"];
+    self.bgView.image = [JXSkinTool skinToolImageWithImageName:@"rescue_complete_bg.jpg"];
     // 分割线的颜色
     self.headerSeparator1R.backgroundColor = self.headerSeparator1L.backgroundColor = self.headerSeparator2R.backgroundColor = self.headerSeparator2L.backgroundColor = self.headerSeparator3R.backgroundColor = self.headerSeparator3L.backgroundColor = [JXSkinTool skinToolColorWithKey:@"rescue_header_separator"];
+    
+    
     // header里面label背景色
-    self.chooseAcdTypeLabel.backgroundColor = self.rescueAddressLabel.backgroundColor = self.chooseSerItemLabel.backgroundColor = [JXSkinTool skinToolColorWithKey:@"rescue_header_label_bg"];
+//    self.chooseAcdTypeLabel.backgroundColor = self.rescueAddressLabel.backgroundColor = self.chooseSerItemLabel.backgroundColor = [JXSkinTool skinToolColorWithKey:@"rescue_header_label_bg"];
+    
+    
     // header里面label字体颜色
     self.chooseAcdTypeLabel.textColor = self.rescueAddressLabel.textColor = self.chooseSerItemLabel.textColor = [JXSkinTool skinToolColorWithKey:@"rescue_header_label_text"];
-    
     
     // content背景色
     self.chooseAcdTypeContentView.backgroundColor = self.addressContainer.backgroundColor = [JXSkinTool skinToolColorWithKey:@"rescue_content_bg"];
@@ -129,9 +141,11 @@
 - (void)setupNav {
     self.navigationItem.title = @"发布救援申请";
     
+    UIColor *titleColor = [JXSkinTool skinToolColorWithKey:@"rescue_nav_title"];
+    
     UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
     [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
-    cancelButton.titleLabel.textColor = [UIColor whiteColor];
+    [cancelButton setTitleColor:titleColor forState:UIControlStateNormal];
     cancelButton.titleLabel.font = [UIFont systemFontOfSize:14];
     [cancelButton addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cancelButton];
@@ -140,6 +154,7 @@
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.navigationBar.barTintColor = [JXSkinTool skinToolColorWithKey:@"rescue_nav_barTint"];
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:titleColor}];
 }
 
 - (void)cancel {
@@ -203,7 +218,7 @@
     }
     
 #warning 测试数据
-    self.orderDetail.orderer = @"13888650223";
+    self.orderDetail.orderer = self.account.telephone;
     self.orderDetail.accidentDes = self.accidentDesView.text;
     self.orderDetail.addressShort = self.addressShortLabel.text;
     self.orderDetail.addressDes = self.addressDesLabel.text;

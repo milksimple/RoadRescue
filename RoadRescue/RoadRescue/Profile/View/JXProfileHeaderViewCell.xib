@@ -15,6 +15,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rwe-HH-dHW" userLabel="bgView">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
+                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eXW-EN-2Xa">
                         <rect key="frame" x="10" y="15" width="50" height="50"/>
                         <constraints>
@@ -56,15 +60,20 @@
                     </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="rwe-HH-dHW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="GP7-fY-fTi"/>
+                    <constraint firstAttribute="bottom" secondItem="rwe-HH-dHW" secondAttribute="bottom" id="Hc8-mw-zY2"/>
                     <constraint firstItem="72D-7e-n4Z" firstAttribute="top" secondItem="eXW-EN-2Xa" secondAttribute="bottom" id="JGz-ff-xKA"/>
                     <constraint firstAttribute="trailing" secondItem="72D-7e-n4Z" secondAttribute="trailing" id="JdH-iL-0JX"/>
+                    <constraint firstAttribute="trailing" secondItem="rwe-HH-dHW" secondAttribute="trailing" id="KgS-Iq-dvk"/>
                     <constraint firstItem="y6L-Nf-NEk" firstAttribute="top" secondItem="Bfx-KA-d58" secondAttribute="bottom" id="R41-dF-ADK"/>
                     <constraint firstItem="eXW-EN-2Xa" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="WRI-YS-vYU"/>
                     <constraint firstItem="Bfx-KA-d58" firstAttribute="bottom" secondItem="eXW-EN-2Xa" secondAttribute="centerY" id="haQ-4B-CYL"/>
+                    <constraint firstItem="72D-7e-n4Z" firstAttribute="top" secondItem="rwe-HH-dHW" secondAttribute="bottom" id="jUQ-Vi-58j"/>
                     <constraint firstAttribute="trailing" secondItem="Hit-wb-KKN" secondAttribute="trailing" constant="10" id="nop-xO-v0r"/>
                     <constraint firstItem="y6L-Nf-NEk" firstAttribute="leading" secondItem="Bfx-KA-d58" secondAttribute="leading" id="qt1-Ab-4QQ"/>
                     <constraint firstItem="Bfx-KA-d58" firstAttribute="leading" secondItem="eXW-EN-2Xa" secondAttribute="trailing" constant="10" id="sj5-vU-qHP"/>
                     <constraint firstAttribute="bottom" secondItem="72D-7e-n4Z" secondAttribute="bottom" constant="1" id="tZU-A2-Fow"/>
+                    <constraint firstItem="rwe-HH-dHW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="vG3-0I-5z0"/>
                     <constraint firstItem="eXW-EN-2Xa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="wdm-Rq-Ea4"/>
                     <constraint firstItem="Hit-wb-KKN" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="yiJ-dm-ZWn"/>
                     <constraint firstItem="72D-7e-n4Z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="zha-o0-TjR"/>
@@ -72,9 +81,19 @@
                 <variation key="default">
                     <mask key="constraints">
                         <exclude reference="JGz-ff-xKA"/>
+                        <exclude reference="jUQ-Vi-58j"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="accessory" destination="Hit-wb-KKN" id="A0J-9t-RjG"/>
+                <outlet property="bgView" destination="rwe-HH-dHW" id="SkW-jP-nOO"/>
+                <outlet property="iconButton" destination="eXW-EN-2Xa" id="MwE-Xa-ozW"/>
+                <outlet property="mobileLabel" destination="y6L-Nf-NEk" id="I6F-A6-QS9"/>
+                <outlet property="nameLabel" destination="Bfx-KA-d58" id="GWg-lA-1gT"/>
+                <outlet property="separator" destination="72D-7e-n4Z" id="iRu-a2-t89"/>
+            </connections>
             <point key="canvasLocation" x="157" y="355"/>
         </tableViewCell>
     </objects>

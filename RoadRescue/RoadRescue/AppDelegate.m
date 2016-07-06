@@ -11,13 +11,24 @@
 #import <IQKeyboardManager.h>
 #import "EMSDK.h"
 #import "SMS_SDK/SMSSDK.h"
+#import "JXRescueDetailViewController.h"
+#import "JXAccountTool.h"
 
 @interface AppDelegate ()
+
+/** 账号信息 */
+@property (nonatomic, strong) JXAccount *account;
 
 @end
 
 @implementation AppDelegate
-
+#pragma mark - lazy
+- (JXAccount *)account {
+    if (_account == nil) {
+        _account = [JXAccountTool account];
+    }
+    return _account;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self setupIQKeyboardManager];
@@ -50,6 +61,7 @@
 - (void)setupIQKeyboardManager {
     IQKeyboardManager *keyboard = [IQKeyboardManager sharedManager];
     keyboard.toolbarDoneBarButtonItemText = @"完成";
+    [keyboard disableToolbarInViewControllerClass:[JXRescueDetailViewController class]];
     keyboard.toolbarTintColor = [UIColor grayColor];
     keyboard.enable = YES;
 }
@@ -65,7 +77,7 @@
 #warning 测试登录
     BOOL isAutoLogin = [EMClient sharedClient].options.isAutoLogin;
     if (!isAutoLogin) {
-        EMError *error = [[EMClient sharedClient] loginWithUsername:@"oil001" password:@"111111"];
+        EMError *error = [[EMClient sharedClient] loginWithUsername:[NSString stringWithFormat:@"%@_user", self.account.telephone] password:@"123456"];
         if (!error) {
             [[EMClient sharedClient].options setIsAutoLogin:YES];
         }

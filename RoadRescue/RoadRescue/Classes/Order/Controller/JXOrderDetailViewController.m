@@ -13,6 +13,8 @@
 #import "JXOrderDetail.h"
 #import <MJExtension.h>
 #import "UIView+JXExtension.h"
+#import "JXAccountTool.h"
+#import "MBProgressHUD+MJ.h"
 
 @interface JXOrderDetailViewController () <MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -28,11 +30,14 @@
 @property (weak, nonatomic) IBOutlet UIImageView *oilImageView;
 @property (weak, nonatomic) IBOutlet UILabel *totalPriceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *oilNameAndCntLabel;
-@property (weak, nonatomic) IBOutlet UILabel *rescueNumLabel;
+
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 
 @property (nonatomic, strong) JXOrderDetail *orderDetail;
 
 @property (nonatomic, strong) JXAnnotation *annotation;
+
+@property (nonatomic, strong) JXAccount *account;
 
 @end
 
@@ -51,6 +56,13 @@
         _annotation = [[JXAnnotation alloc] init];
     }
     return _annotation;
+}
+
+- (JXAccount *)account {
+    if (_account == nil) {
+        _account = [JXAccountTool account];
+    }
+    return _account;
 }
 
 - (void)viewDidLoad {
@@ -78,9 +90,8 @@
 
 - (void)loadData {
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
-#warning 测试
-    paras[@"mobile"] = @"13888650223";
-    paras[@"token"] = @"7F9D459A";
+    paras[@"mobile"] = self.account.telephone;
+    paras[@"token"] = self.account.token;
     paras[@"orderNum"] = self.orderNum;
     paras[@"orderType"] = @1;
 
@@ -97,6 +108,8 @@
  *  给各个控件赋值
  */
 - (void)setControlsWithOrderDetail:(JXOrderDetail *)orderDetail {
+    if (orderDetail.itemList.count == 0) return;
+    
     JXRescueItem *rescueItem = orderDetail.itemList[0];
     
     switch (orderDetail.itemTypes) {
@@ -117,21 +130,11 @@
     }
     
     // 汽油种类
-    switch (rescueItem.itemClass) {
-        case 0: // 柴油
-            self.oilNameAndCntLabel.text = [NSString stringWithFormat:@"%@ %zdL", @"柴油", rescueItem.itemCnt];
-            break;
-            
-        case 93:
-            self.oilNameAndCntLabel.text = [NSString stringWithFormat:@"%@ %zdL", @"93#汽油", rescueItem.itemCnt];
-            break;
-            
-        case 97:
-            self.oilNameAndCntLabel.text = [NSString stringWithFormat:@"%@ %zdL", @"97#汽油", rescueItem.itemCnt];
-            break;
-            
-        default:
-            break;
+    if (rescueItem.itemClass == 0) {
+        self.oilNameAndCntLabel.text = [NSString stringWithFormat:@"%@ %zdL", @"柴油", rescueItem.itemCnt];
+    }
+    else {
+        self.oilNameAndCntLabel.text = [NSString stringWithFormat:@"%zd#汽油 %zdL", rescueItem.itemClass, rescueItem.itemCnt];
     }
     
     // 时间
@@ -142,8 +145,6 @@
     self.rescueDesLabel.text = orderDetail.accidentDes;
     // 总价
     self.totalPriceLabel.text = [NSString stringWithFormat:@"¥%.2f", orderDetail.totalPrice];
-    // 救援指数
-    self.rescueNumLabel.text = [NSString stringWithFormat:@"%zd", orderDetail.rescueIndex];
     // 地图
     CLLocationCoordinate2D centerCoordinate = CLLocationCoordinate2DMake(orderDetail.lat, orderDetail.lon);
     self.annotation.coordinate = centerCoordinate;
@@ -156,13 +157,47 @@
     MKCoordinateSpan span = MKCoordinateSpanMake(0.003, 0.003);
     MKCoordinateRegion region = MKCoordinateRegionMake(centerCoordinate, span);
     [self.mapView setRegion:region animated:YES];
+    
+    NSString *cancelBtnTitle = self.orderDetail.orderStatus == 0 ? @"取消订单" : @"联系客服";
+    [self.cancelButton setTitle:cancelBtnTitle forState:UIControlStateNormal];
 }
 
 /**
- *  联系客户被点击
+ *  取消被点击
  */
-- (IBAction)contactButtonClicked {
+- (IBAction)cancelOrderButtonClicked:(UIButton *)cancelBtn {
+    // 点击了联系客服
+    if ([cancelBtn.titleLabel.text isEqualToString:@"联系客服"]) {
+        // 拨打电话按钮被点击
+        NSString *str= [NSString stringWithFormat:@"tel:%@", self.orderDetail.mobile];
+        UIWebView *callWebview = [[UIWebView alloc] init];
+        [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+        [self.view addSubview:callWebview];
+        return;
+    }
     
+    // 点击了取消订单
+    NSMutableDictionary *paras = [NSMutableDictionary dictionary];
+    paras[@"mobile"] = self.account.telephone;
+    paras[@"token"]= self.account.token;
+    paras[@"orderNum"] = self.orderNum;
+    JXLog(@"paras = %@", paras);
+    [JXHttpTool post:[NSString stringWithFormat:@"%@/order/removeOrder", JXServerName] params:paras success:^(id json) {
+        JXLog(@"取消订单成功 - %@", json);
+        BOOL success = [json[@"success"] boolValue];
+        if (success) { // 取消成功
+            [JXNotificationCenter postNotificationName:JXCancelAnOrderNotification object:@{JXCancelOrderDetailKey:self.orderDetail}];
+        }
+        else {
+            [MBProgressHUD showError:json[@"msg"]];
+            
+            // 重新请求服务器，刷新订单状态
+            [self loadData];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showError:@"网络连接失败"];
+        JXLog(@"取消订单失败 - %@", error);
+    }];
 }
 
 - (void)dealloc {

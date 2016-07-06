@@ -17,4 +17,7 @@
 
 @property (nonatomic, copy) NSString *token;
 
+/** 头像 */
+@property (nonatomic, copy) NSString *icon;
+
 @end
