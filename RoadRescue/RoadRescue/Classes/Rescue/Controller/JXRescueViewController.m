@@ -96,7 +96,7 @@
     
     [self setupNav];
     
-    self.accidentDesView.placeholder = @"添加详细事故描述（可选）";
+    self.accidentDesView.placeholder = @"添加详细事故描述（可选，最多128个字）";
     self.accidentDesView.placeholderColor = [UIColor blackColor];
     
     // 定位
@@ -194,6 +194,15 @@
     if (self.orderDetail.lon == 0 || self.orderDetail.lat == 0) { // 没有定位到
         // 提示没有定位到
         UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"无法进行定位" message:@"请检查您的设备是否开启定位功能" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cfmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+        [alertVC addAction:cfmAction];
+        [self presentViewController:alertVC animated:YES completion:nil];
+        return;
+    }
+    
+    if (self.accidentDesView.text.length > 128) {
+        // 提示字符过长
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"超过128个字" message:@"您的事故描述字数过多，请简化描述" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cfmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
         [alertVC addAction:cfmAction];
         [self presentViewController:alertVC animated:YES completion:nil];

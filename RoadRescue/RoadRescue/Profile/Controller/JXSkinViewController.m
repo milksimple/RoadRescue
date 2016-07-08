@@ -143,8 +143,12 @@
 }
 
 #pragma mark -JXSkinViewCellDelegate
-- (void)skinViewCellDidChangedStatus {
-    [self.tableView reloadData];
+//- (void)skinViewCellDidChangedStatus {
+//    [self.tableView reloadData];
+//}
+
+- (void)skinViewCellDidUsedSomeoneSkin {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)skinViewCellNeedPresentAlertVC:(UIAlertController *)alertVC {
@@ -152,41 +156,41 @@
     
 }
 
-- (void)skinViewCellDidClickedDownLoadButton {
-//    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/files/brick.zip", JXServerName]];
-    NSURL *url = [NSURL URLWithString:@"ftp://10.255.31.110/upload/roadRescueGu/complete_bg@3x.png"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    //默认配置
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    
-    //AFN3.0+基于封住URLSession的句柄
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-    
-    NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:^(NSProgress * _Nonnull downloadProgress) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.progressView.progress = 1.0 * downloadProgress.completedUnitCount / downloadProgress.totalUnitCount;
-        });
-    } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
-        NSString *tmp = NSTemporaryDirectory();
-        NSString *filePath = [tmp stringByAppendingPathComponent:response.suggestedFilename];
-        return [NSURL fileURLWithPath:filePath];
-    } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
-//        JXLog(@"下载成功");
-//        // 解压
-//        NSString *cache = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
-//        BOOL result = [SSZipArchive unzipFileAtPath:filePath.path  toDestination:cache];
-//        if (result) {
-//            JXLog(@"解压成功");
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [self.skinViewCell.downLoadButton setTitle:@"使用" forState:UIControlStateNormal];
-//            });
-//        }
-        
-        JXLog(@"下载出错 - %@", error);
-    }];
-    
-    [downloadTask resume];
-}
+//- (void)skinViewCellDidClickedDownLoadButton {
+////    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/files/brick.zip", JXServerName]];
+//    NSURL *url = [NSURL URLWithString:@"ftp://10.255.31.110/upload/roadRescueGu/complete_bg@3x.png"];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//    
+//    //默认配置
+//    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+//    
+//    //AFN3.0+基于封住URLSession的句柄
+//    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+//    
+//    NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:^(NSProgress * _Nonnull downloadProgress) {
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            self.progressView.progress = 1.0 * downloadProgress.completedUnitCount / downloadProgress.totalUnitCount;
+//        });
+//    } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+//        NSString *tmp = NSTemporaryDirectory();
+//        NSString *filePath = [tmp stringByAppendingPathComponent:response.suggestedFilename];
+//        return [NSURL fileURLWithPath:filePath];
+//    } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+////        JXLog(@"下载成功");
+////        // 解压
+////        NSString *cache = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+////        BOOL result = [SSZipArchive unzipFileAtPath:filePath.path  toDestination:cache];
+////        if (result) {
+////            JXLog(@"解压成功");
+////            dispatch_async(dispatch_get_main_queue(), ^{
+////                [self.skinViewCell.downLoadButton setTitle:@"使用" forState:UIControlStateNormal];
+////            });
+////        }
+//        
+//        JXLog(@"下载出错 - %@", error);
+//    }];
+//    
+//    [downloadTask resume];
+//}
 
 @end

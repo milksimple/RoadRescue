@@ -11,6 +11,7 @@
 #import "JXHttpTool.h"
 #import "MBProgressHUD+MJ.h"
 #import "JXAccountTool.h"
+#import "EMSDK.h"
 
 @interface JXMyOrderCompletePopView()
 
@@ -85,6 +86,29 @@
         BOOL success = [json[@"success"] boolValue];
         if (success) {
             [MBProgressHUD showSuccess:@"订单完成！"];
+            // 发送通知成功完成订单
+            [JXNotificationCenter postNotificationName:JXOrderSuccessFinishedNotification object:nil userInfo:@{JXOrderDetailKey:self.orderDetail}];
+            
+            // 发送消息给救援队，订单完成
+            // 发送文本消息
+            EMTextMessageBody *body = [[EMTextMessageBody alloc] initWithText:@"完成付款"];
+            NSString *from = [[EMClient sharedClient] currentUsername];
+            
+            //生成Message
+            NSString *to = [NSString stringWithFormat:@"%@_user", self.orderDetail.orderNum];
+            EMMessage *message = [[EMMessage alloc] initWithConversationID:to from:from to:to body:body ext:nil];
+            message.chatType = EMChatTypeChat;
+            
+            [[EMClient sharedClient].chatManager asyncSendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
+                if (!error) { // 发送成功
+                    JXLog(@"完成付款发送消息成功 == 申请付款成功");
+                }
+                else {
+                    JXLog(@"完成付款发送消息失败 - %@", error.errorDescription);
+                }
+                
+            }];
+            
             [self dismiss];
         }
         else {

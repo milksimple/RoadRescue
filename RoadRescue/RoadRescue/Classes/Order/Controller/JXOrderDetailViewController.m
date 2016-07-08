@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *waveBgView;
+@property (weak, nonatomic) IBOutlet UIImageView *topBgView;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
@@ -41,6 +42,8 @@
 @property (nonatomic, strong) JXAccount *account;
 
 @property (nonatomic, weak) JXMyOrderCompletePopView *completePopView;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *rescueDesLabelHeightConstraint;
 
 @end
 
@@ -78,15 +81,16 @@
     [self setControlsWithOrderDetail:self.defaultOrderDetail];
     
     [self loadData];
+    
+    // 监听成功完成订单的通知
+    [JXNotificationCenter addObserver:self selector:@selector(orderSuccessFinished:) name:JXOrderSuccessFinishedNotification object:nil];
 }
 
 - (void)setBg {
+    // 设置top背景图
+    self.topBgView.image = [JXSkinTool skinToolImageWithImageName:@"order_detail_top"];
     // 设置wave背景图
-    UIImage *waveBgImg = [JXSkinTool skinToolImageWithImageName:@"order_wave_bg"];
-    UIImage *resizableImg = [waveBgImg resizableImageWithCapInsets:UIEdgeInsetsMake(10, 0, 10, 0) resizingMode:UIImageResizingModeTile];
-    self.waveBgView.image = resizableImg;
-    
-//    [self.cancelButton setBackgroundImage:<#(nullable UIImage *)#> forState:<#(UIControlState)#>];
+    self.waveBgView.image = [JXSkinTool skinToolImageWithImageName:@"order_detail_wave"];
 }
 
 #pragma mark - 内容不够一个屏幕高度，scrollview也能滚动
@@ -160,6 +164,10 @@
     [self.addressButton setTitle:orderDetail.addressDes forState:UIControlStateNormal];
     // 救援描述
     self.rescueDesLabel.text = orderDetail.accidentDes;
+    // 设置高度
+    CGRect rect = [self.rescueDesLabel.text boundingRectWithSize:CGSizeMake(JXScreenW - 40, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil];
+    self.rescueDesLabelHeightConstraint.constant = rect.size.height;
+    
     // 总价
     self.totalPriceLabel.text = [NSString stringWithFormat:@"¥%.2f", orderDetail.totalPrice];
     // 地图
@@ -176,6 +184,7 @@
     [self.mapView setRegion:region animated:YES];
     
     NSString *cancelBtnTitle = nil;
+    NSString *cancelBtnBgImg = nil;
     /** 救援状态<-1-订单已取消,  0-已下单,1-已接单,2-完成等待付款,9-完成> */
     if (orderDetail.orderStatus == -1 || orderDetail.orderStatus == 9) {
         self.cancelButton.userInteractionEnabled = NO;
@@ -186,28 +195,34 @@
     switch (orderDetail.orderStatus) {
         case -1:
             cancelBtnTitle = @"订单已取消";
+            cancelBtnBgImg = @"order_see_button_gray";
             break;
             
         case 0:
             cancelBtnTitle = @"取消订单";
+            cancelBtnBgImg = @"order_see_button_orange";
             break;
             
         case 1:
             cancelBtnTitle = @"联系客服";
+            cancelBtnBgImg = @"order_see_button_orange";
             break;
             
         case 2:
             cancelBtnTitle = @"确认完成";
+            cancelBtnBgImg = @"order_see_button_orange";
             break;
             
         case 9:
             cancelBtnTitle = @"已完成";
+            cancelBtnBgImg = @"order_see_button_gray";
             break;
             
         default:
             break;
     }
     [self.cancelButton setTitle:cancelBtnTitle forState:UIControlStateNormal];
+    [self.cancelButton setBackgroundImage:[JXSkinTool skinToolImageWithImageName:cancelBtnBgImg] forState:UIControlStateNormal];
 }
 
 /**
@@ -277,6 +292,17 @@
     }
     
     
+}
+
+#pragma mark - JXOrderSuccessFinishedNotification
+- (void)orderSuccessFinished:(NSNotification *)noti {
+    JXOrderDetail *orderDetail = noti.userInfo[JXOrderDetailKey];
+    if ([self.orderDetail.orderNum isEqualToString:orderDetail.orderNum]) {
+        self.orderDetail.orderStatus = 9;
+        [self setControlsWithOrderDetail:self.orderDetail];
+        
+        return;
+    }
 }
 
 - (void)dealloc {

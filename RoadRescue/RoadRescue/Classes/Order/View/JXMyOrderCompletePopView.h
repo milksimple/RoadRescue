@@ -9,6 +9,14 @@
 #import <UIKit/UIKit.h>
 @class JXOrderDetail;
 
+@protocol JXMyOrderCompletePopViewDelegate <NSObject>
+
+@optional
+/** 订单成功完成 */
+- (void)myOrderCompletePopViewSuccessCompleteOrder;
+
+@end
+
 @interface JXMyOrderCompletePopView : UIView
 
 + (instancetype)completePopView;
@@ -19,5 +27,7 @@
 - (void)show;
 
 - (void)dismiss;
+
+@property (nonatomic, weak) id<JXMyOrderCompletePopViewDelegate> delegate;
 
 @end

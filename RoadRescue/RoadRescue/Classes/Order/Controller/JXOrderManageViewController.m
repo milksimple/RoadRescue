@@ -97,18 +97,25 @@
     //注册消息回调
     [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
     
-    // 监听新订单的通知
-    [JXNotificationCenter addObserver:self selector:@selector(placedAnNewOrder:) name:JXPlaceAnOrderNotification object:nil];
-    // 监听取消订单的通知
-    [JXNotificationCenter addObserver:self selector:@selector(cancelAnOrder:) name:JXCancelAnOrderNotification object:nil];
-    
+    [self setupNotification];
+
     // 设置背景
     UIImageView *bgView = [[UIImageView alloc] init];
     bgView.frame = self.view.bounds;
     bgView.image = [JXSkinTool skinToolImageWithImageName:@"complete_bg.jpg"];
     self.tableView.backgroundView = bgView;
+    
+}
+
+- (void)setupNotification {
+    // 监听新订单的通知
+    [JXNotificationCenter addObserver:self selector:@selector(placedAnNewOrder:) name:JXPlaceAnOrderNotification object:nil];
+    // 监听取消订单的通知
+    [JXNotificationCenter addObserver:self selector:@selector(cancelAnOrder:) name:JXCancelAnOrderNotification object:nil];
     // 监听修改皮肤的通知
     [JXNotificationCenter addObserver:self selector:@selector(skinChanged) name:JXChangedSkinNotification object:nil];
+    // 监听成功完成订单的通知
+    [JXNotificationCenter addObserver:self selector:@selector(orderSuccessFinished:) name:JXOrderSuccessFinishedNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -153,7 +160,7 @@
     if (self.account.telephone.length == 0 || self.account.token.length == 0) {
         [self.tableView.mj_header endRefreshing];
         self.tipView.type = JXLoadTipViewTypeNoReloadButton;
-        self.tipView.tipTitle = @"您还没有任何订单哦，快去试试下单吧！";
+        self.tipView.tipTitle = @"您还没有任何订单哦，\n快去试试下单吧！";
         [self.tipView showTipViewToView:self.view];
         return;
     }
@@ -163,7 +170,7 @@
     paras[@"token"] = self.account.token;
     paras[@"orderType"] = @1;
     paras[@"start"] = @0;
-    paras[@"pageSize"] = @8;
+    paras[@"pageSize"] = @3;
     self.paras = paras;
     
     [JXHttpTool post:[NSString stringWithFormat:@"%@/order/list", JXServerName] params:paras success:^(id json) {
@@ -181,7 +188,7 @@
             // 2.显示提示view
             if (self.orderDetails.count == 0) {
                 self.tipView.type = JXLoadTipViewTypeNoReloadButton;
-                self.tipView.tipTitle = @"您还没有任何订单哦，快去试试下单吧！";
+                self.tipView.tipTitle = @"您还没有任何订单哦，\n快去试试下单吧！";
                 [self.tipView showTipViewToView:self.view];
             }
             else {
@@ -230,7 +237,7 @@
     paras[@"token"] = self.account.token;
     paras[@"orderType"] = @1;
     paras[@"start"] = @(self.orderDetails.count);
-    paras[@"pageSize"] = @8;
+    paras[@"pageSize"] = @3;
     self.paras = paras;
     
     [JXHttpTool post:[NSString stringWithFormat:@"%@/order/list", JXServerName] params:paras success:^(id json) {
@@ -309,10 +316,13 @@
                 EMCDDeviceManager *manager = [EMCDDeviceManager sharedInstance];
                 [manager playNewMessageSound];
                 
-                // 接受到IM标识为YES
-                self.receiveIM = YES;
-                // 发送请求刷新订单列表，以获得救援队的信息
-                [self loadNewOrder];
+                if ([txt isEqualToString:@"救援队已接单"] || [txt isEqualToString:@"救援队申请付款"]) {
+                    // 接受到IM标识为YES
+                    self.receiveIM = YES;
+                    // 发送请求刷新订单列表，以获得救援队的信息
+                    [self loadNewOrder];
+                }
+                
             }
                 break;
                 
@@ -332,7 +342,7 @@
 
 #pragma mark - 通知 JXPlaceAnOrderNotification
 - (void)placedAnNewOrder:(NSNotification *)noti {
-    JXOrderDetail *orderDetail = noti.userInfo[JXNewOrderDetailKey];
+    JXOrderDetail *orderDetail = noti.userInfo[JXOrderDetailKey];
     [self.orderDetails insertObject:orderDetail atIndex:0];
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationRight];
 }
@@ -362,6 +372,21 @@
 #pragma mark - JXLoadTipViewDelegate
 - (void)loadTipViewDidClickedReloadButton {
     [self loadNewOrder];
+}
+
+#pragma mark - JXOrderSuccessFinishedNotification
+- (void)orderSuccessFinished:(NSNotification *)noti {
+    JXOrderDetail *orderDetail = noti.userInfo[JXOrderDetailKey];
+    for (JXOrderDetail *selfOrderDetail in self.orderDetails) {
+        if ([selfOrderDetail.orderNum isEqualToString:orderDetail.orderNum]) {
+            selfOrderDetail.orderStatus = 9;
+            // 由于后台字段把时间和救援队名称设计为一个字段，此处非常坑
+            selfOrderDetail.title = nil;
+            [self.tableView reloadData];
+            
+            return;
+        }
+    }
 }
 
 - (void)dealloc {

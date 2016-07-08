@@ -340,7 +340,7 @@
                                                 </mask>
                                             </variation>
                                         </view>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dEy-Cb-PVb" customClass="JXVerticalButton">
+                                        <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dEy-Cb-PVb" customClass="JXVerticalButton">
                                             <rect key="frame" x="10" y="488" width="53" height="73"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="53" id="W3g-1n-udF"/>

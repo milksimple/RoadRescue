@@ -40,7 +40,7 @@
     [self setupAPNSWithApplication:application];
     
     // 初始化SMSSDK
-    [SMSSDK registerApp:@"13a02edfba956" withSecret:@"7e7bd94a0bc0065dcb7b1c39fb20f976"];
+    [SMSSDK registerApp:@"14badd10983f4" withSecret:@"b425dce15cfbe46615e720bfa96f406e"];
     
     // badge置0
     if (JXApplication.applicationIconBadgeNumber != 0) {
@@ -83,6 +83,9 @@
         
         if (!error) {
             [[EMClient sharedClient].options setIsAutoLogin:YES];
+        }
+        else {
+            JXLog(@"IM登录失败");
         }
     }
     

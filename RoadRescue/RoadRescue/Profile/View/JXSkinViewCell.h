@@ -21,11 +21,11 @@ typedef enum {
 @protocol JXSkinViewCellDelegate <NSObject>
 
 @optional
-- (void)skinViewCellDidClickedDownLoadButton;
-/** 皮肤状态发生了改变(有新皮肤下载成功、改变皮肤、删除了皮肤等等)，一般控制器需要啊在此方法刷新tableview */
-- (void)skinViewCellDidChangedStatus;
+//- (void)skinViewCellDidClickedDownLoadButton;
 /** 需要控制器present alertVC */
 - (void)skinViewCellNeedPresentAlertVC:(UIAlertController *)alertVC;
+/** 使用了某个主题 */
+- (void)skinViewCellDidUsedSomeoneSkin;
 
 @end
 

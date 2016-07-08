@@ -11,8 +11,8 @@
 // 通知
 // 用户下完订单时发出的通知
 UIKIT_EXTERN NSString * const JXPlaceAnOrderNotification;
-// 上面的通知用来传递新订单对象的key
-UIKIT_EXTERN NSString * const JXNewOrderDetailKey;
+// 通知用来传递新订单对象的key
+UIKIT_EXTERN NSString * const JXOrderDetailKey;
 
 // 用户成功取消订单时发出的通知
 UIKIT_EXTERN NSString * const JXCancelAnOrderNotification;
@@ -29,8 +29,5 @@ UIKIT_EXTERN NSString * const JXUsingSkinKey;
 // 存储皮肤数组的json数据
 UIKIT_EXTERN NSString * const JXSkinsJsonKey;
 
-// IQKeyboard退出时发出的通知
-UIKIT_EXTERN NSString * const JXIQKeyboardEndEditingNotification;
-
-// IQKeyboard退出时发出的通知
-UIKIT_EXTERN NSString * const JXIQKeyboardBeginEditingNotification;
+// 订单成功完成时发出的通知
+UIKIT_EXTERN NSString * const JXOrderSuccessFinishedNotification;

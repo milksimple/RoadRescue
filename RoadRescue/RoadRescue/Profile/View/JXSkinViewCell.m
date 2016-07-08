@@ -37,11 +37,11 @@
     return _ftpTool;
 }
 
-- (IBAction)downLoadButtonClicked {
-    if ([self.delegate respondsToSelector:@selector(skinViewCellDidClickedDownLoadButton)]) {
-        [self.delegate skinViewCellDidClickedDownLoadButton];
-    }
-}
+//- (IBAction)downLoadButtonClicked {
+//    if ([self.delegate respondsToSelector:@selector(skinViewCellDidClickedDownLoadButton)]) {
+//        [self.delegate skinViewCellDidClickedDownLoadButton];
+//    }
+//}
 
 + (instancetype)skinCell {
     return [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil].lastObject;
@@ -288,6 +288,10 @@
     [JXSkinTool setSkinType:self.skin.packageName];
     // 要保证这个方在上面通知发出后，取消了上个cell的选中状态后，再设置自己为选中
     self.status = JXSkinViewCellStatusUsing;
+    
+    if ([self.delegate respondsToSelector:@selector(skinViewCellDidUsedSomeoneSkin)]) {
+        [self.delegate skinViewCellDidUsedSomeoneSkin];
+    }
 }
 
 /**
@@ -304,8 +308,6 @@
         self.loadStatusLabel.text = @"正在解压";
         
         // 解压文件到cache
-//        NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(unZipWithFilePath:) object:filePath];
-//        [thread start];
         [self performSelectorInBackground:@selector(unZipWithFilePath:) withObject:filePath];
         
     } error:^(NSString *error) {

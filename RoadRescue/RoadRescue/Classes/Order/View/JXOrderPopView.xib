@@ -64,16 +64,16 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="order_true" translatesAutoresizingMaskIntoConstraints="NO" id="b5C-dE-GbM" userLabel="trueView">
-                            <rect key="frame" x="124" y="19" width="38" height="38"/>
+                            <rect key="frame" x="137" y="23" width="30" height="30"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="38" id="2K8-yS-1di"/>
-                                <constraint firstAttribute="width" constant="38" id="em9-ej-dIW"/>
+                                <constraint firstAttribute="height" constant="30" id="2K8-yS-1di"/>
+                                <constraint firstAttribute="width" constant="30" id="em9-ej-dIW"/>
                             </constraints>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0jA-cP-u8Y" userLabel="container1">
                             <rect key="frame" x="177" y="0.0" width="186" height="77"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="接受了您的救援请求 正在执行中" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="dmL-Ok-iIc">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="接受了您的救援请求 正在执行中" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="dmL-Ok-iIc">
                                     <rect key="frame" x="0.0" y="41" width="186" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="42" id="lza-Ev-s59"/>
@@ -89,7 +89,7 @@
                                         </mask>
                                     </variation>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昆明XXXX公司救援组" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPR-cJ-duL">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昆明XXXX公司救援组" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPR-cJ-duL">
                                     <rect key="frame" x="0.0" y="10" width="186" height="18"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="HFK-1f-yCI"/>
@@ -154,7 +154,7 @@
                         <constraint firstAttribute="bottom" secondItem="vK6-zG-XzM" secondAttribute="bottom" constant="20" id="LT8-ct-zOM"/>
                         <constraint firstItem="b5C-dE-GbM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mrO-EA-zDv" secondAttribute="leading" constant="10" id="MeO-Gd-ad8"/>
                         <constraint firstItem="0jA-cP-u8Y" firstAttribute="centerX" secondItem="mrO-EA-zDv" secondAttribute="centerX" id="PmW-mB-EyV"/>
-                        <constraint firstItem="0jA-cP-u8Y" firstAttribute="leading" secondItem="b5C-dE-GbM" secondAttribute="trailing" constant="15" id="QV6-2F-N05"/>
+                        <constraint firstItem="0jA-cP-u8Y" firstAttribute="leading" secondItem="b5C-dE-GbM" secondAttribute="trailing" constant="10" id="QV6-2F-N05"/>
                         <constraint firstItem="rqs-AX-aen" firstAttribute="centerY" secondItem="TxX-QA-UCe" secondAttribute="centerY" id="QhI-5o-APQ"/>
                         <constraint firstItem="0jA-cP-u8Y" firstAttribute="bottom" secondItem="zq9-IL-yZ1" secondAttribute="bottom" id="UyZ-ah-mcA"/>
                         <constraint firstItem="Aag-hH-Wgd" firstAttribute="centerY" secondItem="rqs-AX-aen" secondAttribute="centerY" id="XKQ-gd-Eh4"/>

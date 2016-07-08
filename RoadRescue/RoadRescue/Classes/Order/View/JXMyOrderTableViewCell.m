@@ -156,7 +156,6 @@
             break;
     }
     
-    JXLog(@"_topBgImgName = %@", _topBgImgName);
     [self.addressButton setTitle:orderDetail.addressDes forState:UIControlStateNormal];
     self.totalPriceLabel.text = [NSString stringWithFormat:@"¥%.2f", orderDetail.totalPrice];
     self.oilCountLabel.text = [NSString stringWithFormat:@"%zdL", rescueItem.itemCnt];
@@ -179,7 +178,6 @@
     UIImage *cellTopBgImg = [JXSkinTool skinToolImageWithImageName:_topBgImgName];
     UIImage *brickResizableImg = [cellTopBgImg resizableImageWithCapInsets:UIEdgeInsetsZero resizingMode:UIImageResizingModeTile];
     self.cellTopBgView.image = brickResizableImg;
-    JXLog(@"cellTopBgImg = %@", cellTopBgImg);
     
     UIImage *waveBgImg = [JXSkinTool skinToolImageWithImageName:@"order_wave_bg"];
     UIImage *resizableImg = [waveBgImg resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 10, 0) resizingMode:UIImageResizingModeTile];

@@ -505,7 +505,7 @@ static NSInteger startCnt = 10;
                 // 1.发送通知，下订单成功
                 // 赋值订单号
                 self.orderDetail.orderNum = json[@"data"][@"orderNum"];
-                [JXNotificationCenter postNotificationName:JXPlaceAnOrderNotification object:nil userInfo:@{JXNewOrderDetailKey:self.orderDetail}];
+                [JXNotificationCenter postNotificationName:JXPlaceAnOrderNotification object:nil userInfo:@{JXOrderDetailKey:self.orderDetail}];
                 
                 
                 // 2. 发送消息，通知救援队

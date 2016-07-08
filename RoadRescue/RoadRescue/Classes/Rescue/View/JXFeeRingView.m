@@ -399,7 +399,6 @@ static CGFloat hoMargin = 20; // 图形距离整个view的左右的边距
     self.blueSeparator.frame = CGRectMake(blueSeparatorX, blueSeparatorY, blueSeparatorW, blueSeparatorH);
     
     self.blueRightPoint = CGPointMake(blueSeparatorX - 5, blueSeparatorY + blueSeparatorH*0.5);
-    JXLog(@"self.blueRightPoint = %@", NSStringFromCGPoint(self.blueRightPoint));
     
     // 运费
     CGFloat greenTitleLabelW = blueTitleLabelW;
@@ -421,7 +420,6 @@ static CGFloat hoMargin = 20; // 图形距离整个view的左右的边距
     self.greenSeparator.frame = CGRectMake(greenSeparatorX, greenSeparatorY, greenSeparatorW, greenSeparatorH);
     
     self.greenRightPoint = CGPointMake(greenSeparatorX - 5, greenSeparatorY + greenSeparatorH*0.5);
-    JXLog(@"self.greenRightPoint = %@", NSStringFromCGPoint(self.greenRightPoint));
     
     // 待付油款
     CGFloat orangeTitleLabelW = blueTitleLabelW;
@@ -443,7 +441,6 @@ static CGFloat hoMargin = 20; // 图形距离整个view的左右的边距
     self.orangeSeparator.frame = CGRectMake(orangeSeparatorX, orangeSeparatorY, orangeSeparatorW, orangeSeparatorH);
     
     self.orangeRightPoint = CGPointMake(orangeSeparatorX - 5, orangeSeparatorY + orangeSeparatorH*0.5);
-    JXLog(@"self.orangeRightPoint = %@", NSStringFromCGPoint(self.orangeRightPoint));
 }
 
 - (void)drawRect:(CGRect)rect {
