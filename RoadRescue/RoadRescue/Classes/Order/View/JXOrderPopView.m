@@ -7,7 +7,7 @@
 //
 
 #import "JXOrderPopView.h"
-#import "JXRescueTeam.h"
+#import "JXOrderDetail.h"
 
 @interface JXOrderPopView()
 @property (weak, nonatomic) IBOutlet UIView *container;
@@ -57,11 +57,11 @@
     [self.knowButton setTitleColor:[JXSkinTool skinToolColorWithKey:@"rescue_next"] forState:UIControlStateNormal];
 }
 
-- (void)setRescueTeam:(JXRescueTeam *)rescueTeam {
-    _rescueTeam = rescueTeam;
+- (void)setOrderDetail:(JXOrderDetail *)orderDetail {
+    _orderDetail = orderDetail;
     
-    self.titleLabel.text = rescueTeam.name;
-    self.mobileLabel.text = rescueTeam.mobile;
+    self.titleLabel.text = orderDetail.title;
+    self.mobileLabel.text = orderDetail.mobile;
 }
 
 - (IBAction)knowButtonClicked {

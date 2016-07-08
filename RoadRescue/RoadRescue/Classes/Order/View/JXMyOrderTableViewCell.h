@@ -12,8 +12,7 @@
 @protocol JXMyOrderTableViewCellDelegate <NSObject>
 
 @optional
-#warning 测试 看后期接口怎么给
-- (void)myOrderTableViewCellDidClickedSeeButtonWithOrderNum:(NSString *)orderNum;
+- (void)myOrderTableViewCellDidClickedSeeButtonWithIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
@@ -24,6 +23,9 @@
 @property (nonatomic, weak) id<JXMyOrderTableViewCellDelegate> delegate;
 /** 订单模型 */
 @property (nonatomic, strong) JXOrderDetail *orderDetail;
+
+/** 在列表中的位置 */
+@property (nonatomic, strong) NSIndexPath *indexPath;
 
 + (CGFloat)rowHeight;
 

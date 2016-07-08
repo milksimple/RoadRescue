@@ -14,7 +14,7 @@ NSString * const JXNewOrderDetailKey = @"JXNewOrderDetailKey";
 
 // 用户成功取消订单时发出的通知
 NSString * const JXCancelAnOrderNotification = @"JXCancelAnOrderNotification";
-NSString * const JXCancelOrderDetailKey = @"JXNewOrderDetailKey";
+NSString * const JXCancelOrderDetailKey = @"JXCancelOrderDetailKey";
 
 // 修改皮肤时发送的通知
 NSString * const JXChangedSkinNotification = @"JXChangedSkinNotification";

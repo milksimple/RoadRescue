@@ -263,6 +263,13 @@ static CGFloat hoMargin = 20; // 图形距离整个view的左右的边距
 /** 总价 */
 - (void)setAllowanceFareOilPrice:(CGFloat)allowanceFareOilPrice {
     _allowanceFareOilPrice = allowanceFareOilPrice;
+    
+}
+
+- (void)setTotalPending:(CGFloat)totalPending {
+    _totalPending = totalPending;
+    
+    self.totalPriceLabel.text = [NSString stringWithFormat:@"应付\n¥%.2f", totalPending];
 }
 
 ///** 红包返利 */
@@ -392,6 +399,7 @@ static CGFloat hoMargin = 20; // 图形距离整个view的左右的边距
     self.blueSeparator.frame = CGRectMake(blueSeparatorX, blueSeparatorY, blueSeparatorW, blueSeparatorH);
     
     self.blueRightPoint = CGPointMake(blueSeparatorX - 5, blueSeparatorY + blueSeparatorH*0.5);
+    JXLog(@"self.blueRightPoint = %@", NSStringFromCGPoint(self.blueRightPoint));
     
     // 运费
     CGFloat greenTitleLabelW = blueTitleLabelW;
@@ -413,6 +421,7 @@ static CGFloat hoMargin = 20; // 图形距离整个view的左右的边距
     self.greenSeparator.frame = CGRectMake(greenSeparatorX, greenSeparatorY, greenSeparatorW, greenSeparatorH);
     
     self.greenRightPoint = CGPointMake(greenSeparatorX - 5, greenSeparatorY + greenSeparatorH*0.5);
+    JXLog(@"self.greenRightPoint = %@", NSStringFromCGPoint(self.greenRightPoint));
     
     // 待付油款
     CGFloat orangeTitleLabelW = blueTitleLabelW;
@@ -434,6 +443,7 @@ static CGFloat hoMargin = 20; // 图形距离整个view的左右的边距
     self.orangeSeparator.frame = CGRectMake(orangeSeparatorX, orangeSeparatorY, orangeSeparatorW, orangeSeparatorH);
     
     self.orangeRightPoint = CGPointMake(orangeSeparatorX - 5, orangeSeparatorY + orangeSeparatorH*0.5);
+    JXLog(@"self.orangeRightPoint = %@", NSStringFromCGPoint(self.orangeRightPoint));
 }
 
 - (void)drawRect:(CGRect)rect {
@@ -447,6 +457,10 @@ static CGFloat hoMargin = 20; // 图形距离整个view的左右的边距
     CGContextRef ctx =UIGraphicsGetCurrentContext();
     
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    // 必须先添加进其他label，separator等控件，下面画点的时候坐标才正确
+    [self setup];
+    [self layoutIfNeeded];
     
     // 现在一圈不是360度，而是
     CGFloat completeAngle = M_PI * 1.9;
@@ -537,9 +551,6 @@ static CGFloat hoMargin = 20; // 图形距离整个view的左右的边距
     [self drawDottedLineFromPoint:self.orangeLeftPoint toPoint:self.orangeCenterPoint withContext:ctx lineColor:JXRingOrangeColor];
     // 画出中间点到右边点虚线
     [self drawDottedLineFromPoint:self.orangeCenterPoint toPoint:self.orangeRightPoint withContext:ctx lineColor:JXRingOrangeColor];
-    
-    [self setup];
-    [self layoutIfNeeded];
 }
 
 - (void)drawRingWithCenter:(CGPoint)center radius:(CGFloat)radius startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle clockwise:(BOOL)clockwise lineWidth:(CGFloat)lineWidth color:(UIColor *)color {

@@ -38,6 +38,9 @@
 /** 加载提示view */
 @property (nonatomic, weak) JXLoadTipView *tipView;
 
+/** 标识：是否接收到聊天消息，代表是否有人接单 或者 是否请求付款 */
+@property (nonatomic, assign) BOOL receiveIM;
+
 @end
 
 @implementation JXOrderManageViewController
@@ -96,6 +99,8 @@
     
     // 监听新订单的通知
     [JXNotificationCenter addObserver:self selector:@selector(placedAnNewOrder:) name:JXPlaceAnOrderNotification object:nil];
+    // 监听取消订单的通知
+    [JXNotificationCenter addObserver:self selector:@selector(cancelAnOrder:) name:JXCancelAnOrderNotification object:nil];
     
     // 设置背景
     UIImageView *bgView = [[UIImageView alloc] init];
@@ -169,9 +174,11 @@
         }
         BOOL success = [json[@"success"] boolValue];
         if (success) {
+            // 1.刷新列表
             self.orderDetails = [JXOrderDetail mj_objectArrayWithKeyValuesArray:json[@"data"]];
             [self.tableView reloadData];
             
+            // 2.显示提示view
             if (self.orderDetails.count == 0) {
                 self.tipView.type = JXLoadTipViewTypeNoReloadButton;
                 self.tipView.tipTitle = @"您还没有任何订单哦，快去试试下单吧！";
@@ -179,6 +186,23 @@
             }
             else {
                 [self.tipView removeFromSuperview];
+                
+                if (self.receiveIM) { // 接收到IM消息才进行此步骤
+                    // 3.获得最新订单的状态，以显示不同的popView
+                    JXOrderDetail *latestOrderDetail = self.orderDetails[0];
+                    // <-1-订单已取消,  0-已下单,1-已接单,2-完成等待付款,9-完成>
+                    if (latestOrderDetail.orderStatus == 1) { // 已接单
+                        self.orderPopView.orderDetail = latestOrderDetail;
+                        [self.orderPopView show];
+                    }
+                    else if (latestOrderDetail.orderStatus == 2) { // 完成等待付款
+                        self.orderCompletePopView.orderDetail = latestOrderDetail;
+                        [self.orderCompletePopView show];
+                    }
+                    
+                    self.receiveIM = NO;
+                }
+                
             }
         }
         
@@ -220,7 +244,6 @@
             NSArray *moreOrderDetails = [JXOrderDetail mj_objectArrayWithKeyValuesArray:json[@"data"]];
             [self.orderDetails addObjectsFromArray:moreOrderDetails];
             [self.tableView reloadData];
-            
         }
         
     } failure:^(NSError *error) {
@@ -244,6 +267,7 @@
     JXMyOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[JXMyOrderTableViewCell reuseIdentifier] forIndexPath:indexPath];
     cell.delegate = self;
     cell.orderDetail = self.orderDetails[indexPath.row];
+    cell.indexPath = indexPath;
     
     return cell;
 }
@@ -253,8 +277,10 @@
 }
 
 #pragma mark - JXMyOrderTableViewCellDelegate
-- (void)myOrderTableViewCellDidClickedSeeButtonWithOrderNum:(NSString *)orderNum {
-    JXOrderDetailViewController *orderDetailVC = [[JXOrderDetailViewController alloc] initWithOrderNum:orderNum];
+- (void)myOrderTableViewCellDidClickedSeeButtonWithIndexPath:(NSIndexPath *)indexPath {
+    JXOrderDetail *orderDetail = self.orderDetails[indexPath.row];
+    JXOrderDetailViewController *orderDetailVC = [[JXOrderDetailViewController alloc] init];
+    orderDetailVC.defaultOrderDetail = orderDetail;
     [self.navigationController pushViewController:orderDetailVC animated:YES];
 }
 
@@ -263,6 +289,7 @@
 // 收到消息的回调，带有附件类型的消息可以用 SDK 提供的下载附件方法下载（后面会讲到）
 - (void)didReceiveMessages:(NSArray *)aMessages
 {
+    JXLog(@"didReceiveMessages - thread = %@", [NSThread currentThread]);
     for (EMMessage *message in aMessages) {
         EMMessageBody *msgBody = message.body;
         switch (msgBody.type) {
@@ -273,10 +300,6 @@
                 NSString *txt = textBody.text;
                 NSLog(@"收到的文字是 txt -- %@",txt);
                 
-                // 弹出有救援队接单提醒
-                [self.orderCompletePopView show];
-//                [self.orderPopView show];
-                
                 // 判断是否在后台
                 if (JXApplication.applicationState == UIApplicationStateBackground) {
                     [JXApplication setApplicationIconBadgeNumber:1];
@@ -285,6 +308,11 @@
                 // 播放提示音
                 EMCDDeviceManager *manager = [EMCDDeviceManager sharedInstance];
                 [manager playNewMessageSound];
+                
+                // 接受到IM标识为YES
+                self.receiveIM = YES;
+                // 发送请求刷新订单列表，以获得救援队的信息
+                [self loadNewOrder];
             }
                 break;
                 
@@ -294,12 +322,13 @@
     }
 }
 
-- (void)didReceiveCmdMessages:(NSArray *)aCmdMessages{
-    for (EMMessage *message in aCmdMessages) {
-        EMCmdMessageBody *body = (EMCmdMessageBody *)message.body;
-        JXLog(@"收到的action是 -- %@",body.action);
-    }
-}
+//- (void)didReceiveCmdMessages:(NSArray *)aCmdMessages{
+//    for (EMMessage *message in aCmdMessages) {
+//        EMCmdMessageBody *body = (EMCmdMessageBody *)message.body;
+//        JXLog(@"收到的action是 -- %@",body.action);
+//        [self.orderPopView show];
+//    }
+//}
 
 #pragma mark - 通知 JXPlaceAnOrderNotification
 - (void)placedAnNewOrder:(NSNotification *)noti {
@@ -310,10 +339,16 @@
 
 #pragma mark - 通知 JXCancelAnOrderNotification
 - (void)cancelAnOrder:(NSNotification *)noti {
+    JXLog(@"%@", noti.userInfo);
     JXOrderDetail *orderDetail = noti.userInfo[JXCancelOrderDetailKey];
-    NSInteger row = [self.orderDetails indexOfObject:orderDetail];
-    [self.orderDetails removeObject:orderDetail];
-    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
+    
+    for (JXOrderDetail *selfOrderDetail in self.orderDetails) {
+        JXLog(@"selfOrderDetail.orderNum = %@  orderDetail.orderNum = %@", selfOrderDetail, orderDetail);
+        if ([selfOrderDetail.orderNum isEqualToString:orderDetail.orderNum]) {
+            selfOrderDetail.orderStatus = -1;
+            [self.tableView reloadData];
+        }
+    }
 }
 
 #pragma mark - 通知 JXChangedSkinNotification

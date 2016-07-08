@@ -23,8 +23,6 @@
     NSString *_translucentImgName; // 中间遮罩背景图名
     
     NSString *_seeBtnBgImgName; // 查看按钮背景图名
-    
-    BOOL _seeButtonEnable; // 查看按钮是否可以点击
 }
 @property (weak, nonatomic) IBOutlet UIImageView *cellTopBgView;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
@@ -100,20 +98,18 @@
     switch (orderDetail.orderStatus) {
         case -1:
             _title = @"燃油耗尽";
-            _time = nil;
+            _time = orderDetail.title;
             _seeButtonTitle = @"已取消";
             _topBgImgName = @"order_complete_bg";
             _seeBtnBgImgName = @"order_see_button_gray";
-            _seeButtonEnable = NO;
             break;
             
         case 0: // 已下单
             _title = @"燃油耗尽";
-            _time = nil;
+            _time = orderDetail.title;
             _seeButtonTitle = @"查看";
             _topBgImgName = @"order_doing_bg";
             _seeBtnBgImgName = @"order_see_button_green";
-            _seeButtonEnable = YES;
             break;
             
         case 1: // 已接单
@@ -122,21 +118,22 @@
             _seeButtonTitle = @"查看";
             _topBgImgName = @"order_doing_bg";
             _seeBtnBgImgName = @"order_see_button_green";
-            _seeButtonEnable = YES;
             break;
             
-//        case 2: // 完成等待付款
-//            self.titleLabel.text = order.title;
-//            self.timeLabel.text = nil;
-//            break;
+        case 2: // 完成等待付款
+            _title = [NSString stringWithFormat:@"%@ 正在执行中...", orderDetail.title];
+            _time = nil;
+            _seeButtonTitle = @"查看";
+            _topBgImgName = @"order_doing_bg";
+            _seeBtnBgImgName = @"order_see_button_green";
+            break;
             
         case 9: // 完成
             _title = @"燃油耗尽";
             _time = orderDetail.title;
-            _seeButtonTitle = @"评价";
+            _seeButtonTitle = @"查看";
             _topBgImgName = @"order_complete_bg";
-            _seeBtnBgImgName = @"order_see_button_orange";
-            _seeButtonEnable = YES;
+            _seeBtnBgImgName = @"order_see_button_gray";
             break;
             
         default:
@@ -159,7 +156,7 @@
             break;
     }
     
-    
+    JXLog(@"_topBgImgName = %@", _topBgImgName);
     [self.addressButton setTitle:orderDetail.addressDes forState:UIControlStateNormal];
     self.totalPriceLabel.text = [NSString stringWithFormat:@"¥%.2f", orderDetail.totalPrice];
     self.oilCountLabel.text = [NSString stringWithFormat:@"%zdL", rescueItem.itemCnt];
@@ -168,18 +165,21 @@
     self.fixRescueButton.selected = _fixSelected;
     
     self.titleLabel.text = _title;
+    if (_time.length >= 10) {
+        _time = [_time substringToIndex:10];
+    }
     self.timeLabel.text = _time;
     [self.seeButton setTitle:_seeButtonTitle forState:UIControlStateNormal];
     
     self.oilNameLabel.text = _oilName;
     
-    self.seeButton.enabled = _seeButtonEnable;
-    [self.seeButton setBackgroundImage:[UIImage imageNamed:_seeBtnBgImgName] forState:UIControlStateNormal];
+    [self.seeButton setBackgroundImage:[JXSkinTool skinToolImageWithImageName:_seeBtnBgImgName] forState:UIControlStateNormal];
     
     // 设置皮肤
     UIImage *cellTopBgImg = [JXSkinTool skinToolImageWithImageName:_topBgImgName];
     UIImage *brickResizableImg = [cellTopBgImg resizableImageWithCapInsets:UIEdgeInsetsZero resizingMode:UIImageResizingModeTile];
     self.cellTopBgView.image = brickResizableImg;
+    JXLog(@"cellTopBgImg = %@", cellTopBgImg);
     
     UIImage *waveBgImg = [JXSkinTool skinToolImageWithImageName:@"order_wave_bg"];
     UIImage *resizableImg = [waveBgImg resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 10, 0) resizingMode:UIImageResizingModeTile];
@@ -194,8 +194,8 @@
  *  查看按钮被点击了
  */
 - (IBAction)seeButtonClicked {
-    if ([self.delegate respondsToSelector:@selector(myOrderTableViewCellDidClickedSeeButtonWithOrderNum:)]) {
-        [self.delegate myOrderTableViewCellDidClickedSeeButtonWithOrderNum:self.orderDetail.orderNum];
+    if ([self.delegate respondsToSelector:@selector(myOrderTableViewCellDidClickedSeeButtonWithIndexPath:)]) {
+        [self.delegate myOrderTableViewCellDidClickedSeeButtonWithIndexPath:self.indexPath];
     }
 }
 

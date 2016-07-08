@@ -20,7 +20,6 @@
 		042641CB1D2B691E00C226B7 /* JXLoadTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 042641CA1D2B691E00C226B7 /* JXLoadTipView.m */; };
 		042641CD1D2B6F9200C226B7 /* JXLoadTipView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042641CC1D2B6F9200C226B7 /* JXLoadTipView.xib */; };
 		042641D01D2B79A500C226B7 /* JXRescueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 042641CF1D2B79A500C226B7 /* JXRescueItem.m */; };
-		042641D61D2CFB1D00C226B7 /* JXRescueTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 042641D51D2CFB1D00C226B7 /* JXRescueTeam.m */; };
 		047D20701D1A41C200553815 /* JXSkinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047D206F1D1A41C200553815 /* JXSkinViewController.m */; };
 		047D20741D1A436600553815 /* JXSkinViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 047D20721D1A436600553815 /* JXSkinViewCell.m */; };
 		047D20751D1A436600553815 /* JXSkinViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047D20731D1A436600553815 /* JXSkinViewCell.xib */; };
@@ -225,8 +224,6 @@
 		042641CC1D2B6F9200C226B7 /* JXLoadTipView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXLoadTipView.xib; sourceTree = "<group>"; };
 		042641CE1D2B79A500C226B7 /* JXRescueItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXRescueItem.h; sourceTree = "<group>"; };
 		042641CF1D2B79A500C226B7 /* JXRescueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXRescueItem.m; sourceTree = "<group>"; };
-		042641D41D2CFB1D00C226B7 /* JXRescueTeam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXRescueTeam.h; sourceTree = "<group>"; };
-		042641D51D2CFB1D00C226B7 /* JXRescueTeam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXRescueTeam.m; sourceTree = "<group>"; };
 		047D206E1D1A41C200553815 /* JXSkinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXSkinViewController.h; sourceTree = "<group>"; };
 		047D206F1D1A41C200553815 /* JXSkinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXSkinViewController.m; sourceTree = "<group>"; };
 		047D20711D1A436600553815 /* JXSkinViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXSkinViewCell.h; sourceTree = "<group>"; };
@@ -1539,8 +1536,6 @@
 				04F2B53F1D01270300120402 /* JXAnnotation.m */,
 				04F2B5411D0128D200120402 /* JXOrderDetail.h */,
 				04F2B5421D0128D200120402 /* JXOrderDetail.m */,
-				042641D41D2CFB1D00C226B7 /* JXRescueTeam.h */,
-				042641D51D2CFB1D00C226B7 /* JXRescueTeam.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1888,7 +1883,6 @@
 				0497D03E1CFE8554007E3E17 /* EaseBubbleView+Video.m in Sources */,
 				0497CFEB1CFE8554007E3E17 /* EMAudioRecorderUtil.m in Sources */,
 				0497CFFA1CFE8554007E3E17 /* MWPhotoBrowser.m in Sources */,
-				042641D61D2CFB1D00C226B7 /* JXRescueTeam.m in Sources */,
 				0497D0461CFE8554007E3E17 /* EaseFacialView.m in Sources */,
 				0497D00F1CFE8554007E3E17 /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				0497D03A1CFE8554007E3E17 /* EaseBubbleView+Gif.m in Sources */,
@@ -2166,6 +2160,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.roadRescue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "24ed47dc-784d-4905-b045-69db369ebb02";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -2196,6 +2191,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.roadRescue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "24ed47dc-784d-4905-b045-69db369ebb02";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

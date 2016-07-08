@@ -74,10 +74,13 @@
     options.apnsCertName = @"roadRescuePushDevelop";
     [[EMClient sharedClient] initializeSDKWithOptions:options];
     
+    JXLog(@"%@", [NSString stringWithFormat:@"%@_user", self.account.telephone]);
+    
 #warning 测试登录
     BOOL isAutoLogin = [EMClient sharedClient].options.isAutoLogin;
     if (!isAutoLogin) {
         EMError *error = [[EMClient sharedClient] loginWithUsername:[NSString stringWithFormat:@"%@_user", self.account.telephone] password:@"123456"];
+        
         if (!error) {
             [[EMClient sharedClient].options setIsAutoLogin:YES];
         }

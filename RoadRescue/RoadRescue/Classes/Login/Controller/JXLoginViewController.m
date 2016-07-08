@@ -175,44 +175,6 @@
     // 1.验证验证码
     [MBProgressHUD showMessage:@"正在注册"];
     
-#warning 测试
-    NSMutableDictionary *paras = [NSMutableDictionary dictionary];
-    paras[@"mobile"] = self.telephoneField.text;
-    [JXHttpTool post:[NSString stringWithFormat:@"%@/register", JXServerName] params:paras success:^(id json) {
-        [MBProgressHUD hideHUD];
-        
-        JXLog(@"注册成功 - %@", json);
-        BOOL success = [json[@"success"] boolValue];
-        if (success) { // 注册成功
-            [MBProgressHUD showSuccess:@"开始下单吧！"];
-            
-            // 存储token
-            JXAccount *account = [[JXAccount alloc] init];
-            account.telephone = paras[@"mobile"];
-            account.token = json[@"data"][@"token"];
-            [JXAccountTool saveAccount:account];
-            
-            // 先dismiss再present
-            JXRescueViewController *rescueVC = [[JXRescueViewController alloc] init];
-            JXNavigationController *nav = [[JXNavigationController alloc] initWithRootViewController:rescueVC];
-            nav.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-            [self dismissViewControllerAnimated:NO completion:^{
-                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:nav animated:YES completion:nil];
-            }];
-            
-        }
-        else { // 注册失败
-            [MBProgressHUD showError:json[@"msg"]];
-        }
-    } failure:^(NSError *error) {
-        [MBProgressHUD hideHUD];
-        [MBProgressHUD showError:@"网络连接失败"];
-        JXLog(@"注册请求失败 - %@", error);
-    }];
-    
-    return;
-    
-    
     [SMSSDK commitVerificationCode:self.verifiField.text phoneNumber:self.telephoneField.text zone:@"86" result:^(NSError *error) {
         if (!error) { // 验证成功,可以开始注册
             JXLog(@"验证成功");

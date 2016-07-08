@@ -76,16 +76,15 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mjw-K1-2Td">
                                                     <rect key="frame" x="0.0" y="40" width="580" height="805"/>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rgs-Fh-x47">
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rgs-Fh-x47">
                                                     <rect key="frame" x="10" y="55" width="154" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <state key="normal" title="昆明市 盘龙区金尚俊园" image="location">
+                                                    <state key="normal" title="昆明市 盘龙区金尚俊园">
                                                         <color key="titleColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jfk-uh-BfF">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jfk-uh-BfF">
                                                     <rect key="frame" x="10" y="82" width="560" height="67"/>
-                                                    <string key="text">没油啦没有啦没油啦没有啦没油啦没有啦没油啦没有啦没油啦没有啦没油啦没有啦没油啦没有啦没油啦没有啦没油啦没有啦没油啦没有啦没油啦没有啦没油啦没有啦没油啦没有啦没油啦没有啦没油啦没有啦没油啦没有啦没油啦没有啦没油啦没有啦没油啦没有啦没油啦没有啦没油啦没有啦没油啦没有啦没油啦没有啦没油啦没有啦没油啦没有啦没油啦没</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -221,7 +220,6 @@
         </view>
     </objects>
     <resources>
-        <image name="location" width="18" height="18"/>
         <image name="order_oil" width="27" height="27"/>
     </resources>
 </document>

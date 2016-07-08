@@ -284,25 +284,12 @@ static NSInteger startCnt = 10;
         fareFee = 0;
     }
 
-//    CGFloat totalPrice = rescueItem.unitPrice*itemCnt + fareFee;
-//    CGFloat allowanceFee = rescueItem.subsidy * itemCnt;
-//    CGFloat actuallyPay = totalPrice - allowanceFee;
     // 项目总价=下单单价*项目数量
     CGFloat oilItemPrice = rescueItem.unitPrice*itemCnt;
     // 补贴
     CGFloat oilAllowanceFee = rescueItem.subsidy * itemCnt;
     // 应付(项目合计)=项目总价+服务费(运费)-补贴金额-红包
     CGFloat oilTotalPrice = oilItemPrice + fareFee - oilAllowanceFee;
-    
-    /*
-    CGFloat redBagFee = totalPrice * 0.1;
-    if (itemCnt >= 10) {
-        self.feeRingView.freeFare = YES;
-    }
-    else {
-        self.feeRingView.freeFare = NO;
-    }
-     */
     
     // 饼图
     self.feeRingView.allowanceFareOilPrice = oilAllowanceFee + fareFee + oilItemPrice - oilAllowanceFee;
@@ -311,7 +298,6 @@ static NSInteger startCnt = 10;
     // 应付油款 = 下单单价*项目数量 - 补贴
     self.feeRingView.oilPending = oilItemPrice - oilAllowanceFee;
     self.feeRingView.totalPending = oilTotalPrice;
-    
     
     // 下单时传给服务器的值
     rescueItem.sCharges = fareFee;
@@ -585,7 +571,7 @@ static NSInteger startCnt = 10;
  *  通过手动输入的油量来设置滑竿, 继而计算价格
  */
 - (void)setSliderValueByUserChooseOilCntFieldNumber {
-    [self.slider setValue:[self.userChoosedOilCntField.text integerValue] animated:YES];
+    [self.slider setValue:[self.userChoosedOilCntField.text floatValue] animated:YES];
     [self sliderValueChanged:self.slider];
     [self.view endEditing:YES];
 }

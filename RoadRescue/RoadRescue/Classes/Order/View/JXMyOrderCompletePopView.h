@@ -7,10 +7,14 @@
 //  我的订单弹出框（确认付费）
 
 #import <UIKit/UIKit.h>
+@class JXOrderDetail;
 
 @interface JXMyOrderCompletePopView : UIView
 
 + (instancetype)completePopView;
+
+/** 救援队模型 */
+@property (nonatomic, strong) JXOrderDetail *orderDetail;
 
 - (void)show;
 

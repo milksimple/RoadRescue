@@ -15,6 +15,7 @@
 #import "UIView+JXExtension.h"
 #import "JXAccountTool.h"
 #import "MBProgressHUD+MJ.h"
+#import "JXMyOrderCompletePopView.h"
 
 @interface JXOrderDetailViewController () <MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -39,17 +40,11 @@
 
 @property (nonatomic, strong) JXAccount *account;
 
+@property (nonatomic, weak) JXMyOrderCompletePopView *completePopView;
+
 @end
 
 @implementation JXOrderDetailViewController
-
-- (instancetype)initWithOrderNum:(NSString *)orderNum {
-    if (self = [super init]) {
-        self.orderNum = orderNum;
-    }
-    return self;
-}
-
 #pragma mark - lazy
 - (JXAnnotation *)annotation {
     if (_annotation == nil) {
@@ -65,16 +60,33 @@
     return _account;
 }
 
+- (JXMyOrderCompletePopView *)completePopView {
+    if (_completePopView == nil) {
+        _completePopView = [JXMyOrderCompletePopView completePopView];
+    }
+    return _completePopView;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.navigationItem.title = @"订单详情";
+    
+    [self setBg];
+    
+    // 先用从列表得到的orderDetail设置
+    [self setControlsWithOrderDetail:self.defaultOrderDetail];
+    
+    [self loadData];
+}
+
+- (void)setBg {
     // 设置wave背景图
     UIImage *waveBgImg = [JXSkinTool skinToolImageWithImageName:@"order_wave_bg"];
     UIImage *resizableImg = [waveBgImg resizableImageWithCapInsets:UIEdgeInsetsMake(10, 0, 10, 0) resizingMode:UIImageResizingModeTile];
     self.waveBgView.image = resizableImg;
     
-    [self loadData];
+//    [self.cancelButton setBackgroundImage:<#(nullable UIImage *)#> forState:<#(UIControlState)#>];
 }
 
 #pragma mark - 内容不够一个屏幕高度，scrollview也能滚动
@@ -92,15 +104,20 @@
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
     paras[@"mobile"] = self.account.telephone;
     paras[@"token"] = self.account.token;
-    paras[@"orderNum"] = self.orderNum;
+    paras[@"orderNum"] = self.defaultOrderDetail.orderNum;
     paras[@"orderType"] = @1;
 
     [JXHttpTool post:[NSString stringWithFormat:@"%@/order/findOrder", JXServerName] params:paras success:^(id json) {
-        JXLog(@"请求成功 - %@", json);
-        self.orderDetail = [JXOrderDetail mj_objectWithKeyValues:json[@"data"]];
-        [self setControlsWithOrderDetail:self.orderDetail];
+        JXLog(@"请求订单详情成功 - %@", json);
+        BOOL success = [json[@"success"] boolValue];
+        if (success) {
+            self.orderDetail = [JXOrderDetail mj_objectWithKeyValues:json[@"data"]];
+            self.orderDetail.title = self.defaultOrderDetail.title;
+            [self setControlsWithOrderDetail:self.orderDetail];
+        }
+        
     } failure:^(NSError *error) {
-        JXLog(@"请求失败 - %@", error);
+        JXLog(@"请求订单详情失败 - %@", error);
     }];
 }
 
@@ -158,7 +175,38 @@
     MKCoordinateRegion region = MKCoordinateRegionMake(centerCoordinate, span);
     [self.mapView setRegion:region animated:YES];
     
-    NSString *cancelBtnTitle = self.orderDetail.orderStatus == 0 ? @"取消订单" : @"联系客服";
+    NSString *cancelBtnTitle = nil;
+    /** 救援状态<-1-订单已取消,  0-已下单,1-已接单,2-完成等待付款,9-完成> */
+    if (orderDetail.orderStatus == -1 || orderDetail.orderStatus == 9) {
+        self.cancelButton.userInteractionEnabled = NO;
+    }
+    else {
+        self.cancelButton.userInteractionEnabled = YES;
+    }
+    switch (orderDetail.orderStatus) {
+        case -1:
+            cancelBtnTitle = @"订单已取消";
+            break;
+            
+        case 0:
+            cancelBtnTitle = @"取消订单";
+            break;
+            
+        case 1:
+            cancelBtnTitle = @"联系客服";
+            break;
+            
+        case 2:
+            cancelBtnTitle = @"确认完成";
+            break;
+            
+        case 9:
+            cancelBtnTitle = @"已完成";
+            break;
+            
+        default:
+            break;
+    }
     [self.cancelButton setTitle:cancelBtnTitle forState:UIControlStateNormal];
 }
 
@@ -166,38 +214,69 @@
  *  取消被点击
  */
 - (IBAction)cancelOrderButtonClicked:(UIButton *)cancelBtn {
-    // 点击了联系客服
-    if ([cancelBtn.titleLabel.text isEqualToString:@"联系客服"]) {
-        // 拨打电话按钮被点击
-        NSString *str= [NSString stringWithFormat:@"tel:%@", self.orderDetail.mobile];
-        UIWebView *callWebview = [[UIWebView alloc] init];
-        [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
-        [self.view addSubview:callWebview];
-        return;
+    switch (self.orderDetail.orderStatus) {
+        case -1: // 订单已取消
+            
+            break;
+            
+        case 0: { // 已下单
+            MBProgressHUD *hud = [MBProgressHUD showMessage:@"正在取消订单"];
+            hud.mode = MBProgressHUDModeIndeterminate;
+            // 点击了取消订单
+            NSMutableDictionary *paras = [NSMutableDictionary dictionary];
+            paras[@"mobile"] = self.account.telephone;
+            paras[@"token"]= self.account.token;
+            paras[@"orderNum"] = self.orderDetail.orderNum;
+            JXLog(@"paras = %@", paras);
+            [JXHttpTool post:[NSString stringWithFormat:@"%@/order/removeOrder", JXServerName] params:paras success:^(id json) {
+                JXLog(@"取消订单成功 - %@", json);
+                [MBProgressHUD hideHUD];
+                BOOL success = [json[@"success"] boolValue];
+                if (success) { // 取消成功
+                    [MBProgressHUD showSuccess:@"取消成功！"];
+                    [JXNotificationCenter postNotificationName:JXCancelAnOrderNotification object:nil userInfo:@{JXCancelOrderDetailKey:self.orderDetail}];
+                    
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+                else {
+                    [MBProgressHUD showError:json[@"msg"]];
+                    
+                    // 重新请求服务器，刷新订单状态
+                    [self loadData];
+                }
+            } failure:^(NSError *error) {
+                [MBProgressHUD hideHUD];
+                [MBProgressHUD showError:@"网络连接失败"];
+                JXLog(@"取消订单失败 - %@", error);
+            }];
+            break;
+        }
+            
+        case 1: { // 已接单
+            // 拨打电话按钮被点击
+            NSString *str= [NSString stringWithFormat:@"tel:%@", self.orderDetail.mobile];
+            UIWebView *callWebview = [[UIWebView alloc] init];
+            [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+            [self.view addSubview:callWebview];
+            break;
+        }
+            
+        case 2: { // 完成等待付款
+            self.completePopView.orderDetail = self.orderDetail;
+            [self.completePopView show];
+            break;
+        }
+            
+        case 9: { // 已完成
+            
+            break;
+        }
+            
+        default:
+            break;
     }
     
-    // 点击了取消订单
-    NSMutableDictionary *paras = [NSMutableDictionary dictionary];
-    paras[@"mobile"] = self.account.telephone;
-    paras[@"token"]= self.account.token;
-    paras[@"orderNum"] = self.orderNum;
-    JXLog(@"paras = %@", paras);
-    [JXHttpTool post:[NSString stringWithFormat:@"%@/order/removeOrder", JXServerName] params:paras success:^(id json) {
-        JXLog(@"取消订单成功 - %@", json);
-        BOOL success = [json[@"success"] boolValue];
-        if (success) { // 取消成功
-            [JXNotificationCenter postNotificationName:JXCancelAnOrderNotification object:@{JXCancelOrderDetailKey:self.orderDetail}];
-        }
-        else {
-            [MBProgressHUD showError:json[@"msg"]];
-            
-            // 重新请求服务器，刷新订单状态
-            [self loadData];
-        }
-    } failure:^(NSError *error) {
-        [MBProgressHUD showError:@"网络连接失败"];
-        JXLog(@"取消订单失败 - %@", error);
-    }];
+    
 }
 
 - (void)dealloc {

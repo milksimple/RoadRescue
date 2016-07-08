@@ -357,14 +357,14 @@
                                                 <action selector="oilButtonClicked:" destination="-1" eventType="touchDown" id="dbu-32-LKU"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5kM-E3-gAl" customClass="JXVerticalButton">
+                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5kM-E3-gAl" customClass="JXVerticalButton">
                                             <rect key="frame" x="73" y="488" width="53" height="73"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="73" id="e8s-hh-gIg"/>
                                                 <constraint firstAttribute="width" constant="53" id="okY-DA-kZ8"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <state key="normal" title="简易救援" image="rescue_fix_normal">
+                                            <state key="normal" title="简易维修" image="rescue_fix_normal">
                                                 <color key="titleColor" red="0.33725490200000002" green="0.2470588235" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <state key="selected" image="rescue_fix_selected">

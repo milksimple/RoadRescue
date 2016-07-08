@@ -7,12 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class JXOrderDetail;
 
 @interface JXOrderDetailViewController : UIViewController
 
-- (instancetype)initWithOrderNum:(NSString *)orderNum;
-
-/** 该订单Id */
-@property (nonatomic, copy) NSString *orderNum;
-
+/** 默认orderDetail，从列表传过来的 */
+@property (nonatomic, strong) JXOrderDetail *defaultOrderDetail;
 @end
