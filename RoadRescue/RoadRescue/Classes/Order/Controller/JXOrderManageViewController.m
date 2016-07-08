@@ -204,6 +204,7 @@
                     }
                     else if (latestOrderDetail.orderStatus == 2) { // 完成等待付款
                         self.orderCompletePopView.orderDetail = latestOrderDetail;
+                        [self.orderPopView dismiss];
                         [self.orderCompletePopView show];
                     }
                     

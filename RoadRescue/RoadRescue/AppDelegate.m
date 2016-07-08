@@ -40,7 +40,7 @@
     [self setupAPNSWithApplication:application];
     
     // 初始化SMSSDK
-    [SMSSDK registerApp:@"14badd10983f4" withSecret:@"b425dce15cfbe46615e720bfa96f406e"];
+    [SMSSDK registerApp:@"13a02edfba956" withSecret:@"7e7bd94a0bc0065dcb7b1c39fb20f976"];
     
     // badge置0
     if (JXApplication.applicationIconBadgeNumber != 0) {
@@ -70,23 +70,29 @@
 - (void)setupEMIM {
     //AppKey:注册的AppKey，详细见下面注释。
     //apnsCertName:推送证书名（不需要加后缀），详细见下面注释。
+    
     EMOptions *options = [EMOptions optionsWithAppkey:@"jimaoxin001#oil"];
     options.apnsCertName = @"roadRescuePushDevelop";
     [[EMClient sharedClient] initializeSDKWithOptions:options];
     
-    JXLog(@"%@", [NSString stringWithFormat:@"%@_user", self.account.telephone]);
-    
 #warning 测试登录
     BOOL isAutoLogin = [EMClient sharedClient].options.isAutoLogin;
     if (!isAutoLogin) {
-        EMError *error = [[EMClient sharedClient] loginWithUsername:[NSString stringWithFormat:@"%@_user", self.account.telephone] password:@"123456"];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            EMError *error = [[EMClient sharedClient] loginWithUsername:[NSString stringWithFormat:@"%@_user", self.account.telephone] password:@"123456"];
+            
+            if (!error) {
+                [[EMClient sharedClient].options setIsAutoLogin:YES];
+                
+                EMPushOptions *options = [[EMClient sharedClient] pushOptions];
+                options.displayStyle = EMPushDisplayStyleMessageSummary;
+                EMError *error = [[EMClient sharedClient] updatePushOptionsToServer];
+            }
+            else {
+                JXLog(@"IM登录失败");
+            }
+        });
         
-        if (!error) {
-            [[EMClient sharedClient].options setIsAutoLogin:YES];
-        }
-        else {
-            JXLog(@"IM登录失败");
-        }
     }
     
 }

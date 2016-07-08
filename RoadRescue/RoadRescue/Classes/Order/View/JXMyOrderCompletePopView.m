@@ -95,13 +95,14 @@
             NSString *from = [[EMClient sharedClient] currentUsername];
             
             //生成Message
-            NSString *to = [NSString stringWithFormat:@"%@_user", self.orderDetail.orderNum];
+#warning 测试 后面要加user
+            NSString *to = [NSString stringWithFormat:@"%@", self.orderDetail.mobile];
             EMMessage *message = [[EMMessage alloc] initWithConversationID:to from:from to:to body:body ext:nil];
             message.chatType = EMChatTypeChat;
             
             [[EMClient sharedClient].chatManager asyncSendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
                 if (!error) { // 发送成功
-                    JXLog(@"完成付款发送消息成功 == 申请付款成功");
+                    JXLog(@"完成付款发送消息成功 == 完成付款成功");
                 }
                 else {
                     JXLog(@"完成付款发送消息失败 - %@", error.errorDescription);

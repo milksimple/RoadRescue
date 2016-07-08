@@ -2160,7 +2160,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.roadRescue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "24ed47dc-784d-4905-b045-69db369ebb02";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -2191,7 +2191,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.roadRescue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "24ed47dc-784d-4905-b045-69db369ebb02";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

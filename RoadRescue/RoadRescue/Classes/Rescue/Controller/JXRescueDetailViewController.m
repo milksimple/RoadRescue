@@ -307,6 +307,15 @@ static NSInteger startCnt = 10;
 }
 
 - (IBAction)rescueRequestButtonClicked {
+    if (self.slider.value == 0) {
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"油量不能为空" message:@"油量不能为空，请拖动滑动条选择油量哦！" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cfmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+        [alertVC addAction:cfmAction];
+        [self presentViewController:alertVC animated:YES completion:nil];
+        
+        return;
+    }
+    
     // 清空用户购买项目
     self.itemList = nil;
     

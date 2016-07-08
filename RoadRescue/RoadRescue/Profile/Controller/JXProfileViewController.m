@@ -59,14 +59,11 @@
 
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 2;
-    }
-    return 3;
+    return 4;
 }
 
 
@@ -77,10 +74,26 @@
             headerCell.account = self.account;
             return headerCell;
         }
-        else { // 红包
+        else {
             JXProfileViewCell *profileCell = [tableView dequeueReusableCellWithIdentifier:[JXProfileViewCell reuseIdentifier] forIndexPath:indexPath];
-            profileCell.type = JXProfileViewCellTypeRedbag;
-//            profileCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            profileCell.accessoryType = UITableViewCellAccessoryNone;
+            switch (indexPath.row) {
+                case 1: // 设置
+                    profileCell.type = JXProfileViewCellTypeSetting;
+                    break;
+                    
+                case 2: // 帮助
+                    profileCell.type = JXProfileViewCellTypeHelp;
+                    break;
+                    
+                case 3: // 换肤
+                    profileCell.type = JXProfileViewCellTypeChangeSkin;
+                    break;
+                    
+                default:
+                    break;
+            }
+            
             return profileCell;
         }
     }
@@ -109,22 +122,18 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    __weak typeof(self) wSelf = self;
     if (indexPath.section == 0) {
-        
-    }
-    else {
         switch (indexPath.row) {
-            case 0: { // 设置
+            case 1: { // 设置
                 
                 break;
             }
                 
-            case 1: // 帮助
+            case 2: // 帮助
                 
                 break;
                 
-            case 2:  { // 换肤
+            case 3:  { // 换肤
                 UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.skinVC];
                 [self presentViewController:nav animated:YES completion:nil];
                 break;
