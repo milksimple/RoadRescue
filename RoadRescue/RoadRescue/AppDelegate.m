@@ -40,7 +40,7 @@
     [self setupAPNSWithApplication:application];
     
     // 初始化SMSSDK
-    [SMSSDK registerApp:@"13a02edfba956" withSecret:@"7e7bd94a0bc0065dcb7b1c39fb20f976"];
+    [SMSSDK registerApp:@"14badd10983f4" withSecret:@"b425dce15cfbe46615e720bfa96f406e"];
     
     // badge置0
     if (JXApplication.applicationIconBadgeNumber != 0) {
@@ -74,27 +74,20 @@
     EMOptions *options = [EMOptions optionsWithAppkey:@"jimaoxin001#oil"];
     options.apnsCertName = @"roadRescuePushDevelop";
     [[EMClient sharedClient] initializeSDKWithOptions:options];
-    
-#warning 测试登录
+
+    // 登录环信
     BOOL isAutoLogin = [EMClient sharedClient].options.isAutoLogin;
-    if (!isAutoLogin) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            EMError *error = [[EMClient sharedClient] loginWithUsername:[NSString stringWithFormat:@"%@_user", self.account.telephone] password:@"123456"];
+    if (!isAutoLogin && self.account.telephone.length > 0) {
+        [[EMClient sharedClient] asyncLoginWithUsername:[NSString stringWithFormat:@"%@_user", self.account.telephone] password:@"123456" success:^{
+            [[EMClient sharedClient].options setIsAutoLogin:YES];
             
-            if (!error) {
-                [[EMClient sharedClient].options setIsAutoLogin:YES];
-                
-                EMPushOptions *options = [[EMClient sharedClient] pushOptions];
-                options.displayStyle = EMPushDisplayStyleMessageSummary;
-                EMError *error = [[EMClient sharedClient] updatePushOptionsToServer];
-            }
-            else {
-                JXLog(@"IM登录失败");
-            }
-        });
-        
+            EMPushOptions *options = [[EMClient sharedClient] pushOptions];
+            options.displayStyle = EMPushDisplayStyleMessageSummary;
+            [[EMClient sharedClient] updatePushOptionsToServer];
+        } failure:^(EMError *aError) {
+            JXLog(@"setupEMIM - IM登录失败");
+        }];
     }
-    
 }
 
 - (void)setupAPNSWithApplication:(UIApplication *)application {
@@ -128,7 +121,10 @@
 
 // 将得到的deviceToken传给SDK
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
-    [[EMClient sharedClient] bindDeviceToken:deviceToken];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[EMClient sharedClient] bindDeviceToken:deviceToken];
+    });
+    
 }
 
 // 注册deviceToken失败

@@ -27,6 +27,8 @@
 
 + (void)post:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError *error))failure {
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
+//    JXLog(@"HTTPRequestHeaders = %@", mgr.requestSerializer.HTTPRequestHeaders);
+//    mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
     mgr.requestSerializer.timeoutInterval = 12;
     [mgr POST:url parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {

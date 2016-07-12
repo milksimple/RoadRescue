@@ -102,9 +102,8 @@
                                                 <constraint firstItem="jhf-qP-o9j" firstAttribute="centerY" secondItem="HxU-jd-p0E" secondAttribute="centerY" id="uzR-IH-bQh"/>
                                             </constraints>
                                         </view>
-                                        <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mr1-Xv-aJ2">
+                                        <pickerView clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mr1-Xv-aJ2">
                                             <rect key="frame" x="10" y="345" width="60" height="40"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="60" id="J2I-3J-9xh"/>
                                                 <constraint firstAttribute="height" constant="40" id="x01-6w-VSA"/>

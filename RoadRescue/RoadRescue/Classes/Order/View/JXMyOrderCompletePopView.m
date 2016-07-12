@@ -95,7 +95,6 @@
             NSString *from = [[EMClient sharedClient] currentUsername];
             
             //生成Message
-#warning 测试 后面要加user
             NSString *to = [NSString stringWithFormat:@"%@", self.orderDetail.mobile];
             EMMessage *message = [[EMMessage alloc] initWithConversationID:to from:from to:to body:body ext:nil];
             message.chatType = EMChatTypeChat;

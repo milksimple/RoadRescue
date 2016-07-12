@@ -45,6 +45,9 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rescueDesLabelHeightConstraint;
 
+@property (weak, nonatomic) IBOutlet UIImageView *bgView;
+
+
 @end
 
 @implementation JXOrderDetailViewController
@@ -74,6 +77,7 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"订单详情";
+    self.scrollView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
     
     [self setBg];
     
@@ -87,10 +91,14 @@
 }
 
 - (void)setBg {
+    // 位置按钮
+    [self.addressButton setImage:[JXSkinTool skinToolImageWithImageName:@"location"] forState:UIControlStateNormal];
     // 设置top背景图
     self.topBgView.image = [JXSkinTool skinToolImageWithImageName:@"order_detail_top"];
     // 设置wave背景图
     self.waveBgView.image = [JXSkinTool skinToolImageWithImageName:@"order_detail_wave"];
+    
+    self.bgView.image = [JXSkinTool skinToolImageWithImageName:@"complete_bg.jpg"];
 }
 
 #pragma mark - 内容不够一个屏幕高度，scrollview也能滚动
@@ -112,7 +120,6 @@
     paras[@"orderType"] = @1;
 
     [JXHttpTool post:[NSString stringWithFormat:@"%@/order/findOrder", JXServerName] params:paras success:^(id json) {
-        JXLog(@"请求订单详情成功 - %@", json);
         BOOL success = [json[@"success"] boolValue];
         if (success) {
             self.orderDetail = [JXOrderDetail mj_objectWithKeyValues:json[@"data"]];
@@ -161,12 +168,12 @@
     // 时间
     self.timeLabel.text = orderDetail.title;
     // 地点
-    [self.addressButton setTitle:orderDetail.addressDes forState:UIControlStateNormal];
-    // 救援描述
-    self.rescueDesLabel.text = orderDetail.accidentDes;
-    // 设置高度
+    [self.addressButton setTitle:[NSString stringWithFormat:@"  %@", orderDetail.addressDes] forState:UIControlStateNormal];
+    // 设置救援描述高度
     CGRect rect = [self.rescueDesLabel.text boundingRectWithSize:CGSizeMake(JXScreenW - 40, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil];
     self.rescueDesLabelHeightConstraint.constant = rect.size.height;
+    // 救援描述
+    self.rescueDesLabel.text = orderDetail.accidentDes;
     
     // 总价
     self.totalPriceLabel.text = [NSString stringWithFormat:@"¥%.2f", orderDetail.totalPrice];
@@ -306,9 +313,8 @@
 }
 
 - (void)dealloc {
-    JXLog(@"JXOrderDetailViewController - dealloc");
+    [JXNotificationCenter removeObserver:self];
 }
-
 //#pragma mark - MKMapViewDelegate
 //- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
 //    JXLog(@"region -- lon = %f, lat = %f, span -- lon = %f, lat = %f", mapView.region.center.longitude, mapView.region.center.latitude, mapView.region.span.longitudeDelta, mapView.region.span.latitudeDelta);

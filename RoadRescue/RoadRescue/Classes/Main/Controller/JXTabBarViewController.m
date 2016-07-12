@@ -72,21 +72,10 @@
 
 #pragma mark - JXTabBarDelegate
 - (void)tabBarDidClickedRescueButton:(JXTabBar *)tabBar {
-//#warning 测试
-//    JXRescueViewController *rescueVC = [[JXRescueViewController alloc] init];
-//    JXNavigationController *nav = [[JXNavigationController alloc] initWithRootViewController:rescueVC];
-//    nav.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [self presentViewController:nav animated:YES completion:nil];
-//    });
-//    
-//    return;
-    
     JXAccount *account = [JXAccountTool account];
     if (account.telephone.length > 0 && account.token.length > 0) {
         JXRescueViewController *rescueVC = [[JXRescueViewController alloc] init];
         JXNavigationController *nav = [[JXNavigationController alloc] initWithRootViewController:rescueVC];
-        nav.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self presentViewController:nav animated:YES completion:nil];
         });

@@ -76,7 +76,6 @@ typedef void (^JXErrorBlock)(NSString *error);
     self.complete = complete;
     self.error = error;
     
-    JXLog(@"self.networkStream = %@", self.networkStream);
     if (self.isReceiving) return;
     // 开启下载
     [self startReceive];

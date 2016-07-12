@@ -88,7 +88,7 @@
                                 <constraint firstAttribute="bottom" secondItem="T7Q-Wv-XWv" secondAttribute="bottom" id="n1p-7c-Oc6"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AJV-8N-2en">
+                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AJV-8N-2en">
                             <rect key="frame" x="116" y="229" width="65" height="16"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="65" id="hxI-Jk-cu0"/>

@@ -277,7 +277,7 @@
                                 <action selector="confirmButtonClicked" destination="ard-UK-KU8" eventType="touchUpInside" id="FaW-d2-50Z"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PFa-hp-cEf" customClass="JXVerticalButton">
+                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PFa-hp-cEf" customClass="JXVerticalButton">
                             <rect key="frame" x="84" y="110" width="54" height="74"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="74" id="FNg-mU-lWB"/>
@@ -288,7 +288,7 @@
                                 <color key="titleColor" red="0.99215686274509807" green="0.40392156862745099" blue="0.031372549019607843" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ptc-9p-GnC" customClass="JXVerticalButton">
+                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ptc-9p-GnC" customClass="JXVerticalButton">
                             <rect key="frame" x="10" y="110" width="54" height="74"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="54" id="IRz-1C-JNE"/>

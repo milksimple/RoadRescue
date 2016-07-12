@@ -21,7 +21,7 @@
     UINavigationBar *navigationBar = [UINavigationBar appearanceWhenContainedIn:[self class], nil];
     
     // 使用自己的图片替换原来的返回图片
-    UIImage *navBack = [JXSkinTool skinToolImageWithImageName:@"nav_back_gray"];
+    UIImage *navBack = [JXSkinTool skinToolImageWithImageName:@"nav_back"];
     navigationBar.backIndicatorImage = [navBack imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     navigationBar.backIndicatorTransitionMaskImage = [navBack imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
@@ -48,7 +48,7 @@
 }
 
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil];
+    viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStyleDone target:nil action:nil];
     if (self.childViewControllers.count >= 1) {
         viewController.hidesBottomBarWhenPushed = YES;
     }
@@ -59,10 +59,14 @@
 - (void)skinChanged {
     [self.navigationBar setBackgroundImage:[JXSkinTool skinToolImageWithImageName:@"nav_bg"] forBarMetrics:UIBarMetricsDefault];
     
-    // 获取特定类的所有导航条
-//    UINavigationBar *navigationBar = [UINavigationBar appearanceWhenContainedIn:[self class], nil];
     // 设置标题颜色
     [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[JXSkinTool skinToolColorWithKey:@"navbar_title"]}];
+    
+    // 获取特定类的所有导航条
+    UINavigationBar *navigationBar = [UINavigationBar appearanceWhenContainedIn:[self class], nil];
+    UIImage *navBack = [JXSkinTool skinToolImageWithImageName:@"nav_back"];
+    navigationBar.backIndicatorImage = [navBack imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    navigationBar.backIndicatorTransitionMaskImage = [navBack imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 }
 
 - (void)dealloc {

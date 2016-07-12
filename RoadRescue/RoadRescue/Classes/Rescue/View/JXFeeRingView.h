@@ -24,6 +24,8 @@
 ///** 红包返利 */
 //@property (nonatomic, assign) CGFloat redBagFee;
 
+/** 小计 */
+@property (nonatomic, assign) CGFloat subtotalFee;
 /** 优惠补贴 */
 @property (nonatomic, assign) CGFloat allowanceFee;
 /** 运费 */

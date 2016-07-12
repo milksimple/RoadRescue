@@ -150,6 +150,7 @@
     [header setImages:refreshingImages forState:MJRefreshStateRefreshing];
     self.tableView.mj_header = header;
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreOrder)];
+    self.tableView.mj_footer.automaticallyChangeAlpha = YES;
     [self.tableView.mj_footer setAutomaticallyHidden:YES];
 }
 
@@ -173,53 +174,58 @@
     paras[@"pageSize"] = @3;
     self.paras = paras;
     
+    __weak typeof(self) wSelf = self;
     [JXHttpTool post:[NSString stringWithFormat:@"%@/order/list", JXServerName] params:paras success:^(id json) {
-        [self.tableView.mj_header endRefreshing];
-        JXLog(@"新订单请求成功 - %@", json);
-        if (paras != self.paras) {
+        [wSelf.tableView.mj_header endRefreshing];
+        if (paras != wSelf.paras) {
             return;
         }
+//        NSString *jsonStr = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
+//        JXLog(@"订单列表请求成功 - %@", jsonStr);
+//        return;
+        
+        
         BOOL success = [json[@"success"] boolValue];
         if (success) {
             // 1.刷新列表
-            self.orderDetails = [JXOrderDetail mj_objectArrayWithKeyValuesArray:json[@"data"]];
-            [self.tableView reloadData];
+            wSelf.orderDetails = [JXOrderDetail mj_objectArrayWithKeyValuesArray:json[@"data"]];
+            [wSelf.tableView reloadData];
             
             // 2.显示提示view
-            if (self.orderDetails.count == 0) {
-                self.tipView.type = JXLoadTipViewTypeNoReloadButton;
-                self.tipView.tipTitle = @"您还没有任何订单哦，\n快去试试下单吧！";
-                [self.tipView showTipViewToView:self.view];
+            if (wSelf.orderDetails.count == 0) {
+                wSelf.tipView.type = JXLoadTipViewTypeNoReloadButton;
+                wSelf.tipView.tipTitle = @"您还没有任何订单哦，\n快去试试下单吧！";
+                [wSelf.tipView showTipViewToView:wSelf.view];
             }
             else {
-                [self.tipView removeFromSuperview];
+                [wSelf.tipView removeFromSuperview];
                 
-                if (self.receiveIM) { // 接收到IM消息才进行此步骤
+                if (wSelf.receiveIM) { // 接收到IM消息才进行此步骤
                     // 3.获得最新订单的状态，以显示不同的popView
-                    JXOrderDetail *latestOrderDetail = self.orderDetails[0];
+                    JXOrderDetail *latestOrderDetail = wSelf.orderDetails[0];
                     // <-1-订单已取消,  0-已下单,1-已接单,2-完成等待付款,9-完成>
                     if (latestOrderDetail.orderStatus == 1) { // 已接单
-                        self.orderPopView.orderDetail = latestOrderDetail;
-                        [self.orderPopView show];
+                        wSelf.orderPopView.orderDetail = latestOrderDetail;
+                        [wSelf.orderPopView show];
                     }
                     else if (latestOrderDetail.orderStatus == 2) { // 完成等待付款
-                        self.orderCompletePopView.orderDetail = latestOrderDetail;
-                        [self.orderPopView dismiss];
-                        [self.orderCompletePopView show];
+                        wSelf.orderCompletePopView.orderDetail = latestOrderDetail;
+                        [wSelf.orderPopView dismiss];
+                        [wSelf.orderCompletePopView show];
                     }
                     
-                    self.receiveIM = NO;
+                    wSelf.receiveIM = NO;
                 }
                 
             }
         }
         
     } failure:^(NSError *error) {
-        [self.tableView.mj_header endRefreshing];
-        if (self.orderDetails.count == 0) {
-            self.tipView.type = JXLoadTipViewTypeHasReloadButton;
-            self.tipView.tipTitle = @"啊哦，网络不给力";
-            [self.tipView showTipViewToView:self.view];
+        [wSelf.tableView.mj_header endRefreshing];
+        if (wSelf.orderDetails.count == 0) {
+            wSelf.tipView.type = JXLoadTipViewTypeHasReloadButton;
+            wSelf.tipView.tipTitle = @"啊哦，网络不给力";
+            [wSelf.tipView showTipViewToView:wSelf.view];
         }
         else {
             [MBProgressHUD showError:@"网络连接失败"];
@@ -292,12 +298,10 @@
     [self.navigationController pushViewController:orderDetailVC animated:YES];
 }
 
-#warning 测试接受消息
 #pragma mark - EMChatManagerDelegate
 // 收到消息的回调，带有附件类型的消息可以用 SDK 提供的下载附件方法下载（后面会讲到）
 - (void)didReceiveMessages:(NSArray *)aMessages
 {
-    JXLog(@"didReceiveMessages - thread = %@", [NSThread currentThread]);
     for (EMMessage *message in aMessages) {
         EMMessageBody *msgBody = message.body;
         switch (msgBody.type) {

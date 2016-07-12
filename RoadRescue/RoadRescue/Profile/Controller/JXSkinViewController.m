@@ -22,9 +22,6 @@
     NSURLSessionDownloadTask *_downloadTask;
 }
 
-///** 皮肤名称数组 */
-//@property (nonatomic, strong) NSMutableArray *skinNames;
-
 /** 进度条 */
 @property (nonatomic, weak) UIProgressView *progressView;
 
@@ -37,15 +34,6 @@
 @end
 
 @implementation JXSkinViewController
-#pragma mark - lazy
-//- (NSMutableArray *)skinNames {
-//    if (_skinNames == nil) {
-//        _skinNames = [NSMutableArray array];
-//    }
-//    return _skinNames;
-//}
-
-#warning 测试数据
 - (NSMutableArray *)skins {
     if (_skins == nil) {
         _skins = [NSMutableArray array];
@@ -100,7 +88,6 @@
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
     paras[@"os"] = @"ios";
     [JXHttpTool post:[NSString stringWithFormat:@"%@/skin", JXServerName] params:paras success:^(id json) {
-        JXLog(@"请求皮肤列表成功 - %@", json);
         BOOL success = json[@"success"];
         if (success) {
             // json数组存入沙盒

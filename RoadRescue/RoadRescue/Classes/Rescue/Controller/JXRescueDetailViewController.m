@@ -181,7 +181,6 @@ static NSInteger startCnt = 10;
     paras[@"origin"] = [NSString stringWithFormat:@"%.6f,%.6f", self.orderDetail.lon, self.orderDetail.lat];
     
     [JXHttpTool post:[NSString stringWithFormat:@"%@/order/orderFee", JXServerName] params:paras success:^(id json) {
-        JXLog(@"请求今日油价成功 - %@", json);
         [MBProgressHUD hideHUDForView:self.feeRingView];
         BOOL success = [json[@"success"] boolValue];
         if (success) {
@@ -259,21 +258,22 @@ static NSInteger startCnt = 10;
 }
 
 - (IBAction)sliderValueChanged:(UISlider *)slider {
-    // 10以上才允许下单
-    if (slider.value < 10) return;
-    if (self.oilItems.count == 0) return;
-    
     NSInteger selectedRow = [self.oilPickerView selectedRowInComponent:0];
     JXRescueItem *rescueItem = self.oilItems[selectedRow];
     
+    /*
     // 柴油可以精确到1L，汽油精确到10L
     NSInteger itemCnt = 0;
-    if (rescueItem.itemClass == 0) { // 柴油
+    if (rescueItem.itemClass == -100) { // 柴油
         itemCnt = (NSInteger)(slider.value);
     }
     else { // 汽油
         itemCnt = ((NSInteger)slider.value - ((NSInteger)slider.value % 10));
     }
+     */
+    
+    // 现在改为所有油品都是精确到10L
+    NSInteger itemCnt = ((NSInteger)slider.value - ((NSInteger)slider.value % 10));
     
     // 份数
     rescueItem.itemCnt = itemCnt;
@@ -298,6 +298,8 @@ static NSInteger startCnt = 10;
     // 应付油款 = 下单单价*项目数量 - 补贴
     self.feeRingView.oilPending = oilItemPrice - oilAllowanceFee;
     self.feeRingView.totalPending = oilTotalPrice;
+    // 小计
+    self.feeRingView.subtotalFee = oilItemPrice + fareFee;
     
     // 下单时传给服务器的值
     rescueItem.sCharges = fareFee;
@@ -420,41 +422,6 @@ static NSInteger startCnt = 10;
 
 #pragma mark - JXRescueDetailPopViewDelegate
 - (void)rescueDetailPopViewDidClickedConfirmButton {
-#warning 测试发送群组消息
-//    __weak typeof(self) weakSelf = self;
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
-//        // 先主动加入该地区的救援队群
-//        EMError *error = nil;
-//        [[EMClient sharedClient].groupManager joinPublicGroup:@"210170855664124328" error:&error];
-//        if (!error) { // 加群成功
-//            // 1.先屏蔽群通知
-//            EMError *ignoreError = [[EMClient sharedClient].groupManager ignoreGroupPush:@"210170855664124328" ignore:YES];
-//            if (ignoreError) return; // 没有屏蔽成功就
-//            
-//            // 发送群文本消息
-//            EMTextMessageBody *body = [[EMTextMessageBody alloc] initWithText:@"下单"];
-//            NSString *from = [[EMClient sharedClient] currentUsername];
-//            
-//            //生成群组Message
-//            EMMessage *message = [[EMMessage alloc] initWithConversationID:@"210170855664124328" from:from to:@"210170855664124328" body:body ext:nil];
-//            message.chatType = EMChatTypeGroupChat;
-//            
-//            [[EMClient sharedClient].chatManager asyncSendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
-//                if (!error) { // 发送成功
-//                    JXLog(@"用户发送消息成功 == 下单成功");
-//                    // 退出该群
-//                    EMError *error = nil;
-//                    [[EMClient sharedClient].groupManager leaveGroup:@"210170855664124328" error:&error];
-//                }
-//                else {
-//                    JXLog(@"用户发送消息失败 == 下单失败, %@", error);
-//                }
-//            }];
-//        }
-//    });
-//    
-//    return;
-    
     MBProgressHUD *hud = [MBProgressHUD showMessage:@"正在提交订单"];
     hud.mode = MBProgressHUDModeIndeterminate;
     
@@ -493,7 +460,6 @@ static NSInteger startCnt = 10;
 - (void)requestPlaceOrder {
     // 发送请求
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
-#warning 测试
     paras[@"mobile"] = self.account.telephone;
     paras[@"token"] = self.account.token;
     NSDictionary *orderDic = [self.orderDetail mj_keyValues];
@@ -515,37 +481,6 @@ static NSInteger startCnt = 10;
                 // 赋值订单号
                 self.orderDetail.orderNum = json[@"data"][@"orderNum"];
                 [JXNotificationCenter postNotificationName:JXPlaceAnOrderNotification object:nil userInfo:@{JXOrderDetailKey:self.orderDetail}];
-                
-                
-                // 2. 发送消息，通知救援队
-#warning 测试
-                // 发送透传消息
-                //    EMCmdMessageBody *body = [[EMCmdMessageBody alloc] initWithAction:@"下单"];
-                //    NSString *from = [[EMClient sharedClient] currentUsername];
-                //
-                //    // 生成message
-                //    EMMessage *message = [[EMMessage alloc] initWithConversationID:@"6001" from:from to:@"oiler001" body:body ext:nil];
-                //    message.chatType = EMChatTypeChat; // 设置为单聊消息
-                //
-                //    [[EMClient sharedClient].chatManager asyncSendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
-                //        if (!error) { // 发送成功
-                //            JXLog(@"用户发送消息成功 == 下单成功");
-                //        }
-                //    }];
-                
-                // 发送文本消息
-//                EMTextMessageBody *body = [[EMTextMessageBody alloc] initWithText:@"下单"];
-//                NSString *from = [[EMClient sharedClient] currentUsername];
-//                
-//                //生成群组Message
-//                EMMessage *message = [[EMMessage alloc] initWithConversationID:@"202652458923590056" from:from to:@"202652458923590056" body:body ext:nil];
-//                message.chatType = EMChatTypeGroupChat;
-//                
-//                [[EMClient sharedClient].chatManager asyncSendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
-//                    if (!error) { // 发送成功
-//                        JXLog(@"用户发送消息成功 == 下单成功");
-//                    }
-//                }];
                 
             }];
         }

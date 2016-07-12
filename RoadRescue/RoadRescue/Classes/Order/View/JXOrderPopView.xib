@@ -172,8 +172,8 @@
                     </userDefinedRuntimeAttributes>
                     <variation key="default">
                         <mask key="constraints">
-                            <exclude reference="MeO-Gd-ad8"/>
                             <exclude reference="Gel-h1-tCx"/>
+                            <exclude reference="MeO-Gd-ad8"/>
                         </mask>
                     </variation>
                 </view>
