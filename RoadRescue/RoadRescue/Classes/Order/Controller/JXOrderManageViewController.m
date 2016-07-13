@@ -90,7 +90,6 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self setupRefresh];
-    [self loadNewOrder];
     
     // 监听消息
     //消息回调:EMChatManagerChatDelegate
@@ -152,6 +151,8 @@
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreOrder)];
     self.tableView.mj_footer.automaticallyChangeAlpha = YES;
     [self.tableView.mj_footer setAutomaticallyHidden:YES];
+    
+    [self.tableView.mj_header beginRefreshing];
 }
 
 /**
@@ -180,10 +181,6 @@
         if (paras != wSelf.paras) {
             return;
         }
-//        NSString *jsonStr = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
-//        JXLog(@"订单列表请求成功 - %@", jsonStr);
-//        return;
-        
         
         BOOL success = [json[@"success"] boolValue];
         if (success) {
@@ -376,7 +373,7 @@
 
 #pragma mark - JXLoadTipViewDelegate
 - (void)loadTipViewDidClickedReloadButton {
-    [self loadNewOrder];
+    [self.tableView.mj_header beginRefreshing];
 }
 
 #pragma mark - JXOrderSuccessFinishedNotification

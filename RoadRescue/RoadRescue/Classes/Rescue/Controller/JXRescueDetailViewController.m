@@ -468,10 +468,9 @@ static NSInteger startCnt = 10;
     NSString *orderStr = [[NSString alloc] initWithData:orderData encoding:NSUTF8StringEncoding];
     paras[@"order"] = orderStr;
     paras[@"origin"] = [NSString stringWithFormat:@"%.6f,%.6f", self.orderDetail.lon, self.orderDetail.lat];
-    JXLog(@"下单 - paras = %@", paras);
+
     [JXHttpTool post:[NSString stringWithFormat:@"%@/order/addOrder", JXServerName] params:paras success:^(id json) {
         [MBProgressHUD hideHUD];
-        JXLog(@"提交订单请求成功 - %@", json);
         
         BOOL success = [json[@"success"] boolValue];
         if (success) {

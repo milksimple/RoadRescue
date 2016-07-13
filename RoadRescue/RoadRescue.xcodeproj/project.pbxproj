@@ -2159,9 +2159,9 @@
 					"$(PROJECT_DIR)/RoadRescue/Classes/Main/SDK/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrnb",
 					"$(PROJECT_DIR)/RoadRescue/Classes/Main/SDK/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrwb",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.roadRescue;
+				PRODUCT_BUNDLE_IDENTIFIER = com.oikjuy.mnj;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "24ed47dc-784d-4905-b045-69db369ebb02";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2190,9 +2190,9 @@
 					"$(PROJECT_DIR)/RoadRescue/Classes/Main/SDK/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrnb",
 					"$(PROJECT_DIR)/RoadRescue/Classes/Main/SDK/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrwb",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.roadRescue;
+				PRODUCT_BUNDLE_IDENTIFIER = com.oikjuy.mnj;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "24ed47dc-784d-4905-b045-69db369ebb02";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

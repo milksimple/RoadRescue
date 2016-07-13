@@ -67,17 +67,6 @@
             break;
     }
     
-//    NSString *skinType = [JXSkinTool skinType];
-//    if ([skinType isEqualToString:JXSkinTypeOriginStr]) {
-//        self.rightLabel.text = @"普通";
-//    }
-//    else if ([skinType isEqualToString:JXSkinTypeBrickStr]) {
-//        self.rightLabel.text = @"碳纤维";
-//    }
-//    else if ([skinType isEqualToString:JXSkinTypeWoodStr]) {
-//        self.rightLabel.text = @"木纹";
-//    }
-    
     // 设置皮肤
     self.bgView.backgroundColor = [JXSkinTool skinToolColorWithKey:@"profile_cell_bg"];
     self.titleLabel.textColor = self.rightLabel.textColor = [JXSkinTool skinToolColorWithKey:@"profile_title_text"];

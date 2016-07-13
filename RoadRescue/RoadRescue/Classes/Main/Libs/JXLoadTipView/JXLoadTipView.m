@@ -31,6 +31,8 @@
     if ([self.delegate respondsToSelector:@selector(loadTipViewDidClickedReloadButton)]) {
         [self.delegate loadTipViewDidClickedReloadButton];
     }
+    
+    [self dismiss];
 }
 
 - (void)setType:(JXLoadTipViewType)type {
@@ -76,6 +78,10 @@
     self.frame = CGRectMake(tipX, tipY, tipW, tipH);
     
     [toView addSubview:self];
+}
+
+- (void)dismiss {
+    [self removeFromSuperview];
 }
 
 @end

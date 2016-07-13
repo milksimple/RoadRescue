@@ -45,4 +45,6 @@ typedef enum {
  *  @param bottom 希望tipview距离底部的距离
  */
 - (void)showTipViewToView:(UIView *)toView bottom:(CGFloat)bottom;
+
+- (void)dismiss;
 @end

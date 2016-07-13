@@ -37,12 +37,6 @@
     return _ftpTool;
 }
 
-//- (IBAction)downLoadButtonClicked {
-//    if ([self.delegate respondsToSelector:@selector(skinViewCellDidClickedDownLoadButton)]) {
-//        [self.delegate skinViewCellDidClickedDownLoadButton];
-//    }
-//}
-
 + (instancetype)skinCell {
     return [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil].lastObject;
 }
@@ -148,7 +142,6 @@
             
             // 计算压缩包大小
             NSUInteger zipSize = [self.ftpTool fileSizeWithDownLoadFileName:[self.skin.packageName stringByAppendingPathExtension:@"zip"]];
-            JXLog(@"ZipSize = %zd", zipSize);
             self.bytesWrittenLabel.text = [NSString stringWithFormat:@"%.1fM/%.1fM", zipSize/1024.0/1024.0, self.skin.size/1024.0/1024.0];
             CGFloat progress = 1.0 *zipSize/self.skin.size;
             self.progressView.progress = progress;
@@ -275,9 +268,7 @@
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alertVC addAction:cancelAction];
     
-    if ([self.delegate respondsToSelector:@selector(skinViewCellNeedPresentAlertVC:)]) {
-        [self.delegate skinViewCellNeedPresentAlertVC:alertVC];
-    }
+    [JXApplication.keyWindow.rootViewController.presentedViewController presentViewController:alertVC animated:YES completion:nil];
 }
 
 /**
@@ -289,9 +280,7 @@
     // 要保证这个方在上面通知发出后，取消了上个cell的选中状态后，再设置自己为选中
     self.status = JXSkinViewCellStatusUsing;
     
-    if ([self.delegate respondsToSelector:@selector(skinViewCellDidUsedSomeoneSkin)]) {
-        [self.delegate skinViewCellDidUsedSomeoneSkin];
-    }
+    [JXApplication.keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 /**
@@ -353,10 +342,7 @@
     [deleteAlertVC addAction:cancel];
     [deleteAlertVC addAction:confirm];
     
-    // 通知代理,更新cell状态
-    if ([self.delegate respondsToSelector:@selector(skinViewCellNeedPresentAlertVC:)]) {
-        [self.delegate skinViewCellNeedPresentAlertVC:deleteAlertVC];
-    }
+    [JXApplication.keyWindow.rootViewController.presentedViewController presentViewController:deleteAlertVC animated:YES completion:nil];
 }
 
 - (void)skinChanged:(NSNotification *)noti {
@@ -372,7 +358,6 @@
 }
 
 - (void)unZipWithFilePath:(NSString *)filePath {
-    JXLog(@"filePath = %@", filePath);
     [SSZipArchive unzipFileAtPath:filePath toDestination:JXCachePath progressHandler:^(NSString *entry, unz_file_info zipInfo, long entryNumber, long total) {
     } completionHandler:^(NSString *path, BOOL succeeded, NSError *error) {
         if (succeeded) {

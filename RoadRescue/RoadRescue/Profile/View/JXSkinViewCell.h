@@ -18,17 +18,6 @@ typedef enum {
 #import <UIKit/UIKit.h>
 @class JXSkin;
 
-@protocol JXSkinViewCellDelegate <NSObject>
-
-@optional
-//- (void)skinViewCellDidClickedDownLoadButton;
-/** 需要控制器present alertVC */
-- (void)skinViewCellNeedPresentAlertVC:(UIAlertController *)alertVC;
-/** 使用了某个主题 */
-- (void)skinViewCellDidUsedSomeoneSkin;
-
-@end
-
 @interface JXSkinViewCell : UITableViewCell
 
 + (instancetype)skinCell;
@@ -40,9 +29,6 @@ typedef enum {
 
 /** 状态 */
 @property (nonatomic, assign) JXSkinViewCellStatus status;
-
-/** 代理 */
-@property (nonatomic, weak) id<JXSkinViewCellDelegate> delegate;
 
 + (CGFloat)rowHeight;
 
