@@ -32,3 +32,8 @@ NSString * const JXSkinsJsonKey = @"JXSkinsJsonKey";
 
 // 订单成功完成时发出的通知
 NSString * const JXOrderSuccessFinishedNotification = @"JXOrderSuccessFinishedNotification";
+
+// 登录成功的通知
+NSString * const JXSuccessLoginNotification = @"JXSuccessLoginNotification";
+// 注销成功的通知
+NSString * const JXSuccessLogoutNotification = @"JXSuccessLogoutNotification";

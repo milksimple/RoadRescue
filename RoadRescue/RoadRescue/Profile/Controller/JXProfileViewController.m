@@ -13,11 +13,11 @@
 #import "JXSkinViewController.h"
 #import "JXAccountTool.h"
 #import "JXNavigationController.h"
+#import "JXLoginViewController.h"
+#import "EMSDK.h"
+#import "MBProgressHUD+MJ.h"
 
 @interface JXProfileViewController ()
-
-/** 账号信息 */
-@property (nonatomic, strong) JXAccount *account;
 
 /** 更换主题控制器 */
 @property (nonatomic, strong) JXSkinViewController *skinVC;
@@ -26,13 +26,6 @@
 
 @implementation JXProfileViewController
 #pragma mark - lazy
-- (JXAccount *)account {
-    if (_account == nil) {
-        _account = [JXAccountTool account];
-    }
-    return _account;
-}
-
 - (JXSkinViewController *)skinVC {
     if (_skinVC == nil) {
         _skinVC = [[JXSkinViewController alloc] init];
@@ -55,6 +48,9 @@
     self.tableView.backgroundView = bgView;
     // 监听修改皮肤的通知
     [JXNotificationCenter addObserver:self selector:@selector(skinChanged) name:JXChangedSkinNotification object:nil];
+    
+    // 监听登录成功的通知
+    [JXNotificationCenter addObserver:self selector:@selector(userSuccessedLogin) name:JXSuccessLoginNotification object:nil];
 }
 
 #pragma mark - Table view data source
@@ -63,79 +59,77 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    if (JXMyAccount.telephone.length) { // 已登录
+        return 4;
+    }
+    else {
+        return 3;
+    }
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        if (indexPath.row == 0) { // 个人header
-            JXProfileHeaderViewCell *headerCell = [JXProfileHeaderViewCell headerViewCell];
-            headerCell.account = self.account;
-            return headerCell;
-        }
-        else {
-            JXProfileViewCell *profileCell = [tableView dequeueReusableCellWithIdentifier:[JXProfileViewCell reuseIdentifier] forIndexPath:indexPath];
-            profileCell.accessoryType = UITableViewCellAccessoryNone;
-            switch (indexPath.row) {
-                case 1: // 设置
-                    profileCell.type = JXProfileViewCellTypeSetting;
-                    break;
-                    
-                case 2: // 帮助
-                    profileCell.type = JXProfileViewCellTypeHelp;
-                    break;
-                    
-                case 3: // 换肤
-                    profileCell.type = JXProfileViewCellTypeChangeSkin;
-                    break;
-                    
-                default:
-                    break;
-            }
-            
-            return profileCell;
-        }
+    if (indexPath.row == 0) { // 个人header
+        JXProfileHeaderViewCell *headerCell = [JXProfileHeaderViewCell headerViewCell];
+        headerCell.account = JXMyAccount;
+        return headerCell;
     }
     else {
         JXProfileViewCell *profileCell = [tableView dequeueReusableCellWithIdentifier:[JXProfileViewCell reuseIdentifier] forIndexPath:indexPath];
         profileCell.accessoryType = UITableViewCellAccessoryNone;
         switch (indexPath.row) {
-            case 0: // 设置
-                profileCell.type = JXProfileViewCellTypeSetting;
+            case 1: // 换肤
+                profileCell.type = JXProfileViewCellTypeChangeSkin;
                 break;
                 
-            case 1: // 帮助
+            case 2: // 帮助
                 profileCell.type = JXProfileViewCellTypeHelp;
                 break;
                 
-            case 2: // 换肤
-                profileCell.type = JXProfileViewCellTypeChangeSkin;
+            case 3: // 注销登录
+                
+                profileCell.type = JXProfileViewCellTypeLogout; // 注销
                 break;
                 
             default:
                 break;
         }
+        
         return profileCell;
     }
     
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        cell.selected = NO;
+    });
     if (indexPath.section == 0) {
         switch (indexPath.row) {
-            case 1: { // 设置
-                
+            case 1: { // 换肤
+                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.skinVC];
+                [self presentViewController:nav animated:YES completion:nil];
                 break;
+                
             }
                 
             case 2: // 帮助
                 
                 break;
                 
-            case 3:  { // 换肤
-                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.skinVC];
-                [self presentViewController:nav animated:YES completion:nil];
+            case 3:  { // 注销
+                __weak typeof(self) wSelf = self;
+                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您确定要注销吗？" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+                UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    // 注销
+                    [wSelf logout];
+                    
+                }];
+                [alertVC addAction:cancel];
+                [alertVC addAction:confirm];
+                [self presentViewController:alertVC animated:YES completion:nil];
                 break;
             }
                 
@@ -178,6 +172,25 @@
     return 0.01;
 }
 
+- (void)logout {
+    __weak typeof(self) wSelf = self;
+    MBProgressHUD *hud = [MBProgressHUD showMessage:@"正在注销"];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    
+    [[EMClient sharedClient] asyncLogout:YES success:^{
+        [MBProgressHUD hideHUD];
+        
+        [JXAccountTool saveAccount:nil];
+        [wSelf.tableView reloadData];
+        
+        // 发送注销成功通知
+        [JXNotificationCenter postNotificationName:JXSuccessLogoutNotification object:nil];
+    } failure:^(EMError *aError) {
+        [MBProgressHUD hideHUD];
+        [MBProgressHUD showSuccess:@"注销成功!"];
+    }];
+}
+
 #pragma mark - 通知 JXChangedSkinNotification
 - (void)skinChanged {
     [self.tableView reloadData];
@@ -186,8 +199,17 @@
     bgView.image = [JXSkinTool skinToolImageWithImageName:@"complete_bg.jpg"];
 }
 
+
+#pragma mark - 通知 JXSuccessLoginNotification
+- (void)userSuccessedLogin {
+    [self.tableView reloadData];
+}
+
 - (void)dealloc {
     [JXNotificationCenter removeObserver:self];
+    
+    [JXMyAccount removeObserver:self forKeyPath:@"telephone"];
 }
+
 
 @end

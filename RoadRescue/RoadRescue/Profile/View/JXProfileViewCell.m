@@ -39,11 +39,11 @@
             self.separator.hidden = YES;
             break;
             
-        case JXProfileViewCellTypeSetting:
+        case JXProfileViewCellTypeLogout:
             self.accessory.hidden = YES;
             self.rightLabel.hidden = YES;
             self.iconView.image = [JXSkinTool skinToolImageWithImageName:@"profile_setting"];
-            self.titleLabel.text = @"设置";
+            self.titleLabel.text = @"注销";
             self.separator.hidden = NO;
             break;
             
@@ -58,7 +58,7 @@
         case JXProfileViewCellTypeChangeSkin:
             self.accessory.hidden = YES;
             self.rightLabel.hidden = NO;
-            self.iconView.image = [JXSkinTool skinToolImageWithImageName:@"profile_help"];
+            self.iconView.image = [JXSkinTool skinToolImageWithImageName:@"profile_skin"];
             self.titleLabel.text = @"更换皮肤";
             self.separator.hidden = YES;
             break;

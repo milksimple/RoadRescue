@@ -82,7 +82,7 @@
     }
     else {
         JXLoginViewController *loginVC = [[JXLoginViewController alloc] init];
-        JXNavigationController *nav = [[JXNavigationController alloc] initWithRootViewController:loginVC];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self presentViewController:nav animated:YES completion:nil];
         });

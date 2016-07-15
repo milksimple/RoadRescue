@@ -10,4 +10,5 @@
 
 @interface JXLoginViewController : UIViewController
 
+
 @end

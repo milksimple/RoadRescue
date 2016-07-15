@@ -31,3 +31,8 @@ UIKIT_EXTERN NSString * const JXSkinsJsonKey;
 
 // 订单成功完成时发出的通知
 UIKIT_EXTERN NSString * const JXOrderSuccessFinishedNotification;
+
+// 登录成功的通知
+UIKIT_EXTERN NSString * const JXSuccessLoginNotification;
+// 注销成功的通知
+UIKIT_EXTERN NSString * const JXSuccessLogoutNotification;

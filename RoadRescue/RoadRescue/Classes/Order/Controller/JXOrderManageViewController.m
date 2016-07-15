@@ -33,8 +33,6 @@
 /** 请求参数 */
 @property (nonatomic, strong) NSMutableDictionary *paras;
 
-@property (nonatomic, strong) JXAccount *account;
-
 /** 加载提示view */
 @property (nonatomic, weak) JXLoadTipView *tipView;
 
@@ -64,13 +62,6 @@
         _orderDetails = [NSMutableArray array];
     }
     return _orderDetails;
-}
-
-- (JXAccount *)account {
-    if (_account == nil) {
-        _account = [JXAccountTool account];
-    }
-    return _account;
 }
 
 - (JXLoadTipView *)tipView {
@@ -115,6 +106,10 @@
     [JXNotificationCenter addObserver:self selector:@selector(skinChanged) name:JXChangedSkinNotification object:nil];
     // 监听成功完成订单的通知
     [JXNotificationCenter addObserver:self selector:@selector(orderSuccessFinished:) name:JXOrderSuccessFinishedNotification object:nil];
+    // 监听注销成功的通知
+    [JXNotificationCenter addObserver:self selector:@selector(userSuccessedLogout) name:JXSuccessLogoutNotification object:nil];
+    // 监听登录成功的通知
+    [JXNotificationCenter addObserver:self selector:@selector(userSuccessedLogin) name:JXSuccessLoginNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -159,8 +154,10 @@
  *  加载新订单
  */
 - (void)loadNewOrder {
-    if (self.account.telephone.length == 0 || self.account.token.length == 0) {
+    if (JXMyAccount.telephone.length == 0 || JXMyAccount.token.length == 0) {
         [self.tableView.mj_header endRefreshing];
+        self.orderDetails = nil;
+        [self.tableView reloadData];
         self.tipView.type = JXLoadTipViewTypeNoReloadButton;
         self.tipView.tipTitle = @"您还没有任何订单哦，\n快去试试下单吧！";
         [self.tipView showTipViewToView:self.view];
@@ -168,8 +165,8 @@
     }
     
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
-    paras[@"mobile"] = self.account.telephone;
-    paras[@"token"] = self.account.token;
+    paras[@"mobile"] = JXMyAccount.telephone;
+    paras[@"token"] = JXMyAccount.token;
     paras[@"orderType"] = @1;
     paras[@"start"] = @0;
     paras[@"pageSize"] = @3;
@@ -232,13 +229,13 @@
 }
 
 - (void)loadMoreOrder {
-    if (self.account.telephone.length == 0 || self.account.token.length == 0) {
+    if (JXMyAccount.telephone.length == 0 || JXMyAccount.token.length == 0) {
         return;
     }
     
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
-    paras[@"mobile"] = self.account.telephone;
-    paras[@"token"] = self.account.token;
+    paras[@"mobile"] = JXMyAccount.telephone;
+    paras[@"token"] = JXMyAccount.token;
     paras[@"orderType"] = @1;
     paras[@"start"] = @(self.orderDetails.count);
     paras[@"pageSize"] = @3;
@@ -355,7 +352,6 @@
     JXOrderDetail *orderDetail = noti.userInfo[JXCancelOrderDetailKey];
     
     for (JXOrderDetail *selfOrderDetail in self.orderDetails) {
-        JXLog(@"selfOrderDetail.orderNum = %@  orderDetail.orderNum = %@", selfOrderDetail, orderDetail);
         if ([selfOrderDetail.orderNum isEqualToString:orderDetail.orderNum]) {
             selfOrderDetail.orderStatus = -1;
             [self.tableView reloadData];
@@ -389,6 +385,15 @@
             return;
         }
     }
+}
+
+#pragma mark - 登录注销成功的通知
+- (void)userSuccessedLogin {
+    [self.tableView.mj_header beginRefreshing];
+}
+
+- (void)userSuccessedLogout {
+    [self.tableView.mj_header beginRefreshing];
 }
 
 - (void)dealloc {

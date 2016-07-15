@@ -12,8 +12,6 @@
 @interface JXProfileHeaderViewCell()
 
 @property (weak, nonatomic) IBOutlet UIView *bgView;
-@property (weak, nonatomic) IBOutlet UIButton *iconButton;
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *mobileLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *accessory;
 @property (weak, nonatomic) IBOutlet UIView *separator;
@@ -33,15 +31,16 @@
 - (void)setAccount:(JXAccount *)account {
     _account = account;
     
-    if (account.icon.length > 0) {
-        [self.iconButton sd_setImageWithURL:[NSURL URLWithString:account.icon] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"icon_placeholder"]];
+    if (account.telephone.length > 0) {
+        self.mobileLabel.text = [NSString stringWithFormat:@"ID：%@", account.telephone];
     }
-#warning 测试 名字什么的设置后面再说
-    self.mobileLabel.text = [NSString stringWithFormat:@"ID：%@", account.telephone];
+    else {
+        self.mobileLabel.text = @"ID：未登录";
+    }
     
     // 设置皮肤
     self.bgView.backgroundColor = [JXSkinTool skinToolColorWithKey:@"profile_header_bg"];
-    self.nameLabel.textColor = self.mobileLabel.textColor = [JXSkinTool skinToolColorWithKey:@"profile_title_text"];
+    self.mobileLabel.textColor = [JXSkinTool skinToolColorWithKey:@"profile_title_text"];
     self.separator.backgroundColor = [JXSkinTool skinToolColorWithKey:@"profile_header_separator"];
 }
 

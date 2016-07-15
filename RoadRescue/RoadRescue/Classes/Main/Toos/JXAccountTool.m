@@ -12,6 +12,9 @@
 #import "JXAccountTool.h"
 
 @implementation JXAccountTool
+
+static JXAccount *account_;
+
 /**
  *  存储账号信息
  *
@@ -19,6 +22,7 @@
  */
 + (void)saveAccount:(JXAccount *)account
 {
+    account_ = account;
     // 自定义对象的存储必须用NSKeyedArchiver，不再有什么writeToFile方法
     [NSKeyedArchiver archiveRootObject:account toFile:JXAccountPath];
 }
@@ -27,10 +31,10 @@
  *  返回当前登录的账号信息, 如果不存在返回nil
  */
 + (JXAccount *)account {
-    // 加载模型
-    JXAccount *account = [NSKeyedUnarchiver unarchiveObjectWithFile:JXAccountPath];
-    
-    return account;
+    if (account_ == nil) {
+        account_ = [NSKeyedUnarchiver unarchiveObjectWithFile:JXAccountPath];
+    }
+    return account_;
 }
 
 

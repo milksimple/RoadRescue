@@ -5,7 +5,19 @@
       "scale" : "1x"
     },
     {
+      "resizing" : {
+        "mode" : "3-part-horizontal",
+        "center" : {
+          "mode" : "tile",
+          "width" : 1
+        },
+        "cap-insets" : {
+          "right" : 4,
+          "left" : 4
+        }
+      },
       "idiom" : "universal",
+      "filename" : "skin_progress@2x.png",
       "scale" : "2x"
     },
     {

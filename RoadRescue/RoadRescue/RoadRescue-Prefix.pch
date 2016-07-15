@@ -62,4 +62,6 @@
 #define JXFTPUsername @"limitftp"
 #define JXFTPPassword @"limit159753"
 
+#define JXMyAccount [JXAccountTool account]
+
 #endif

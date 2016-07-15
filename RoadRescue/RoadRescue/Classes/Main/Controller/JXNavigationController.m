@@ -28,7 +28,6 @@
     [navigationBar setBackgroundImage:[JXSkinTool skinToolImageWithImageName:@"nav_bg"] forBarMetrics:UIBarMetricsDefault];
     
     navigationBar.shadowImage = [UIImage new];
-//    [navigationBar setBarTintColor:JXAlphaColor(234, 234, 234, 0.5)];
     
     // 设置标题颜色
     [navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[JXSkinTool skinToolColorWithKey:@"navbar_title"]}];
