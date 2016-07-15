@@ -178,16 +178,21 @@
     hud.mode = MBProgressHUDModeIndeterminate;
     
     [[EMClient sharedClient] asyncLogout:YES success:^{
-        [MBProgressHUD hideHUD];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUD];
+            
+            [JXAccountTool saveAccount:nil];
+            [wSelf.tableView reloadData];
+            
+            // 发送注销成功通知
+            [JXNotificationCenter postNotificationName:JXSuccessLogoutNotification object:nil];
+        });
         
-        [JXAccountTool saveAccount:nil];
-        [wSelf.tableView reloadData];
-        
-        // 发送注销成功通知
-        [JXNotificationCenter postNotificationName:JXSuccessLogoutNotification object:nil];
     } failure:^(EMError *aError) {
-        [MBProgressHUD hideHUD];
-        [MBProgressHUD showSuccess:@"注销成功!"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUD];
+            [MBProgressHUD showSuccess:@"注销成功!"];
+        });
     }];
 }
 

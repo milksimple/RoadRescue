@@ -156,7 +156,8 @@
             break;
     }
     
-    [self.addressButton setTitle:orderDetail.addressDes forState:UIControlStateNormal];
+    [self.addressButton setImage:[JXSkinTool skinToolImageWithImageName:@"location"] forState:UIControlStateNormal];
+    [self.addressButton setTitle:[NSString stringWithFormat:@" %@", orderDetail.addressDes] forState:UIControlStateNormal];
     self.totalPriceLabel.text = [NSString stringWithFormat:@"¥%.2f", orderDetail.totalPrice];
     self.oilCountLabel.text = [NSString stringWithFormat:@"%zdL", rescueItem.itemCnt];
     
@@ -180,7 +181,7 @@
     self.cellTopBgView.image = brickResizableImg;
     
     UIImage *waveBgImg = [JXSkinTool skinToolImageWithImageName:@"order_wave_bg"];
-    UIImage *resizableImg = [waveBgImg resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 10, 0) resizingMode:UIImageResizingModeTile];
+    UIImage *resizableImg = [waveBgImg resizableImageWithCapInsets:UIEdgeInsetsMake(10, 0, 10, 0) resizingMode:UIImageResizingModeTile];
     self.waveBgView.image = resizableImg;
     
     self.translucentView.image = [JXSkinTool skinToolImageWithImageName:@"order_translucent_bg"];

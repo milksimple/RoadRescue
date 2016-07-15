@@ -175,6 +175,7 @@
         return;
     }
     
+    // 1.判断是否同意协议
     if (self.agreeButton.selected == NO) {
         UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"请同意服务协议" message:@"请仔细阅读6号救援服务协议，并选择同意" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cfmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
@@ -202,22 +203,28 @@
             account.token = json[@"data"][@"token"];
             [JXAccountTool saveAccount:account];
             
+            // 发出登录成功通知
+            [JXNotificationCenter postNotificationName:JXSuccessLoginNotification object:nil];
+            
+            // 先dismiss自己，再present下单控制器
+            JXRescueViewController *rescueVC = [[JXRescueViewController alloc] init];
+            JXNavigationController *nav = [[JXNavigationController alloc] initWithRootViewController:rescueVC];
+            [self dismissViewControllerAnimated:NO completion:^{
+                [JXApplication.keyWindow.rootViewController presentViewController:nav animated:YES completion:nil];
+            }];
+            
             // 登录环信
             BOOL isAutoLogin = [EMClient sharedClient].options.isAutoLogin;
             if (!isAutoLogin) {
                 [[EMClient sharedClient] asyncLoginWithUsername:[NSString stringWithFormat:@"%@_user", account.telephone] password:@"123456" success:^{
+                    // 设置自动登录
                     [[EMClient sharedClient].options setIsAutoLogin:YES];
                     
+                    // 接受推送显示详情
                     EMPushOptions *options = [[EMClient sharedClient] pushOptions];
                     options.displayStyle = EMPushDisplayStyleMessageSummary;
                     [[EMClient sharedClient] updatePushOptionsToServer];
                     
-                    // 先dismiss再present
-                    JXRescueViewController *rescueVC = [[JXRescueViewController alloc] init];
-                    JXNavigationController *nav = [[JXNavigationController alloc] initWithRootViewController:rescueVC];
-                    [self dismissViewControllerAnimated:NO completion:^{
-                        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:nav animated:YES completion:nil];
-                    }];
                 } failure:^(EMError *aError) {
                     JXLog(@"IM登录失败");
                 }];
@@ -235,7 +242,7 @@
     
     return;
     
-    // 1.验证验证码
+    // 2.验证验证码
     [MBProgressHUD showMessage:@"正在注册"];
     
     [SMSSDK commitVerificationCode:self.verifiField.text phoneNumber:self.telephoneField.text zone:@"86" result:^(NSError *error) {
@@ -257,22 +264,28 @@
                     account.token = json[@"data"][@"token"];
                     [JXAccountTool saveAccount:account];
                     
+                    // 发出登录成功通知
+                    [JXNotificationCenter postNotificationName:JXSuccessLoginNotification object:nil];
+                    
+                    // 先dismiss自己，再present下单控制器
+                    JXRescueViewController *rescueVC = [[JXRescueViewController alloc] init];
+                    JXNavigationController *nav = [[JXNavigationController alloc] initWithRootViewController:rescueVC];
+                    [self dismissViewControllerAnimated:NO completion:^{
+                        [JXApplication.keyWindow.rootViewController presentViewController:nav animated:YES completion:nil];
+                    }];
+                    
                     // 登录环信
                     BOOL isAutoLogin = [EMClient sharedClient].options.isAutoLogin;
                     if (!isAutoLogin) {
                         [[EMClient sharedClient] asyncLoginWithUsername:[NSString stringWithFormat:@"%@_user", account.telephone] password:@"123456" success:^{
+                            // 设置自动登录
                             [[EMClient sharedClient].options setIsAutoLogin:YES];
                             
+                            // 接受推送显示详情
                             EMPushOptions *options = [[EMClient sharedClient] pushOptions];
                             options.displayStyle = EMPushDisplayStyleMessageSummary;
                             [[EMClient sharedClient] updatePushOptionsToServer];
                             
-                            // 先dismiss再present
-                            JXRescueViewController *rescueVC = [[JXRescueViewController alloc] init];
-                            JXNavigationController *nav = [[JXNavigationController alloc] initWithRootViewController:rescueVC];
-                            [self dismissViewControllerAnimated:NO completion:^{
-                                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:nav animated:YES completion:nil];
-                            }];
                         } failure:^(EMError *aError) {
                             JXLog(@"IM登录失败");
                         }];
