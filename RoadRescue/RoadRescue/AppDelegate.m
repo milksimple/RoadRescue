@@ -13,6 +13,7 @@
 #import "SMS_SDK/SMSSDK.h"
 #import "JXRescueDetailViewController.h"
 #import "JXAccountTool.h"
+#import "UIWindow+Extension.h"
 
 @interface AppDelegate ()
 
@@ -50,7 +51,8 @@
     self.window = [[UIWindow alloc] init];
     self.window.frame = [UIScreen mainScreen].bounds;
     self.window.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController = [[JXTabBarViewController alloc] init];
+    // 自动选择加载rootViewController
+    [self.window switchRootViewController];
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -65,7 +67,6 @@
     keyboard.toolbarTintColor = [UIColor grayColor];
     keyboard.enable = YES;
 }
-
 
 - (void)setupEMIM {
     //AppKey:注册的AppKey，详细见下面注释。
@@ -124,7 +125,6 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [[EMClient sharedClient] bindDeviceToken:deviceToken];
     });
-    
 }
 
 // 注册deviceToken失败

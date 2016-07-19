@@ -8,7 +8,7 @@
 
 typedef enum {
     JXProfileViewCellTypeRedbag, // 红包
-    JXProfileViewCellTypeLogout, // 注销
+    JXProfileViewCellTypeSetting, // 设置
     JXProfileViewCellTypeHelp, // 帮助
     JXProfileViewCellTypeChangeSkin // 换肤
 } JXProfileViewCellType;

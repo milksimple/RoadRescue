@@ -16,6 +16,7 @@
 #import "JXLoginViewController.h"
 #import "EMSDK.h"
 #import "MBProgressHUD+MJ.h"
+#import "JXSettingViewController.h"
 
 @interface JXProfileViewController ()
 
@@ -41,16 +42,24 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([JXProfileViewCell class]) bundle:nil] forCellReuseIdentifier:[JXProfileViewCell reuseIdentifier]];
     
-    // 设置背景
-    UIImageView *bgView = [[UIImageView alloc] init];
-    bgView.frame = self.view.bounds;
-    bgView.image = [JXSkinTool skinToolImageWithImageName:@"complete_bg.jpg"];
-    self.tableView.backgroundView = bgView;
+    [self setupBg];
+    
     // 监听修改皮肤的通知
     [JXNotificationCenter addObserver:self selector:@selector(skinChanged) name:JXChangedSkinNotification object:nil];
     
     // 监听登录成功的通知
     [JXNotificationCenter addObserver:self selector:@selector(userSuccessedLogin) name:JXSuccessLoginNotification object:nil];
+    
+    // 监听注销成功的通知
+    [JXNotificationCenter addObserver:self selector:@selector(userSuccessedLogout) name:JXSuccessLogoutNotification object:nil];
+}
+
+- (void)setupBg {
+    // 设置背景
+    UIImageView *bgView = [[UIImageView alloc] init];
+    bgView.frame = self.view.bounds;
+    bgView.image = [JXSkinTool skinToolImageWithImageName:@"complete_bg.jpg"];
+    self.tableView.backgroundView = bgView;
 }
 
 #pragma mark - Table view data source
@@ -59,12 +68,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (JXMyAccount.telephone.length) { // 已登录
-        return 4;
-    }
-    else {
-        return 3;
-    }
+    return 4;
 }
 
 
@@ -86,9 +90,8 @@
                 profileCell.type = JXProfileViewCellTypeHelp;
                 break;
                 
-            case 3: // 注销登录
-                
-                profileCell.type = JXProfileViewCellTypeLogout; // 注销
+            case 3: // 设置
+                profileCell.type = JXProfileViewCellTypeSetting; // 设置
                 break;
                 
             default:
@@ -118,18 +121,10 @@
                 
                 break;
                 
-            case 3:  { // 注销
-                __weak typeof(self) wSelf = self;
-                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您确定要注销吗？" preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-                UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    // 注销
-                    [wSelf logout];
-                    
-                }];
-                [alertVC addAction:cancel];
-                [alertVC addAction:confirm];
-                [self presentViewController:alertVC animated:YES completion:nil];
+            case 3:  { // 设置
+                JXSettingViewController *settingVC = [[JXSettingViewController alloc] init];
+                [self.navigationController pushViewController:settingVC animated:YES];
+
                 break;
             }
                 
@@ -172,30 +167,6 @@
     return 0.01;
 }
 
-- (void)logout {
-    __weak typeof(self) wSelf = self;
-    MBProgressHUD *hud = [MBProgressHUD showMessage:@"正在注销"];
-    hud.mode = MBProgressHUDModeIndeterminate;
-    
-    [[EMClient sharedClient] asyncLogout:YES success:^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUD];
-            
-            [JXAccountTool saveAccount:nil];
-            [wSelf.tableView reloadData];
-            
-            // 发送注销成功通知
-            [JXNotificationCenter postNotificationName:JXSuccessLogoutNotification object:nil];
-        });
-        
-    } failure:^(EMError *aError) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUD];
-            [MBProgressHUD showSuccess:@"注销成功!"];
-        });
-    }];
-}
-
 #pragma mark - 通知 JXChangedSkinNotification
 - (void)skinChanged {
     [self.tableView reloadData];
@@ -209,6 +180,12 @@
 - (void)userSuccessedLogin {
     [self.tableView reloadData];
 }
+
+#pragma mark - 通知 JXSuccessLogoutNotification
+- (void)userSuccessedLogout {
+    [self.tableView reloadData];
+}
+
 
 - (void)dealloc {
     [JXNotificationCenter removeObserver:self];

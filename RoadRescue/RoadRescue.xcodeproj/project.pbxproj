@@ -23,6 +23,11 @@
 		047D20701D1A41C200553815 /* JXSkinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047D206F1D1A41C200553815 /* JXSkinViewController.m */; };
 		047D20741D1A436600553815 /* JXSkinViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 047D20721D1A436600553815 /* JXSkinViewCell.m */; };
 		047D20751D1A436600553815 /* JXSkinViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047D20731D1A436600553815 /* JXSkinViewCell.xib */; };
+		0495085D1D3CD5B600D12E27 /* JXSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495085C1D3CD5B600D12E27 /* JXSettingViewController.m */; };
+		049508611D3CD69000D12E27 /* JXLogoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495085F1D3CD69000D12E27 /* JXLogoutCell.m */; };
+		049508621D3CD69000D12E27 /* JXLogoutCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049508601D3CD69000D12E27 /* JXLogoutCell.xib */; };
+		049508671D3DD2B800D12E27 /* JXNewFeatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049508661D3DD2B800D12E27 /* JXNewFeatureViewController.m */; };
+		0495086A1D3DD7A400D12E27 /* UIWindow+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 049508691D3DD7A400D12E27 /* UIWindow+Extension.m */; };
 		0497CCEF1CFC2422007E3E17 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0497CCEB1CFC2422007E3E17 /* libcrypto.a */; };
 		0497CCF01CFC2422007E3E17 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0497CCEC1CFC2422007E3E17 /* libcurl.a */; };
 		0497CCF11CFC2422007E3E17 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0497CCED1CFC2422007E3E17 /* libssl.a */; };
@@ -159,7 +164,7 @@
 		04F2B5471D0188C300120402 /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F2B5461D0188C300120402 /* MBProgressHUD+MJ.m */; };
 		04F54A261CED53920095DA09 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A251CED53920095DA09 /* main.m */; };
 		04F54A291CED53920095DA09 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A281CED53920095DA09 /* AppDelegate.m */; };
-		04F54A311CED53920095DA09 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04F54A301CED53920095DA09 /* Assets.xcassets */; };
+		04F54A311CED53920095DA09 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04F54A301CED53920095DA09 /* images.xcassets */; };
 		04F54A341CED53920095DA09 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04F54A321CED53920095DA09 /* LaunchScreen.storyboard */; };
 		04F54A3F1CED53920095DA09 /* RoadRescueTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A3E1CED53920095DA09 /* RoadRescueTests.m */; };
 		04F54A4A1CED53920095DA09 /* RoadRescueUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F54A491CED53920095DA09 /* RoadRescueUITests.m */; };
@@ -229,6 +234,15 @@
 		047D20711D1A436600553815 /* JXSkinViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXSkinViewCell.h; sourceTree = "<group>"; };
 		047D20721D1A436600553815 /* JXSkinViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXSkinViewCell.m; sourceTree = "<group>"; };
 		047D20731D1A436600553815 /* JXSkinViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXSkinViewCell.xib; sourceTree = "<group>"; };
+		0495085B1D3CD5B600D12E27 /* JXSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXSettingViewController.h; sourceTree = "<group>"; };
+		0495085C1D3CD5B600D12E27 /* JXSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXSettingViewController.m; sourceTree = "<group>"; };
+		0495085E1D3CD69000D12E27 /* JXLogoutCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXLogoutCell.h; sourceTree = "<group>"; };
+		0495085F1D3CD69000D12E27 /* JXLogoutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXLogoutCell.m; sourceTree = "<group>"; };
+		049508601D3CD69000D12E27 /* JXLogoutCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXLogoutCell.xib; sourceTree = "<group>"; };
+		049508651D3DD2B800D12E27 /* JXNewFeatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXNewFeatureViewController.h; sourceTree = "<group>"; };
+		049508661D3DD2B800D12E27 /* JXNewFeatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXNewFeatureViewController.m; sourceTree = "<group>"; };
+		049508681D3DD7A400D12E27 /* UIWindow+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+Extension.h"; sourceTree = "<group>"; };
+		049508691D3DD7A400D12E27 /* UIWindow+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+Extension.m"; sourceTree = "<group>"; };
 		0497CCC31CFC2422007E3E17 /* EMCallLocalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCallLocalView.h; sourceTree = "<group>"; };
 		0497CCC41CFC2422007E3E17 /* EMCallManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCallManagerDelegate.h; sourceTree = "<group>"; };
 		0497CCC51CFC2422007E3E17 /* EMCallRemoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCallRemoteView.h; sourceTree = "<group>"; };
@@ -530,7 +544,7 @@
 		04F54A251CED53920095DA09 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		04F54A271CED53920095DA09 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../AppDelegate.h; sourceTree = "<group>"; };
 		04F54A281CED53920095DA09 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ../AppDelegate.m; sourceTree = "<group>"; };
-		04F54A301CED53920095DA09 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		04F54A301CED53920095DA09 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		04F54A331CED53920095DA09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04F54A351CED53920095DA09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04F54A3A1CED53920095DA09 /* RoadRescueTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoadRescueTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -643,6 +657,8 @@
 				0423B9331D0CF67500B5209C /* JXProfileViewController.m */,
 				047D206E1D1A41C200553815 /* JXSkinViewController.h */,
 				047D206F1D1A41C200553815 /* JXSkinViewController.m */,
+				0495085B1D3CD5B600D12E27 /* JXSettingViewController.h */,
+				0495085C1D3CD5B600D12E27 /* JXSettingViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -671,6 +687,9 @@
 				047D20711D1A436600553815 /* JXSkinViewCell.h */,
 				047D20721D1A436600553815 /* JXSkinViewCell.m */,
 				047D20731D1A436600553815 /* JXSkinViewCell.xib */,
+				0495085E1D3CD69000D12E27 /* JXLogoutCell.h */,
+				0495085F1D3CD69000D12E27 /* JXLogoutCell.m */,
+				049508601D3CD69000D12E27 /* JXLogoutCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -692,6 +711,23 @@
 				042641CC1D2B6F9200C226B7 /* JXLoadTipView.xib */,
 			);
 			path = JXLoadTipView;
+			sourceTree = "<group>";
+		};
+		049508631D3DD2B800D12E27 /* NewFeature */ = {
+			isa = PBXGroup;
+			children = (
+				049508641D3DD2B800D12E27 /* Controller */,
+			);
+			path = NewFeature;
+			sourceTree = "<group>";
+		};
+		049508641D3DD2B800D12E27 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				049508651D3DD2B800D12E27 /* JXNewFeatureViewController.h */,
+				049508661D3DD2B800D12E27 /* JXNewFeatureViewController.m */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		0497CCC11CFC2422007E3E17 /* HyphenateSDK */ = {
@@ -1402,7 +1438,7 @@
 			isa = PBXGroup;
 			children = (
 				04BA22301CF4252C00513146 /* skin */,
-				04F54A301CED53920095DA09 /* Assets.xcassets */,
+				04F54A301CED53920095DA09 /* images.xcassets */,
 				04F54A6B1CED55B30095DA09 /* RoadRescue-Prefix.pch */,
 				04F54A321CED53920095DA09 /* LaunchScreen.storyboard */,
 				04F54A351CED53920095DA09 /* Info.plist */,
@@ -1432,6 +1468,7 @@
 		04F54A571CED54960095DA09 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				049508631D3DD2B800D12E27 /* NewFeature */,
 				04B340E61D06AC0600D87E24 /* Login */,
 				04F54A581CED54960095DA09 /* Main */,
 				04F54A5E1CED54960095DA09 /* Order */,
@@ -1500,6 +1537,8 @@
 		04F54A5D1CED54960095DA09 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				049508681D3DD7A400D12E27 /* UIWindow+Extension.h */,
+				049508691D3DD7A400D12E27 /* UIWindow+Extension.m */,
 				04F54A6C1CED56930095DA09 /* JXTabBar.h */,
 				04F54A6D1CED56930095DA09 /* JXTabBar.m */,
 				04F54A951CEEE7F40095DA09 /* JXVerticalButton.h */,
@@ -1747,7 +1786,7 @@
 				TargetAttributes = {
 					04F54A201CED53920095DA09 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = APSBCLHT8R;
+						DevelopmentTeam = 7U2B388HH6;
 					};
 					04F54A391CED53920095DA09 = {
 						CreatedOnToolsVersion = 7.3;
@@ -1790,6 +1829,7 @@
 				0423B9411D0CF67500B5209C /* JXIncomeViewCell.xib in Resources */,
 				0423B9451D0CF67500B5209C /* JXProfileViewCell.xib in Resources */,
 				047D20751D1A436600553815 /* JXSkinViewCell.xib in Resources */,
+				049508621D3CD69000D12E27 /* JXLogoutCell.xib in Resources */,
 				04F54A861CED642F0095DA09 /* JXMyOrderTableViewCell.xib in Resources */,
 				04BA22311CF4252C00513146 /* skin in Resources */,
 				04F2B53D1D0125C600120402 /* JXOrderDetailViewController.xib in Resources */,
@@ -1798,7 +1838,7 @@
 				0423B9431D0CF67500B5209C /* JXProfileHeaderViewCell.xib in Resources */,
 				04F54A941CEEBBB70095DA09 /* JXRescueViewController.xib in Resources */,
 				04F54A921CEEA4850095DA09 /* JXMyOrderCompletePopView.xib in Resources */,
-				04F54A311CED53920095DA09 /* Assets.xcassets in Resources */,
+				04F54A311CED53920095DA09 /* images.xcassets in Resources */,
 				04F54AA01CEEFD970095DA09 /* JXRescueDetailViewController.xib in Resources */,
 				042641CD1D2B6F9200C226B7 /* JXLoadTipView.xib in Resources */,
 				0497D01C1CFE8554007E3E17 /* MWPhotoBrowser.bundle in Resources */,
@@ -1885,6 +1925,7 @@
 				0497CFEB1CFE8554007E3E17 /* EMAudioRecorderUtil.m in Sources */,
 				0497CFFA1CFE8554007E3E17 /* MWPhotoBrowser.m in Sources */,
 				0497D0461CFE8554007E3E17 /* EaseFacialView.m in Sources */,
+				049508611D3CD69000D12E27 /* JXLogoutCell.m in Sources */,
 				0497D00F1CFE8554007E3E17 /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				0497D03A1CFE8554007E3E17 /* EaseBubbleView+Gif.m in Sources */,
 				0497CFFF1CFE8554007E3E17 /* EMSDImageCache.m in Sources */,
@@ -1918,6 +1959,7 @@
 				04F2B5471D0188C300120402 /* MBProgressHUD+MJ.m in Sources */,
 				0497CFFB1CFE8554007E3E17 /* MWTapDetectingImageView.m in Sources */,
 				0497D02F1CFE8554007E3E17 /* EaseLocationViewController.m in Sources */,
+				0495086A1D3DD7A400D12E27 /* UIWindow+Extension.m in Sources */,
 				0497CFF01CFE8554007E3E17 /* EMCDDeviceManagerBase.m in Sources */,
 				0423B9421D0CF67500B5209C /* JXProfileHeaderViewCell.m in Sources */,
 				047D20741D1A436600553815 /* JXSkinViewCell.m in Sources */,
@@ -1970,6 +2012,7 @@
 				0497D01E1CFE8554007E3E17 /* EaseConversationModel.m in Sources */,
 				04F54A901CEEA4730095DA09 /* JXMyOrderCompletePopView.m in Sources */,
 				0497D0061CFE8554007E3E17 /* MKAnnotationView+EMWebCache.m in Sources */,
+				049508671D3DD2B800D12E27 /* JXNewFeatureViewController.m in Sources */,
 				0497D0471CFE8554007E3E17 /* EaseChatBarMoreView.m in Sources */,
 				0497D0441CFE8554007E3E17 /* EaseTextView.m in Sources */,
 				0497D00A1CFE8554007E3E17 /* UIImage+EMMultiFormat.m in Sources */,
@@ -2004,6 +2047,7 @@
 				0497D0381CFE8554007E3E17 /* EaseMessageTimeCell.m in Sources */,
 				0497D02A1CFE8554007E3E17 /* EaseEmojiEmoticons.m in Sources */,
 				0497CFF71CFE8554007E3E17 /* MWGridCell.m in Sources */,
+				0495085D1D3CD5B600D12E27 /* JXSettingViewController.m in Sources */,
 				0497D00D1CFE8554007E3E17 /* UIImageView+EMWebCache.m in Sources */,
 				04F54A811CED5F110095DA09 /* JXRescueViewController.m in Sources */,
 			);
@@ -2141,8 +2185,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Kunming LIMIT Technology Company Limited";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Kunming LIMIT Technology Company Limited";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2159,9 +2203,9 @@
 					"$(PROJECT_DIR)/RoadRescue/Classes/Main/SDK/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrnb",
 					"$(PROJECT_DIR)/RoadRescue/Classes/Main/SDK/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrwb",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.oikjuy.mnj;
+				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.roadRescue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "c0295d7c-c5ec-4274-8415-a885bd91d5cf";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2172,8 +2216,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Kunming LIMIT Technology Company Limited";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Kunming LIMIT Technology Company Limited";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2190,9 +2234,9 @@
 					"$(PROJECT_DIR)/RoadRescue/Classes/Main/SDK/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrnb",
 					"$(PROJECT_DIR)/RoadRescue/Classes/Main/SDK/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrwb",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.oikjuy.mnj;
+				PRODUCT_BUNDLE_IDENTIFIER = com.limit.gjx.roadRescue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "c0295d7c-c5ec-4274-8415-a885bd91d5cf";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

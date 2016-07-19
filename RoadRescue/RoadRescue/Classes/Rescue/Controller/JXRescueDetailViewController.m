@@ -126,8 +126,15 @@ static NSInteger startCnt = 10;
     UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(contentViewTapped)];
     [self.contentView addGestureRecognizer:recognizer];
     
-    // 请求救援项目油价
-    [self loadRescueItems];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if (self.rescueItems.count == 0) {
+        // 请求救援项目油价
+        [self loadRescueItems];
+    }
 }
 
 - (void)setBg {
@@ -245,7 +252,7 @@ static NSInteger startCnt = 10;
 
 - (IBAction)upButtonClicked:(UIButton *)upButton {
     NSInteger selectedRow = [self.oilPickerView selectedRowInComponent:0] - 1;
-
+    
     [self.oilPickerView selectRow:selectedRow inComponent:0 animated:YES];
     [self pickerView:self.oilPickerView didSelectRow:selectedRow inComponent:0];
 }
@@ -262,14 +269,14 @@ static NSInteger startCnt = 10;
     JXRescueItem *rescueItem = self.oilItems[selectedRow];
     
     /*
-    // 柴油可以精确到1L，汽油精确到10L
-    NSInteger itemCnt = 0;
-    if (rescueItem.itemClass == -100) { // 柴油
-        itemCnt = (NSInteger)(slider.value);
-    }
-    else { // 汽油
-        itemCnt = ((NSInteger)slider.value - ((NSInteger)slider.value % 10));
-    }
+     // 柴油可以精确到1L，汽油精确到10L
+     NSInteger itemCnt = 0;
+     if (rescueItem.itemClass == -100) { // 柴油
+     itemCnt = (NSInteger)(slider.value);
+     }
+     else { // 汽油
+     itemCnt = ((NSInteger)slider.value - ((NSInteger)slider.value % 10));
+     }
      */
     
     // 现在改为所有油品都是精确到10L
@@ -283,7 +290,7 @@ static NSInteger startCnt = 10;
     if (fareFee <= 0) {
         fareFee = 0;
     }
-
+    
     // 项目总价=下单单价*项目数量
     CGFloat oilItemPrice = rescueItem.unitPrice*itemCnt;
     // 补贴
@@ -355,7 +362,7 @@ static NSInteger startCnt = 10;
     oilLabel.textColor = [JXSkinTool skinToolColorWithKey:@"rescue_detail_title_text"];
     oilLabel.font = [UIFont systemFontOfSize:13];
     oilLabel.textAlignment = NSTextAlignmentCenter;
-
+    
     JXRescueItem *rescueItem = self.oilItems[row];
     oilLabel.text = rescueItem.name;
     return oilLabel;
@@ -382,8 +389,8 @@ static NSInteger startCnt = 10;
     // 重新计算当前油品的价格
     [self sliderValueChanged:self.slider];
     
-//    // 设置购买油品种类
-//    rescueItem.itemClass = rescueItem.itemClass;
+    //    // 设置购买油品种类
+    //    rescueItem.itemClass = rescueItem.itemClass;
     
     // 设置priceContainer显示
     [self setDataOfPriceContainerWithrescueItem:rescueItem];
@@ -446,12 +453,11 @@ static NSInteger startCnt = 10;
                 [self presentViewController:alertVC animated:YES completion:nil];
             }
         }
-
+        
     } failure:^(NSError *error) {
         JXLog(@"是否有未完成订单请求失败 - %@", error);
         [MBProgressHUD hideHUD];
     }];
-
 }
 
 /**
@@ -468,7 +474,7 @@ static NSInteger startCnt = 10;
     NSString *orderStr = [[NSString alloc] initWithData:orderData encoding:NSUTF8StringEncoding];
     paras[@"order"] = orderStr;
     paras[@"origin"] = [NSString stringWithFormat:@"%.6f,%.6f", self.orderDetail.lon, self.orderDetail.lat];
-
+    
     [JXHttpTool post:[NSString stringWithFormat:@"%@/order/addOrder", JXServerName] params:paras success:^(id json) {
         [MBProgressHUD hideHUD];
         
@@ -507,7 +513,10 @@ static NSInteger startCnt = 10;
 }
 
 - (void)contentViewTapped {
-    [self setSliderValueByUserChooseOilCntFieldNumber];
+    if (!self.corverView.userInteractionEnabled) {
+        [self setSliderValueByUserChooseOilCntFieldNumber];
+    }
+    
 }
 
 /**
@@ -523,6 +532,5 @@ static NSInteger startCnt = 10;
 - (void)feeRingViewDidClickedReloadButton {
     [self loadRescueItems];
 }
-
 
 @end
