@@ -43,7 +43,7 @@
                                 <color key="textColor" red="0.60784313725490191" green="0.60784313725490191" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progressImage="skin_progress" trackImage="skin_track" translatesAutoresizingMaskIntoConstraints="NO" id="OSD-va-AFs" userLabel="loadingProgressView">
+                            <progressView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progressImage="skin_progress" trackImage="skin_track" translatesAutoresizingMaskIntoConstraints="NO" id="OSD-va-AFs" userLabel="loadingProgressView">
                                 <rect key="frame" x="71" y="50" width="209" height="5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="5" id="KNq-3x-KWq"/>
@@ -51,9 +51,11 @@
                                     <constraint firstAttribute="height" constant="5" id="jCB-FG-9WH"/>
                                     <constraint firstAttribute="height" constant="5" id="rbh-6q-Fo6"/>
                                 </constraints>
+                                <color key="progressTintColor" red="0.26666666666666666" green="0.82352941176470584" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="trackTintColor" red="0.81960784313725488" green="0.81960784313725488" blue="0.81960784313725488" alpha="1" colorSpace="calibratedRGB"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="5"/>
+                                        <real key="value" value="2.5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <variation key="default">

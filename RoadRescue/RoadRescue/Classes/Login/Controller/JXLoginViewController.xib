@@ -18,10 +18,10 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RE7-9J-s2S">
-                    <rect key="frame" x="20" y="171" width="88" height="18"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RE7-9J-s2S">
+                    <rect key="frame" x="20" y="171" width="92" height="18"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <state key="normal" title="我同意遵守" image="select_false">
+                    <state key="normal" title=" 我同意遵守" image="select_false">
                         <color key="titleColor" red="0.49803921569999998" green="0.49803921569999998" blue="0.49803921569999998" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <state key="selected" image="select_true"/>
@@ -29,8 +29,8 @@
                         <action selector="agreeButtonClicked:" destination="-1" eventType="touchUpInside" id="JWz-yu-G1X"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U38-AP-Dao">
-                    <rect key="frame" x="113" y="166" width="107" height="29"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U38-AP-Dao">
+                    <rect key="frame" x="117" y="166" width="107" height="29"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <state key="normal" title="6号救援服务协议"/>
                     <connections>
@@ -79,7 +79,7 @@
                                 <constraint firstAttribute="height" constant="44" id="KDC-Ii-dbV"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             <variation key="default">
                                 <mask key="constraints">
                                     <exclude reference="KDC-Ii-dbV"/>

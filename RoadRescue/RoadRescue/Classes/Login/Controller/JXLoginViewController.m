@@ -80,13 +80,19 @@
  */
 - (void)setupVerfiButton {
     self.verifiField.rightViewMode = UITextFieldViewModeAlways;
+    
+    // container是为让getVerifiButton在右边有个间距
+    UIView *verifiBtnContainer = [[UIView alloc] init];
+    self.verifiField.rightView = verifiBtnContainer;
+    verifiBtnContainer.frame = CGRectMake(0, 0, 130, 30);
+    
     UIButton *getVerifiButton = [[UIButton alloc] init];
     getVerifiButton.layer.cornerRadius = 5;
     getVerifiButton.backgroundColor = [UIColor lightGrayColor];
     getVerifiButton.titleLabel.font = [UIFont systemFontOfSize:12];
     [getVerifiButton setTitle:@"点击获取验证码" forState:UIControlStateNormal];
     getVerifiButton.frame = CGRectMake(0, 0, 120, 30);
-    self.verifiField.rightView = getVerifiButton;
+    [verifiBtnContainer addSubview:getVerifiButton];
     self.getVerifiButton = getVerifiButton;
     
     [getVerifiButton addTarget:self action:@selector(getVerifiButtonClicked) forControlEvents:UIControlEventTouchUpInside];

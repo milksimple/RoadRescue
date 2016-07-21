@@ -27,6 +27,9 @@
 /** 在列表中的位置 */
 @property (nonatomic, strong) NSIndexPath *indexPath;
 
+/** 是否隐藏查看按钮 */
+@property (nonatomic, assign) BOOL hideSeeButton;
+
 + (CGFloat)rowHeight;
 
 @end

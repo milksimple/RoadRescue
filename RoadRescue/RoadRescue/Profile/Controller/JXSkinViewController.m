@@ -88,7 +88,7 @@
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
     paras[@"os"] = @"ios";
     [JXHttpTool post:[NSString stringWithFormat:@"%@/skin", JXServerName] params:paras success:^(id json) {
-        BOOL success = json[@"success"];
+        BOOL success = [json[@"success"] boolValue];
         if (success) {
             // json数组存入沙盒
             [JXUserDefaults setObject:json forKey:JXSkinsJsonKey];

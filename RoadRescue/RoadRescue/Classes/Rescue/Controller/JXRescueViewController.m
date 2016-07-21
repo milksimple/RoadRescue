@@ -14,10 +14,11 @@
 #import "JXTextView.h"
 #import "JXRescueDetailViewController.h"
 #import "JXOrderDetail.h"
-#import <CoreLocation/CoreLocation.h>
+#import <AMapLocationKit/AMapLocationKit.h>
+#import <AMapFoundationKit/AMapFoundationKit.h>
 #import "JXAccountTool.h"
 
-@interface JXRescueViewController () <UIScrollViewDelegate, CLLocationManagerDelegate>
+@interface JXRescueViewController () <UIScrollViewDelegate, AMapLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
@@ -31,7 +32,7 @@
 @property (weak, nonatomic) IBOutlet JXVerticalButton *oilButton;
 @property (weak, nonatomic) IBOutlet JXVerticalButton *fixButton;
 
-@property (nonatomic, strong) CLLocationManager *locMgr;
+@property (nonatomic, strong) AMapLocationManager *locMgr;
 @property (nonatomic, strong) CLGeocoder *geocoder;
 @property (nonatomic, strong) JXOrderDetail *orderDetail;
 
@@ -62,9 +63,15 @@
 
 @implementation JXRescueViewController
 #pragma mark - lazy
-- (CLLocationManager *)locMgr {
+- (AMapLocationManager *)locMgr {
     if (_locMgr == nil) {
-        _locMgr = [[CLLocationManager alloc] init];
+        _locMgr = [[AMapLocationManager alloc] init];
+        [_locMgr setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
+        //   定位超时时间，最低2s，此处设置为3s
+        _locMgr.locationTimeout =3;
+        //   逆地理请求超时时间，最低2s，此处设置为3s
+        _locMgr.reGeocodeTimeout = 3;
+        
         _locMgr.delegate = self;
     }
     return _locMgr;
@@ -172,19 +179,8 @@
 }
 
 - (void)setupLocation {
-    if ([self.locMgr respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-        [self.locMgr requestWhenInUseAuthorization];
-        
-        if ([CLLocationManager locationServicesEnabled]) {
-            [self.locMgr startUpdatingLocation];
-        }
-        else {
-            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"无法进行定位" message:@"请检查您的设备是否开启定位功能" preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *cfmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
-            [alertVC addAction:cfmAction];
-            [self presentViewController:alertVC animated:YES completion:nil];
-        }
-    }
+    
+    [self.locMgr startUpdatingLocation];
 }
 
 /**
@@ -226,7 +222,6 @@
         return;
     }
     
-#warning 测试数据
     self.orderDetail.orderer = self.account.telephone;
     self.orderDetail.accidentDes = self.accidentDesView.text;
     self.orderDetail.addressShort = self.addressShortLabel.text;
@@ -236,51 +231,49 @@
     [self.navigationController pushViewController:rescueDetailVC animated:YES];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    JXLog(@"touchesBegan");
-}
-
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.view endEditing:YES];
 }
 
-#pragma mark - CLLocationManagerDelegate
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
-    [manager stopUpdatingLocation];
+#pragma mark - AMapLocationManagerDelegate
+- (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location
+{
+    // 赶紧停止定位
+    [self.locMgr stopUpdatingLocation];
     
-    CLLocation *location = locations.firstObject;
     self.orderDetail.lon = location.coordinate.longitude;
     self.orderDetail.lat = location.coordinate.latitude;
     
-    // 反地理编码
-    [self.geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
-        if (!error) {
-            CLPlacemark *placemark = placemarks.firstObject;
-            
-            NSString *thoroughfare = placemark.thoroughfare.length == 0 ? @"" : placemark.thoroughfare;
-            NSString *subThoroughfare = placemark.subThoroughfare.length == 0 ? @"" : placemark.subThoroughfare;
-            NSString *locality = placemark.locality.length == 0 ? @"" : placemark.locality;
-            NSString *subLocality = placemark.subLocality.length == 0 ? @"" : placemark.subLocality;
-            self.addressShortLabel.text = [NSString stringWithFormat:@"%@%@", thoroughfare, subThoroughfare];
+    // 带逆地理（返回坐标和地址信息）。将下面代码中的YES改成NO，则不会返回地址信息。
+    [self.locMgr requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
+        
+        if (error)
+        {
+            JXLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
+            return;
+        }
+        JXLog(@"location:%@", location);
+        
+        if (regeocode)
+        {
+            JXLog(@"reGeocode:%@", regeocode);
+            self.addressShortLabel.text = regeocode.AOIName;
             if (self.addressShortLabel.text.length == 0) {
-                self.addressShortLabel.text = placemark.name;
+                self.addressShortLabel.text = [NSString stringWithFormat:@"%@%@", regeocode.street, regeocode.number];
             }
             if (self.addressShortLabel.text.length == 0) {
                 self.addressShortLabel.text = @"未获取到详细位置信息";
             }
             
-            self.addressDesLabel.text = [NSString stringWithFormat:@"%@ %@%@%@", locality, subLocality, thoroughfare, subThoroughfare];
+            self.addressDesLabel.text = regeocode.formattedAddress;
             if (self.addressDesLabel.text.length == 0) {
-                self.addressDesLabel.text = self.addressShortLabel.text = placemark.name;
+                self.addressDesLabel.text = [NSString stringWithFormat:@"%@%@%@%@%@", regeocode.province, regeocode.city, regeocode.district, regeocode.street, regeocode.number];
             }
             if (self.addressDesLabel.text.length == 0) {
                 self.addressDesLabel.text = @"未获取到详细位置信息";
             }
             
-//            JXLog(@"placemark.addressDictionary = %@", placemark.addressDictionary);
-//            JXLog(@"areasOfInterest = %@", placemark.areasOfInterest);
-//            JXLog(@"name = %@, thoroughfare = %@, subThoroughfare= %@, locality = %@, subLocality = %@ administrativeArea = %@", placemark.name, placemark.thoroughfare, placemark.subThoroughfare, placemark.locality, placemark.subLocality, placemark.administrativeArea);
         }
     }];
 }

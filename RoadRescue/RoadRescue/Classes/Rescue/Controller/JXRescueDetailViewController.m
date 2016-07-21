@@ -188,10 +188,11 @@ static NSInteger startCnt = 10;
     paras[@"origin"] = [NSString stringWithFormat:@"%.6f,%.6f", self.orderDetail.lon, self.orderDetail.lat];
     
     [JXHttpTool post:[NSString stringWithFormat:@"%@/order/orderFee", JXServerName] params:paras success:^(id json) {
+        JXLog(@"价格请求成功 - %@", json);
         [MBProgressHUD hideHUDForView:self.feeRingView];
         BOOL success = [json[@"success"] boolValue];
         if (success) {
-            [self.feeRingView setLoadSuccess:YES message:@"请拖动滑竿选择油料总量"];
+            [self.feeRingView setLoadSuccess:YES message:@"请拖动滑动条选择油料总量"];
             self.corverView.userInteractionEnabled = NO;
             
             self.rescueItems = [JXRescueItem mj_objectArrayWithKeyValuesArray:json[@"data"]];

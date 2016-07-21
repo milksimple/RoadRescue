@@ -242,16 +242,23 @@
     self.paras = paras;
     
     [JXHttpTool post:[NSString stringWithFormat:@"%@/order/list", JXServerName] params:paras success:^(id json) {
-        [self.tableView.mj_footer endRefreshing];
         JXLog(@"新订单请求成功 - %@", json);
+        [self.tableView.mj_footer endRefreshing];
+        
         if (paras != self.paras) {
             return;
         }
+        
         BOOL success = [json[@"success"] boolValue];
         if (success) {
             NSArray *moreOrderDetails = [JXOrderDetail mj_objectArrayWithKeyValuesArray:json[@"data"]];
-            [self.orderDetails addObjectsFromArray:moreOrderDetails];
-            [self.tableView reloadData];
+            if (moreOrderDetails.count == 0) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+            else {
+                [self.orderDetails addObjectsFromArray:moreOrderDetails];
+                [self.tableView reloadData];
+            }
         }
         
     } failure:^(NSError *error) {
@@ -278,6 +285,13 @@
     cell.indexPath = indexPath;
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    JXOrderDetail *orderDetail = self.orderDetails[indexPath.row];
+    JXOrderDetailViewController *orderDetailVC = [[JXOrderDetailViewController alloc] init];
+    orderDetailVC.defaultOrderDetail = orderDetail;
+    [self.navigationController pushViewController:orderDetailVC animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -98,7 +98,7 @@
     switch (orderDetail.orderStatus) {
         case -1:
             _title = @"燃油耗尽";
-            _time = orderDetail.title;
+            _time = orderDetail.createTime;
             _seeButtonTitle = @"已取消";
             _topBgImgName = @"order_complete_bg";
             _seeBtnBgImgName = @"order_see_button_gray";
@@ -106,7 +106,7 @@
             
         case 0: // 已下单
             _title = @"燃油耗尽";
-            _time = orderDetail.title;
+            _time = nil;
             _seeButtonTitle = @"查看";
             _topBgImgName = @"order_doing_bg";
             _seeBtnBgImgName = @"order_see_button_green";
@@ -130,7 +130,7 @@
             
         case 9: // 完成
             _title = @"燃油耗尽";
-            _time = orderDetail.title;
+            _time = orderDetail.createTime;
             _seeButtonTitle = @"查看";
             _topBgImgName = @"order_complete_bg";
             _seeBtnBgImgName = @"order_see_button_gray";
@@ -187,6 +187,12 @@
     self.translucentView.image = [JXSkinTool skinToolImageWithImageName:@"order_translucent_bg"];
     
     self.separator.backgroundColor = [JXSkinTool skinToolColorWithKey:@"order_tableviewcellSeparator"];
+}
+
+- (void)setHideSeeButton:(BOOL)hideSeeButton {
+    _hideSeeButton = hideSeeButton;
+    
+    self.seeButton.hidden = hideSeeButton;
 }
 
 /**

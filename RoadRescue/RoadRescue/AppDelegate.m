@@ -14,6 +14,8 @@
 #import "JXRescueDetailViewController.h"
 #import "JXAccountTool.h"
 #import "UIWindow+Extension.h"
+#import <AMapFoundationKit/AMapFoundationKit.h>
+//#import <AMapLocationKit/AMapLocationKit.h>
 
 @interface AppDelegate ()
 
@@ -42,6 +44,9 @@
     
     // 初始化SMSSDK
     [SMSSDK registerApp:@"14badd10983f4" withSecret:@"b425dce15cfbe46615e720bfa96f406e"];
+    
+    // 初始化高德SDK
+    [self configureGaoDeAPIKey];
     
     // badge置0
     if (JXApplication.applicationIconBadgeNumber != 0) {
@@ -72,7 +77,7 @@
     //AppKey:注册的AppKey，详细见下面注释。
     //apnsCertName:推送证书名（不需要加后缀），详细见下面注释。
     
-    EMOptions *options = [EMOptions optionsWithAppkey:@"jimaoxin001#oil"];
+    EMOptions *options = [EMOptions optionsWithAppkey:@"limit#succor"];
     options.apnsCertName = @"roadRescuePushDevelop";
     [[EMClient sharedClient] initializeSDKWithOptions:options];
 
@@ -89,6 +94,12 @@
             JXLog(@"setupEMIM - IM登录失败");
         }];
     }
+}
+
+- (void)configureGaoDeAPIKey
+{
+    
+    [AMapServices sharedServices].apiKey = (NSString *)JXGaoDeAPIKey;
 }
 
 - (void)setupAPNSWithApplication:(UIApplication *)application {

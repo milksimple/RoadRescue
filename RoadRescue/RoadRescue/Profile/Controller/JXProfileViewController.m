@@ -17,6 +17,7 @@
 #import "EMSDK.h"
 #import "MBProgressHUD+MJ.h"
 #import "JXSettingViewController.h"
+#import "JXHelpViewController.h"
 
 @interface JXProfileViewController ()
 
@@ -117,8 +118,10 @@
                 
             }
                 
-            case 2: // 帮助
-                
+            case 2: { // 帮助
+                JXHelpViewController *helpVC = [[JXHelpViewController alloc] init];
+                [self.navigationController pushViewController:helpVC animated:YES];
+            }
                 break;
                 
             case 3:  { // 设置

@@ -27,6 +27,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationItem.title = @"设置";
+    
     [self setupBg];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

@@ -47,7 +47,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
+
     self.container.layer.borderColor = JXColor(115, 209, 80).CGColor;
     
     // 监听皮肤的切换

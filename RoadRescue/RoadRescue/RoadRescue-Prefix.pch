@@ -19,6 +19,7 @@
 #import <Foundation/Foundation.h>
 #import "JXSkinTool.h"
 #import "JXConst.h"
+#import "JXAccountTool.h"
 
 #define iOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)
 
@@ -56,12 +57,17 @@
 // 屏幕高度
 #define JXScreenH [UIScreen mainScreen].bounds.size.height
 
+// 公网
+//#define JXServerName @"http://120.76.223.220/succor"
+// 内网
 #define JXServerName @"http://10.255.1.12:8080/succor"
 
-#define JXFTPServerName @"ftp://10.255.31.110/upload/roadRescueGu"
+//#define JXFTPServerName @"ftp://120.76.223.220/upload"
 #define JXFTPUsername @"limitftp"
 #define JXFTPPassword @"limit159753"
 
 #define JXMyAccount [JXAccountTool account]
+
+#define JXGaoDeAPIKey @"c05a475ac41080ca1e100805df2db674"
 
 #endif

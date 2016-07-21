@@ -19,7 +19,7 @@
 }
 
 + (CGFloat)rowHeight {
-    return 70;
+    return 100;
 }
 
 - (IBAction)logoutButtonDidClicked {

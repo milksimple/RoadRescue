@@ -25,9 +25,9 @@
 /** 下单人手机号码 */
 @property (nonatomic, copy) NSString *orderer;
 /** 经度 */
-@property (nonatomic, assign) CGFloat lon;
+@property (nonatomic, assign) double lon;
 /** 纬度 */
-@property (nonatomic, assign) CGFloat lat;
+@property (nonatomic, assign) double lat;
 /** 下单位置简称 */
 @property (nonatomic, copy) NSString *addressShort;
 /** 下单位置描述 */
@@ -42,8 +42,10 @@
 @property (nonatomic, assign) NSInteger orderStatus;
 /** 救援队mobile */
 @property (nonatomic, copy) NSString *mobile;
-/** 下单时间 */
+/** 救援队名称*/
 @property (nonatomic, copy) NSString *title;
+/** 下单时间 */
+@property (nonatomic, copy) NSString *createTime;
 /** 救援指数 */
 @property (nonatomic, assign) NSInteger rescueIndex;
 /** 事故描述 */
