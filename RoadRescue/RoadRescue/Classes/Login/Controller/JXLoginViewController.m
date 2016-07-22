@@ -191,7 +191,6 @@
     }
     
 //#warning 测试
-//    
 //    JXLog(@"验证成功");
 //    NSMutableDictionary *paras = [NSMutableDictionary dictionary];
 //    paras[@"mobile"] = self.telephoneField.text;
