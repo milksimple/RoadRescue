@@ -78,7 +78,7 @@
     //apnsCertName:推送证书名（不需要加后缀），详细见下面注释。
     
     EMOptions *options = [EMOptions optionsWithAppkey:@"limit#succor"];
-    options.apnsCertName = @"roadRescuePushDevelop";
+    options.apnsCertName = @"roadRescuePushDistribution";
     [[EMClient sharedClient] initializeSDKWithOptions:options];
 
     // 登录环信

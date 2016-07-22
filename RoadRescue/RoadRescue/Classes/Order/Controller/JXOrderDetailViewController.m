@@ -47,6 +47,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *bgView;
 
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 
 @end
 
@@ -78,6 +79,7 @@
     
     self.navigationItem.title = @"订单详情";
     self.scrollView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
+    self.addressButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     
     [self setBg];
     
@@ -168,7 +170,8 @@
     // 时间
     self.timeLabel.text = orderDetail.title;
     // 地点
-    [self.addressButton setTitle:[NSString stringWithFormat:@"  %@", orderDetail.addressDes] forState:UIControlStateNormal];
+    self.addressLabel.text = orderDetail.addressDes;
+//    [self.addressButton setTitle: forState:UIControlStateNormal];
     // 设置救援描述高度
     CGRect rect = [self.rescueDesLabel.text boundingRectWithSize:CGSizeMake(JXScreenW - 40, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil];
     self.rescueDesLabelHeightConstraint.constant = rect.size.height;

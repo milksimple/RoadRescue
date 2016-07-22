@@ -34,6 +34,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *oilCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalPriceLabel;
 @property (weak, nonatomic) IBOutlet UIButton *addressButton;
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+
 @property (weak, nonatomic) IBOutlet UIButton *oilRescueButton;
 @property (weak, nonatomic) IBOutlet UIButton *fixRescueButton;
 @property (weak, nonatomic) IBOutlet UIButton *seeButton;
@@ -157,7 +159,8 @@
     }
     
     [self.addressButton setImage:[JXSkinTool skinToolImageWithImageName:@"location"] forState:UIControlStateNormal];
-    [self.addressButton setTitle:[NSString stringWithFormat:@" %@", orderDetail.addressDes] forState:UIControlStateNormal];
+    self.addressLabel.text = orderDetail.addressDes;
+//    [self.addressButton setTitle:[NSString stringWithFormat:@" %@", orderDetail.addressDes] forState:UIControlStateNormal];
     self.totalPriceLabel.text = [NSString stringWithFormat:@"¥%.2f", orderDetail.totalPrice];
     self.oilCountLabel.text = [NSString stringWithFormat:@"%zdL", rescueItem.itemCnt];
     

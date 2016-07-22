@@ -190,7 +190,18 @@
     if (self.orderDetail.lon == 0 || self.orderDetail.lat == 0) { // 没有定位到
         // 提示没有定位到
         UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"无法进行定位" message:@"请检查您的设备是否开启定位功能" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *cfmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        
+        UIAlertAction *cfmAction = [UIAlertAction actionWithTitle:@"设置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+            
+            if([[UIApplication sharedApplication] canOpenURL:url]) {
+                [[UIApplication sharedApplication] openURL:url];
+                
+            }
+        }];
+        
+        [alertVC addAction:cancelAction];
         [alertVC addAction:cfmAction];
         [self presentViewController:alertVC animated:YES completion:nil];
         return;
@@ -251,7 +262,8 @@
         if (error)
         {
             JXLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
-            return;
+            self.addressShortLabel.text = @"未获取到详细位置信息";
+            self.addressDesLabel.text = @"未获取到详细位置信息";
         }
         JXLog(@"location:%@", location);
         

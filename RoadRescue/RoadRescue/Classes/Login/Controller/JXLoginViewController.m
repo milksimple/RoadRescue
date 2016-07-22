@@ -190,63 +190,63 @@
         return;
     }
     
-#warning 测试
-    
-    JXLog(@"验证成功");
-    NSMutableDictionary *paras = [NSMutableDictionary dictionary];
-    paras[@"mobile"] = self.telephoneField.text;
-    [JXHttpTool post:[NSString stringWithFormat:@"%@/register", JXServerName] params:paras success:^(id json) {
-        [MBProgressHUD hideHUD];
-        
-        JXLog(@"注册成功 - %@", json);
-        BOOL success = [json[@"success"] boolValue];
-        if (success) { // 注册成功
-            [MBProgressHUD showSuccess:@"开始下单吧！"];
-            
-            // 存储token
-            JXAccount *account = [[JXAccount alloc] init];
-            account.telephone = paras[@"mobile"];
-            account.token = json[@"data"][@"token"];
-            [JXAccountTool saveAccount:account];
-            
-            // 发出登录成功通知
-            [JXNotificationCenter postNotificationName:JXSuccessLoginNotification object:nil];
-            
-            // 先dismiss自己，再present下单控制器
-            JXRescueViewController *rescueVC = [[JXRescueViewController alloc] init];
-            JXNavigationController *nav = [[JXNavigationController alloc] initWithRootViewController:rescueVC];
-            [self dismissViewControllerAnimated:NO completion:^{
-                [JXApplication.keyWindow.rootViewController presentViewController:nav animated:YES completion:nil];
-            }];
-            
-            // 登录环信
-            BOOL isAutoLogin = [EMClient sharedClient].options.isAutoLogin;
-            if (!isAutoLogin) {
-                [[EMClient sharedClient] asyncLoginWithUsername:[NSString stringWithFormat:@"%@_user", account.telephone] password:@"123456" success:^{
-                    // 设置自动登录
-                    [[EMClient sharedClient].options setIsAutoLogin:YES];
-                    
-                    // 接受推送显示详情
-                    EMPushOptions *options = [[EMClient sharedClient] pushOptions];
-                    options.displayStyle = EMPushDisplayStyleMessageSummary;
-                    [[EMClient sharedClient] updatePushOptionsToServer];
-                    
-                } failure:^(EMError *aError) {
-                    JXLog(@"IM登录失败");
-                }];
-            }
-            
-        }
-        else { // 注册失败
-            [MBProgressHUD showError:json[@"msg"]];
-        }
-    } failure:^(NSError *error) {
-        [MBProgressHUD hideHUD];
-        [MBProgressHUD showError:@"网络连接失败"];
-        JXLog(@"注册请求失败 - %@", error);
-    }];
-    
-    return;
+//#warning 测试
+//    
+//    JXLog(@"验证成功");
+//    NSMutableDictionary *paras = [NSMutableDictionary dictionary];
+//    paras[@"mobile"] = self.telephoneField.text;
+//    [JXHttpTool post:[NSString stringWithFormat:@"%@/register", JXServerName] params:paras success:^(id json) {
+//        [MBProgressHUD hideHUD];
+//        
+//        JXLog(@"注册成功 - %@", json);
+//        BOOL success = [json[@"success"] boolValue];
+//        if (success) { // 注册成功
+//            [MBProgressHUD showSuccess:@"开始下单吧！"];
+//            
+//            // 存储token
+//            JXAccount *account = [[JXAccount alloc] init];
+//            account.telephone = paras[@"mobile"];
+//            account.token = json[@"data"][@"token"];
+//            [JXAccountTool saveAccount:account];
+//            
+//            // 发出登录成功通知
+//            [JXNotificationCenter postNotificationName:JXSuccessLoginNotification object:nil];
+//            
+//            // 先dismiss自己，再present下单控制器
+//            JXRescueViewController *rescueVC = [[JXRescueViewController alloc] init];
+//            JXNavigationController *nav = [[JXNavigationController alloc] initWithRootViewController:rescueVC];
+//            [self dismissViewControllerAnimated:NO completion:^{
+//                [JXApplication.keyWindow.rootViewController presentViewController:nav animated:YES completion:nil];
+//            }];
+//            
+//            // 登录环信
+//            BOOL isAutoLogin = [EMClient sharedClient].options.isAutoLogin;
+//            if (!isAutoLogin) {
+//                [[EMClient sharedClient] asyncLoginWithUsername:[NSString stringWithFormat:@"%@_user", account.telephone] password:@"123456" success:^{
+//                    // 设置自动登录
+//                    [[EMClient sharedClient].options setIsAutoLogin:YES];
+//                    
+//                    // 接受推送显示详情
+//                    EMPushOptions *options = [[EMClient sharedClient] pushOptions];
+//                    options.displayStyle = EMPushDisplayStyleMessageSummary;
+//                    [[EMClient sharedClient] updatePushOptionsToServer];
+//                    
+//                } failure:^(EMError *aError) {
+//                    JXLog(@"IM登录失败");
+//                }];
+//            }
+//            
+//        }
+//        else { // 注册失败
+//            [MBProgressHUD showError:json[@"msg"]];
+//        }
+//    } failure:^(NSError *error) {
+//        [MBProgressHUD hideHUD];
+//        [MBProgressHUD showError:@"网络连接失败"];
+//        JXLog(@"注册请求失败 - %@", error);
+//    }];
+//    
+//    return;
     
     // 2.验证验证码
     [MBProgressHUD showMessage:@"正在注册"];
