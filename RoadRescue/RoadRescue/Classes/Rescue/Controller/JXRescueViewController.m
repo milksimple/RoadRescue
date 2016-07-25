@@ -257,35 +257,37 @@
     self.orderDetail.lat = location.coordinate.latitude;
     
     // 带逆地理（返回坐标和地址信息）。将下面代码中的YES改成NO，则不会返回地址信息。
-    [self.locMgr requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
-        
-        if (error)
-        {
-            JXLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
-            self.addressShortLabel.text = @"未获取到详细位置信息";
-            self.addressDesLabel.text = @"未获取到详细位置信息";
-        }
+    __weak typeof(self) wSelf = self;
+    [wSelf.locMgr requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
         JXLog(@"location:%@", location);
         
         if (regeocode)
         {
             JXLog(@"reGeocode:%@", regeocode);
-            self.addressShortLabel.text = regeocode.AOIName;
-            if (self.addressShortLabel.text.length == 0) {
-                self.addressShortLabel.text = [NSString stringWithFormat:@"%@%@", regeocode.street, regeocode.number];
+            wSelf.addressShortLabel.text = regeocode.AOIName;
+            if (wSelf.addressShortLabel.text.length == 0) {
+                wSelf.addressShortLabel.text = [NSString stringWithFormat:@"%@%@", regeocode.street, regeocode.number];
             }
-            if (self.addressShortLabel.text.length == 0) {
-                self.addressShortLabel.text = @"未获取到详细位置信息";
-            }
-            
-            self.addressDesLabel.text = regeocode.formattedAddress;
-            if (self.addressDesLabel.text.length == 0) {
-                self.addressDesLabel.text = [NSString stringWithFormat:@"%@%@%@%@%@", regeocode.province, regeocode.city, regeocode.district, regeocode.street, regeocode.number];
-            }
-            if (self.addressDesLabel.text.length == 0) {
-                self.addressDesLabel.text = @"未获取到详细位置信息";
+            if (wSelf.addressShortLabel.text.length == 0) {
+                wSelf.addressShortLabel.text = @"未获取到详细位置信息";
             }
             
+            wSelf.addressDesLabel.text = regeocode.formattedAddress;
+            if (wSelf.addressDesLabel.text.length == 0) {
+                wSelf.addressDesLabel.text = [NSString stringWithFormat:@"%@%@%@%@%@", regeocode.province, regeocode.city, regeocode.district, regeocode.street, regeocode.number];
+            }
+            if (wSelf.addressDesLabel.text.length == 0) {
+                wSelf.addressDesLabel.text = @"未获取到详细位置信息";
+            }
+            
+            return;
+        }
+        
+        if (error)
+        {
+            JXLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
+            wSelf.addressShortLabel.text = @"未获取到详细位置信息";
+            wSelf.addressDesLabel.text = @"未获取到详细位置信息";
         }
     }];
 }
