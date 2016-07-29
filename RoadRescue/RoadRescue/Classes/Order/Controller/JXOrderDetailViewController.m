@@ -48,6 +48,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *bgView;
 
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+/** addressLabel的height约束 */
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *addressLabelHeightConstraint;
 
 @end
 
@@ -103,17 +105,6 @@
     self.bgView.image = [JXSkinTool skinToolImageWithImageName:@"complete_bg.jpg"];
 }
 
-#pragma mark - 内容不够一个屏幕高度，scrollview也能滚动
-/*
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    if (self.contentView.jx_height <= self.view.jx_height - 64) {
-        self.scrollView.contentSize = CGSizeMake(JXScreenW, JXScreenH - 64 + 1);
-    }
-}
-*/
-
 - (void)loadData {
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
     paras[@"mobile"] = self.account.telephone;
@@ -121,12 +112,13 @@
     paras[@"orderNum"] = self.defaultOrderDetail.orderNum;
     paras[@"orderType"] = @1;
 
+    __weak typeof(self) wSelf = self;
     [JXHttpTool post:[NSString stringWithFormat:@"%@/order/findOrder", JXServerName] params:paras success:^(id json) {
         BOOL success = [json[@"success"] boolValue];
         if (success) {
-            self.orderDetail = [JXOrderDetail mj_objectWithKeyValues:json[@"data"]];
-            self.orderDetail.title = self.defaultOrderDetail.title;
-            [self setControlsWithOrderDetail:self.orderDetail];
+            wSelf.orderDetail = [JXOrderDetail mj_objectWithKeyValues:json[@"data"]];
+            wSelf.orderDetail.title = wSelf.defaultOrderDetail.title;
+            [wSelf setControlsWithOrderDetail:wSelf.orderDetail];
         }
         
     } failure:^(NSError *error) {
@@ -171,7 +163,6 @@
     self.timeLabel.text = orderDetail.title;
     // 地点
     self.addressLabel.text = orderDetail.addressDes;
-//    [self.addressButton setTitle: forState:UIControlStateNormal];
     // 设置救援描述高度
     CGRect rect = [self.rescueDesLabel.text boundingRectWithSize:CGSizeMake(JXScreenW - 40, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil];
     self.rescueDesLabelHeightConstraint.constant = rect.size.height;
@@ -300,8 +291,13 @@
         default:
             break;
     }
+}
+
+- (void)viewDidLayoutSubviews {
+     [super viewDidLayoutSubviews];
     
-    
+    CGSize addressLabelSize = [self.addressLabel.text boundingRectWithSize:CGSizeMake(self.addressLabel.jx_width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil].size;
+    self.addressLabelHeightConstraint.constant = addressLabelSize.height;
 }
 
 #pragma mark - JXOrderSuccessFinishedNotification

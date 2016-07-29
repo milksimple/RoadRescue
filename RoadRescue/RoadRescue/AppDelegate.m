@@ -6,6 +6,9 @@
 //  Copyright © 2016年 mac. All rights reserved.
 //
 
+#warning 测试
+// 1. 测试账号，要有一个不需要验证码的测试账号，上传AppStore方便审核
+
 #import "AppDelegate.h"
 #import "JXTabBarViewController.h"
 #import <IQKeyboardManager.h>
